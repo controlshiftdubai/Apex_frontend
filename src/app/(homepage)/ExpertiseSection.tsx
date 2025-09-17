@@ -14,6 +14,7 @@ const banners = [
       "https://mypubblicbucket.s3.ap-south-1.amazonaws.com/2025-09-15T15%3A10%3A28.213Z-Frame%201000003798.png",
     title: "Product Innovation That Blends Design,",
     subtitle: "Technology, And Performance",
+    className: "object-[77%]",
   },
   {
     id: 2,
@@ -23,6 +24,7 @@ const banners = [
       "https://mypubblicbucket.s3.ap-south-1.amazonaws.com/2025-09-15T15%3A14%3A25.549Z-Group%2039.png",
     title: "Smart Engineering. Unmatched",
     subtitle: "Functionality. Unforgettable Impact",
+    className: "",
   },
   {
     id: 3,
@@ -32,6 +34,7 @@ const banners = [
       "https://mypubblicbucket.s3.ap-south-1.amazonaws.com/2025-09-15T15%3A14%3A58.632Z-Group%2040.png",
     title: "We Craft Brand Identities That",
     subtitle: "Stand Out, Resonate, And Last",
+    className: "object-[90%]",
   },
   {
     id: 4,
@@ -41,6 +44,7 @@ const banners = [
       "https://mypubblicbucket.s3.ap-south-1.amazonaws.com/2025-09-15T15%3A15%3A31.611Z-Group%2041.png",
     title: "We Craft Immersive Environments Where",
     subtitle: "Design, Technology, And Emotion Collide",
+    className: "",
   },
 ];
 
@@ -55,6 +59,7 @@ export type Banner = {
   desktop: string;
   mobile?: string;
   alt?: string;
+  className: string;
 };
 
 type Props = {
@@ -148,7 +153,7 @@ export function ScrollStickyCards({ className = "", banners }: Props) {
                   alt={banner.alt ?? banner.title}
                   fill
                   priority
-                  className="object-cover object-center"
+                  className={cn("object-cover", banner.className)}
                 />
               </motion.div>
             );
@@ -170,7 +175,7 @@ export function ScrollStickyCards({ className = "", banners }: Props) {
                   ref={setTriggerRef(idx)}
                   className={cn(
                     "flex items-center",
-                    idx != 0 ? "py-28 md:py-48" :"pb-28 md:pb-48"
+                    idx != 0 ? "py-28 md:py-48" : "pb-28 md:pb-48"
                   )}
                 >
                   <motion.div
@@ -182,9 +187,7 @@ export function ScrollStickyCards({ className = "", banners }: Props) {
                   >
                     <h2
                       className={`text-5xl md:text-6xl font-extrabold leading-tight mb-4 uppercase transition-all duration-500 ${
-                        isActive
-                          ? "text-white"
-                          : "text-white/20"
+                        isActive ? "text-white" : "text-white/20"
                       }`}
                     >
                       {banner.title}
@@ -192,9 +195,7 @@ export function ScrollStickyCards({ className = "", banners }: Props) {
                     {banner.subtitle && (
                       <p
                         className={`text-lg font-bold uppercase transition-all duration-500 ${
-                          isActive
-                            ? "text-white"
-                            : "text-white/20"
+                          isActive ? "text-white" : "text-white/20"
                         }`}
                       >
                         {banner.subtitle}

@@ -160,3 +160,9 @@
   height: 40px;
   bottom: -3px;
 }
+
+
+/* color variants (apply after animation finishes) */
+.link-highlight-yellow::after {
+  background-color: #e6fd8c;
+}
