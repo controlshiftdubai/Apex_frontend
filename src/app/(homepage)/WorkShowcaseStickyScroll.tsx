@@ -11,9 +11,9 @@ const content = [
       "We design breakthrough products and proposals that secure capital and transform bold visions into global market leaders.",
     subtitle: "Apex innovation & creations",
     content: (
-      <div className="h-72 w-full object-contain sm:!object-cover object-center ">
+      <div className="h-72 w-full !object-cover sm:!object-cover object-center ">
         <img
-          src="https://mypubblicbucket.s3.ap-south-1.amazonaws.com/2025-09-15T12%3A37%3A18.417Z-image%207%20%281%29.png"
+          src="https://mypubblicbucket.s3.ap-south-1.amazonaws.com/2025-09-17T13%3A35%3A04.201Z-1.webp"
           alt="Projects Delivered"
           className="h-full w-full sm:!object-cover"
         />
@@ -28,7 +28,7 @@ const content = [
     content: (
       <div className="h-72 w-full object-contain sm:object-cover object-center ">
         <img
-          src="https://d33609liqwio9r.cloudfront.net/2025-09-13T14:06:50.529Z-image2scroll.png"
+          src="https://mypubblicbucket.s3.ap-south-1.amazonaws.com/2025-09-17T13%3A40%3A17.887Z-PM.png"
           alt="Funding Raised"
           className="h-full w-full sm:!object-cover"
         />
@@ -43,7 +43,7 @@ const content = [
     content: (
       <div className="h-72 w-full object-contain sm:object-cover object-center ">
         <img
-          src="https://d33609liqwio9r.cloudfront.net/2025-09-13T14:07:44.335Z-image%208.png"
+          src="https://mypubblicbucket.s3.ap-south-1.amazonaws.com/2025-09-17T13%3A40%3A59.379Z-2.webp"
           alt="Industry Awards"
           className="h-full w-full sm:!object-cover"
         />
@@ -58,7 +58,7 @@ const content = [
     content: (
       <div className="h-72 w-full object-contain sm:object-cover object-center ">
         <img
-          src="https://d33609liqwio9r.cloudfront.net/2025-09-13T14:09:02.919Z-image%206.png"
+          src="https://mypubblicbucket.s3.ap-south-1.amazonaws.com/2025-09-17T13%3A41%3A35.858Z-PM.png"
           alt="Media Features"
           className="h-full w-full sm:!object-cover"
         />
@@ -72,6 +72,17 @@ const StatsMobileShowcase = () => (
     <div className="mt-12 space-y-16">
       {content.map((item, idx) => (
         <div key={idx} className="relative flex flex-col justify-start">
+           <AnimatePresence mode="wait">
+              <motion.p
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -30 }}
+                transition={{ duration: 0.4, ease: "easeIn" }}
+                className="text-2xl text-black text-center"
+              >
+                {item.title}
+              </motion.p>
+            </AnimatePresence>
           <div className="overflow-hidden">
             <AnimatePresence mode="wait">
               <motion.div
@@ -92,25 +103,28 @@ const StatsMobileShowcase = () => (
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -30 }}
                 transition={{ duration: 0.4, ease: "easeIn" }}
-                className="text-lg text-slate-700"
+                className="text-lg text-slate-700 text-center"
               >
                 {item.description}
               </motion.p>
             </AnimatePresence>
 
-            {item.subtitle && (
-              <AnimatePresence mode="wait">
-                <motion.span
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.4, ease: "easeIn" }}
-                  className="inline-block px-3 py-1 text-base font-medium text-slate-900 bg-yellow-100"
-                >
-                  {item.subtitle}
-                </motion.span>
-              </AnimatePresence>
-            )}
+{item.subtitle && (
+  <AnimatePresence mode="wait">
+    <motion.div
+      className="w-full flex justify-center" // center the content
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.4, ease: "easeIn" }}
+    >
+      <span className="relative inline-block px-3 py-1 text-xl font-medium text-slate-900 link-highlight link-highlight-mint">
+        {item.subtitle}
+      </span>
+    </motion.div>
+  </AnimatePresence>
+)}
+
           </div>
         </div>
       ))}
@@ -122,7 +136,7 @@ export default function WorkShowcaseStickyScroll() {
   return (
     <div className="bg-[#f6f3f1]">
       <section className="w-full py-20 md:py-32">
-        <h2 className="text-xl md:text-5xl mx-auto max-w-6xl font-medium uppercase text-gray-900 mb-6 leading-tight underline decoration-dotted md:no-underline text-center">
+        <h2 className="text-xl md:text-5xl mx-auto max-w-6xl font-medium  text-gray-900 mb-6 leading-tight text-center">
           Our&nbsp;
           <span className="text-xl md:text-5xl text-gray-500 font-medium leading-relaxed">
             Impact

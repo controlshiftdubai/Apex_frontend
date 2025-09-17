@@ -41,7 +41,7 @@ export const StickyScroll: FC<StickyScrollProps> = ({ showcaseContent }) => {
 
   return (
     <section className="relative w-full">
-      <div className="grid grid-cols-2 gap-20 max-w-6xl mx-auto">
+      <div className="grid grid-cols-2 gap-50 max-w-6xl mx-auto">
         {/* LEFT SIDE */}
         <div className="p-4">
           <div className="mt-12 space-y-16">
@@ -72,7 +72,7 @@ export const StickyScroll: FC<StickyScrollProps> = ({ showcaseContent }) => {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -30 }}
                       transition={{ duration: 0.4, ease: "easeIn" }}
-                      className="text-lg text-slate-700"
+                      className="text-lg text-[#999999] t ml-[0.5rem]"
                     >
                       {item.description}
                     </motion.p>
@@ -85,7 +85,7 @@ export const StickyScroll: FC<StickyScrollProps> = ({ showcaseContent }) => {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -20 }}
                         transition={{ duration: 0.4, ease: "easeIn" }}
-                        className="inline-block px-3 py-1 text-base font-medium text-slate-900 bg-yellow-100"
+                        className="relative inline-block px-3 py-1 text-xl font-medium text-slate-900 link-highlight link-highlight-mint ml-[3rem]"
                       >
                         {item.subtitle}
                       </motion.span>
@@ -109,7 +109,7 @@ export const StickyScroll: FC<StickyScrollProps> = ({ showcaseContent }) => {
                     animate={{ opacity: activeIndex === index ? 1 : 0.5 }}
                     transition={{ duration: 0.3, ease: "easeOut" }}
                     className={cn(
-                      `text-2xl sm:text-5xl font-medium transition-all duration-500 uppercase`,
+                      `text-2xl sm:text-5xl font-medium transition-all duration-500 `,
                       activeIndex === index ? "text-black" : "text-gray-400"
                     )}
                   >

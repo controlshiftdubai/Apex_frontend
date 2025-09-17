@@ -1,9 +1,11 @@
+
+
+
 import type { Metadata } from "next";
 import "./globals.css";
 import localFont from "next/font/local";
 import Navbar from "./header";
 import Footer from "./footer";
-
 export const sofiaPro = localFont({
   src: [
     {
@@ -36,6 +38,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+
   return (
     <html lang="en">
       <body className={`${sofiaPro.variable} antialiased font-sans font-normal`}>
