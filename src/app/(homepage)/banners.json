@@ -1,0 +1,22 @@
+[
+  {
+    "_id": "68c53e6c0c132b859c1aa2a7",
+    "name": "Product Attenshion",
+    "slug": "designing-products-that-demand-attention",
+    "title": "Designing Products That Demand Attention",
+    "description": "A creative approach to product design that ensures your brand stands out and captures audience interest instantly.",
+    "thumbnail": "https://d33609liqwio9r.cloudfront.net/2025-09-13T09:50:17.924Z-3dmodel.jpg",
+    "images": [
+      "https://d33609liqwio9r.cloudfront.net/2025-09-13T09:50:29.607Z-3dmodel.jpg"
+    ],
+    "videos": [
+      "https://d33609liqwio9r.cloudfront.net/2025-09-13T09:48:05.969Z-3ddesgine.mp4"
+    ],
+    "url": "https://www.com",
+    "priority": 1,
+    "status": "active",
+    "createdAt": "2025-09-13T09:50:36.549Z",
+    "updatedAt": "2025-09-13T09:50:36.549Z",
+    "__v": 0
+  }
+]
