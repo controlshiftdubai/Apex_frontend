@@ -1,10 +1,8 @@
 "use client";
 
-import React from "react";
 import { motion } from "framer-motion";
-import { cn } from "@/lib/utils";
-import { AnimatedText } from "@/components/magicui/AnimatedText";
 import Link from "next/link";
+import React from "react";
 
 const WorkShowcaseGrid = () => {
   const workData = [
@@ -96,99 +94,96 @@ const WorkShowcaseGrid = () => {
     <section className="py-16 sm:py-20 bg-gray-50">
       <div className="max-w-6xl p-4 sm:p-6 lg:p-8 mx-auto">
         {/* Heading */}
-         <div className="text-center mb-12 sm:mb-16">
-                  {/* ... (your H2 and P tags remain the same) ... */}
-                  <motion.h2
-                    initial={{ x: -100, opacity: 0 }}
-                    whileInView={{ x: 0, opacity: 1 }}
-                    transition={{ duration: 0.8, ease: "easeOut" }}
-                    viewport={{ once: true }}
-                    className=" leading-tight sm:text-lg text-xl md:text-5xl font-medium text-gray-900 mb-4"
-                  >
-                    Partnering To Create{" "}
-                    <span className="text-xl text-gray-500 md:!text-5xl font-medium">
-                      Smart Spaces & <br /> Custom Products
-                    </span>
-                  </motion.h2>
-        
-                  <motion.p
-                    initial={{ x: 100, opacity: 0 }}
-                    whileInView={{ x: 0, opacity: 1 }}
-                    transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-                    viewport={{ once: true }}
-                    className="text-base sm:text-2xl leading-snug font-light text-gray-500 max-w-4xl mx-auto"
-                  >
-                    We Create Products That Stand Out, Inspire, And Perform. From Design
-                    To Engineering And Branding, Apex Is Where Bold Visions Turn Into
-                    Reality.
-                  </motion.p>
-                </div>
+        <div className="text-center mb-12 sm:mb-16">
+          {/* ... (your H2 and P tags remain the same) ... */}
+          <motion.h2
+            initial={{ x: -100, opacity: 0 }}
+            whileInView={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            viewport={{ once: true }}
+            className=" leading-tight sm:text-lg text-xl md:text-5xl font-medium text-gray-900 mb-4"
+          >
+            Partnering To Create{" "}
+            <span className="text-xl text-gray-500 md:!text-5xl font-medium">
+              Smart Spaces & <br /> Custom Products
+            </span>
+          </motion.h2>
+
+          <motion.p
+            initial={{ x: 100, opacity: 0 }}
+            whileInView={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+            viewport={{ once: true }}
+            className="text-base sm:text-2xl leading-snug font-light text-gray-500 max-w-4xl mx-auto"
+          >
+            We Create Products That Stand Out, Inspire, And Perform. From Design
+            To Engineering And Branding, Apex Is Where Bold Visions Turn Into
+            Reality.
+          </motion.p>
+        </div>
 
         {/* --- Mobile Layout --- */}
-<div className="grid grid-cols-1 gap-4 md:hidden">
-  {workData.map((item, index) => {
-    // Decide layout based on repeating pattern: rectangle, square, square
-    const patternIndex = index % 3; // 0 = rectangle, 1/2 = square
-    if (patternIndex === 0) {
-      return (
-        <motion.div
-          key={item.id}
-          className="aspect-[16/9]"
-          variants={itemVariants}
-          initial="hidden"
-          whileInView="visible"
-        >
-          <video
-            src={item.video}
-            className="w-full h-[200px] object-cover "
-            autoPlay
-            loop
-            muted
-            playsInline
-          />
-        </motion.div>
-      );
-    } else if (patternIndex === 1) {
-      // Render two squares together for pattern
-      const nextItem = workData[index + 1];
-      return (
-        <div key={item.id} className="grid grid-cols-2 gap-4">
-          {[item, nextItem].map((v) =>
-            v ? (
-              <motion.div
-                key={v.id}
-                className="aspect-square"
-                variants={itemVariants}
-                initial="hidden"
-                whileInView="visible"
-              >
-                <video
-                  src={v.video}
-                  className="w-full h-[200px]  object-cover"
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                />
-              </motion.div>
-            ) : null
-          )}
+        <div className="grid grid-cols-1 gap-4 md:hidden">
+          {workData.map((item, index) => {
+            // Decide layout based on repeating pattern: rectangle, square, square
+            const patternIndex = index % 3; // 0 = rectangle, 1/2 = square
+            if (patternIndex === 0) {
+              return (
+                <motion.div
+                  key={item.id}
+                  className="aspect-[16/9]"
+                  variants={itemVariants}
+                  initial="hidden"
+                  whileInView="visible"
+                >
+                  <video
+                    src={item.video}
+                    className="w-full h-[200px] object-cover "
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                  />
+                </motion.div>
+              );
+            } else if (patternIndex === 1) {
+              // Render two squares together for pattern
+              const nextItem = workData[index + 1];
+              return (
+                <div key={item.id} className="grid grid-cols-2 gap-4">
+                  {[item, nextItem].map((v) =>
+                    v ? (
+                      <motion.div
+                        key={v.id}
+                        className="aspect-square"
+                        variants={itemVariants}
+                        initial="hidden"
+                        whileInView="visible"
+                      >
+                        <video
+                          src={v.video}
+                          className="w-full h-[200px]  object-cover"
+                          autoPlay
+                          loop
+                          muted
+                          playsInline
+                        />
+                      </motion.div>
+                    ) : null
+                  )}
+                </div>
+              );
+            }
+            return null; // skip index 2 because it's included in previous 2-square row
+          })}
         </div>
-      );
-    }
-    return null; // skip index 2 because it's included in previous 2-square row
-  })}
-</div>
-  <div className="mt-12 sm:mt-16 text-center">
-            <Link href="/projects">
-              <p className="link-highlight link-highlight-brown relative inline-block text-2xl font-medium text-black px-2">
-                See our projects
-              </p>
-            </Link>
-          </div>
-
-
-      
+        <div className="mt-12 sm:mt-16 text-center">
+          <Link href="/projects">
+            <p className="link-highlight link-highlight-brown relative inline-block text-2xl font-medium text-black px-2">
+              See our projects
+            </p>
+          </Link>
+        </div>
       </div>
     </section>
   );

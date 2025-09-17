@@ -1,8 +1,9 @@
-import React from "react";
-import { motion } from "framer-motion";
+"use client";
 import { AnimatedText } from "@/components/magicui/AnimatedText";
+import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
+import React from "react";
 
 const WorkShowcaseGrid1 = () => {
   // --- 1. THE NEW LAYOUT ---
@@ -164,46 +165,44 @@ const WorkShowcaseGrid1 = () => {
                 key={item.id}
                 className={cn(item.layout)}
                 //@ts-ignore
-                                variants={itemVariants}
+                variants={itemVariants}
               >
                 <div className="relative group cursor-pointer h-full">
-                 
                   <div className="relative overflow-hidden bg-gray-700 h-full group">
-  {item.video && (
-    <video
-      src={item.video}
-      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-      autoPlay
-      loop
-      muted
-      playsInline
-      key={item.video}
-    />
-  )}
+                    {item.video && (
+                      <video
+                        src={item.video}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        key={item.video}
+                      />
+                    )}
 
-  <motion.div
-    className="absolute inset-0 flex items-center justify-center 
+                    <motion.div
+                      className="absolute inset-0 flex items-center justify-center 
                bg-black/0 group-hover:bg-black/50 
                transition-colors duration-300 text-white"
-    variants={textOverlayVariants}
-    initial="hidden"
-    whileHover="visible"
-  >
-    <div className="text-center">
-      <AnimatedText
-        as="h3"
-        text={item.title}
-        className="font-extrabold mb-2 text-5xl sm:text-4xl drop-shadow-lg"
-      />
-      <AnimatedText
-        as="p"
-        text={item.category}
-        className="text-gray-200 text-xl sm:text-lg font-semibold drop-shadow-md"
-      />
-    </div>
-  </motion.div>
-</div>
-
+                      variants={textOverlayVariants}
+                      initial="hidden"
+                      whileHover="visible"
+                    >
+                      <div className="text-center">
+                        <AnimatedText
+                          as="h3"
+                          text={item.title}
+                          className="font-extrabold mb-2 text-5xl sm:text-4xl drop-shadow-lg"
+                        />
+                        <AnimatedText
+                          as="p"
+                          text={item.category}
+                          className="text-gray-200 text-xl sm:text-lg font-semibold drop-shadow-md"
+                        />
+                      </div>
+                    </motion.div>
+                  </div>
                 </div>
               </motion.div>
             ))}

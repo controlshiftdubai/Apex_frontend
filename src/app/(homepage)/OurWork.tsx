@@ -1,28 +1,18 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import WorkShowcaseGrid from "./OurWorkMobile";
 import WorkShowcaseGrid1 from "./OurWorkDesktop";
-
+import WorkShowcaseGrid from "./OurWorkMobile";
+import React from "react";
 
 export default function Work() {
-  const [isMobile, setIsMobile] = useState<boolean | null>(null);
-
-  useEffect(() => {
-    // detect initial screen size
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768); // Tailwind "md" breakpoint
-    };
-
-    handleResize(); // run once
-    window.addEventListener("resize", handleResize);
-
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  if (isMobile === null) {
-    return <div className="h-screen flex items-center justify-center">Loading...</div>;
-  }
-
-  return isMobile ? <WorkShowcaseGrid /> : <WorkShowcaseGrid1 />;
+  return (
+    <React.Fragment>
+      <div className="md:hidden">
+        <WorkShowcaseGrid />
+      </div>
+      <div className="max-md:hidden">
+        <WorkShowcaseGrid1 />
+      </div>
+    </React.Fragment>
+  );
 }
