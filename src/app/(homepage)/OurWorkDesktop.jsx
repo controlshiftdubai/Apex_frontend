@@ -41,7 +41,7 @@ const WorkShowcaseGrid1 = () => {
       video:
         "https://mypubblicbucket.s3.ap-south-1.amazonaws.com/details-fabric-and-textile-modern-brown-gray-chair-4k-2025-08-28-13-55-51-utc+(1).mov",
       category: "Andreau World",
-      layout: "col-span-1 aspect-[4/4.8]",
+      layout: "col-span-2 aspect-[8/4.7]",
     },
     {
       id: 6,
@@ -57,7 +57,7 @@ const WorkShowcaseGrid1 = () => {
       video:
         "https://mypubblicbucket.s3.ap-south-1.amazonaws.com/WhatsApp+Video+2025-09-13+at+16.41.51_f16362ce+(1).mp4",
       category: "Ledger",
-      layout: "col-span-2 aspect-[8/4.7]",
+      layout: "col-span-1 aspect-[4/4.8]",
     },
 
     // Row 3: Rectangle, Square, Square
@@ -67,7 +67,7 @@ const WorkShowcaseGrid1 = () => {
       video:
         "https://mypubblicbucket.s3.ap-south-1.amazonaws.com/WhatsApp+Video+2025-09-13+at+16.41.36_e22712e1+(1).mp4",
       category: "Nike",
-      layout: "col-span-2 aspect-[8/4.7]",
+      layout: "col-span-1 aspect-[4/4.8]",
     },
     {
       id: 9,
@@ -83,7 +83,7 @@ const WorkShowcaseGrid1 = () => {
       video:
         "https://mypubblicbucket.s3.ap-south-1.amazonaws.com/WhatsApp+Video+2025-09-13+at+16.41.50_04921f72+(1).mp4",
       category: "Deutsche Telekom Design",
-      layout: "col-span-1 aspect-[4/4.8]",
+      layout: "col-span-2 aspect-[8/4.7]",
     },
   ];
 

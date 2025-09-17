@@ -66,7 +66,7 @@ const Banner = () => {
       className="w-full max-w-xs sm:max-w-md md:max-w-2xl lg:max-w-3xl"
     >
       <FlipText
-        className="text-3xl sm:text-4xl md:text-5xl font-medium text-white leading-tight drop-shadow-md"
+        className="text-2xl sm:text-3xl md:text-4xl font-medium text-white leading-tight drop-shadow-md"
         variants={undefined}
       >
         {banner.title}
