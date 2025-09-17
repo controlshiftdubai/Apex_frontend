@@ -101,12 +101,9 @@ const WorkShowcaseGrid = () => {
             whileInView={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
             viewport={{ once: true }}
-            className=" leading-tight sm:text-lg text-xl md:text-5xl font-medium text-gray-900 mb-4"
+            className=" leading-tight  sm:text-lg text-xl md:text-5xl font-medium text-gray-900 mb-4"
           >
-            Partnering To Create{" "}
-            <span className="text-xl text-gray-500 md:!text-5xl font-medium">
-              Smart Spaces & <br /> Custom Products
-            </span>
+            Partnering To Create Smart Spaces & Custom Products
           </motion.h2>
 
           <motion.p
@@ -114,7 +111,7 @@ const WorkShowcaseGrid = () => {
             whileInView={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
             viewport={{ once: true }}
-            className="text-base sm:text-2xl leading-snug font-light text-gray-500 max-w-4xl mx-auto"
+            className="text-base sm:text-2xl leading-snug font-light text-[#999999] max-w-4xl mx-auto"
           >
             We Create Products That Stand Out, Inspire, And Perform. From Design
             To Engineering And Branding, Apex Is Where Bold Visions Turn Into
@@ -179,7 +176,7 @@ const WorkShowcaseGrid = () => {
         </div>
         <div className="mt-12 sm:mt-16 text-center">
           <Link href="/projects">
-            <p className="link-highlight link-highlight-brown relative inline-block text-2xl font-medium text-black px-2">
+            <p className="link-highligh reveal  link-highlight-brown relative inline-block text-2xl font-medium text-black px-2">
               See our projects
             </p>
           </Link>

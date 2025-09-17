@@ -86,7 +86,6 @@
   }
 }
 
-
 .nav-link-animate {
   position: relative;
   z-index: 1;
@@ -96,7 +95,7 @@
 }
 
 .nav-link-animate::after {
-  content: '';
+  content: "";
   position: absolute;
   z-index: -1;
   width: 160%;
@@ -111,37 +110,52 @@
 
 .nav-link-animate:hover::after {
   transform: scaleX(1);
+  transition: transform 200ms;
 }
-
 .link-highlight {
   position: relative;
   display: inline-block;
   z-index: 1;
+  @apply transition-all
 }
 
+/* initial ::after */
 .link-highlight::after {
-  content: '';
+  content: "";
   position: absolute;
   left: -10%;
-  right: 0;
   bottom: 7px;
   height: 10px;
   width: 120%;
   opacity: 0.7;
   z-index: -1;
-  transition: all 0.3s ease-in-out;
+  transform: scaleX(0);              /* collapsed */
+  transform-origin: left;            /* animate from left to right */
+  background-color: transparent;     /* no color at very start */
+  animation: highlight-fill 1.5s ease-in-out forwards; /* run once on load */
+  @apply transition-all
+
 }
 
-/* color variants */
+@keyframes highlight-fill {
+  0% {
+    transform: scaleX(0);
+    background-color: transparent;
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+/* color variants (apply after animation finishes) */
 .link-highlight-brown::after {
   background-color: #ffc89f;
 }
-
 .link-highlight-mint::after {
-  background-color: #C7FEEA;
-  cursor: pointer;
+  background-color: #c7feea;
 }
 
+/* hover expansion still works */
 .link-highlight:hover::after {
   height: 40px;
   bottom: -3px;

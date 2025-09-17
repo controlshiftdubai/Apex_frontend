@@ -85,7 +85,7 @@ export const StickyScroll: FC<StickyScrollProps> = ({ showcaseContent }) => {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -20 }}
                         transition={{ duration: 0.4, ease: "easeIn" }}
-                        className="relative inline-block px-3 py-1 text-xl font-medium text-slate-900 link-highlight link-highlight-mint ml-[3rem]"
+                        className="relative inline-block px-3 py-1 text-xl font-medium !cursor-pointer text-slate-900 link-highlight link-highlight-mint ml-[3rem]"
                       >
                         {item.subtitle}
                       </motion.span>

@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 const banners = [
   {
@@ -129,40 +131,33 @@ export function ScrollStickyCards({ className = "", banners }: Props) {
     <section className={`relative w-full ${className}`}>
       {/* FULL SCREEN STICKY IMAGE */}
       <div className="sticky top-0 h-screen w-full z-0">
-        {banners.map((banner, idx) => {
-          const distance = Math.abs(idx - activeIndex);
-          if (distance > 1) return null; // lazy render active + neighbors
-          const isActive = idx === activeIndex;
-
-          return (
-            <AnimatePresence key={banner.id} mode="wait">
-              {isActive && (
-                <motion.img
-                  key={`${banner.id}-${idx}`} // More unique key to force re-render
+        <AnimatePresence>
+          {banners.map((banner, idx) => {
+            if (idx !== activeIndex) return null;
+            return (
+              <motion.div
+                key={banner.id}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+                className="absolute inset-0 w-full h-full"
+              >
+                <Image
                   src={banner.desktop}
                   alt={banner.alt ?? banner.title}
-                  aria-hidden={!isActive}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.6, ease: "easeOut" }}
-                  style={{
-                    position: "absolute",
-                    inset: 0,
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                    objectPosition: "center",
-                  }}
+                  fill
+                  priority
+                  className="object-cover object-center"
                 />
-              )}
-            </AnimatePresence>
-          );
-        })}
+              </motion.div>
+            );
+          })}
+        </AnimatePresence>
       </div>
 
       {/* TEXT BLOCKS */}
-      <div className="relative z-10 max-w-[1400px] px-4 md:px-10 mx-auto overflow-hidden">
+      <div className="relative -mt-[65vh] z-10 max-w-[1400px] px-4 md:px-10 mx-auto overflow-hidden">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="col-span-1">
             {banners.map((banner, idx) => {
@@ -173,7 +168,10 @@ export function ScrollStickyCards({ className = "", banners }: Props) {
                   key={banner.id}
                   data-index={idx}
                   ref={setTriggerRef(idx)}
-                  className="py-28 md:py-48 flex items-center"
+                  className={cn(
+                    "flex items-center",
+                    idx != 0 ? "py-28 md:py-48" :"pb-28 md:pb-48"
+                  )}
                 >
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -185,8 +183,8 @@ export function ScrollStickyCards({ className = "", banners }: Props) {
                     <h2
                       className={`text-5xl md:text-6xl font-extrabold leading-tight mb-4 uppercase transition-all duration-500 ${
                         isActive
-                          ? "text-white opacity-100"
-                          : "text-white/60 opacity-60"
+                          ? "text-white"
+                          : "text-white/20"
                       }`}
                     >
                       {banner.title}
@@ -195,8 +193,8 @@ export function ScrollStickyCards({ className = "", banners }: Props) {
                       <p
                         className={`text-lg font-bold uppercase transition-all duration-500 ${
                           isActive
-                            ? "text-white opacity-100"
-                            : "text-white/60 opacity-60"
+                            ? "text-white"
+                            : "text-white/20"
                         }`}
                       >
                         {banner.subtitle}

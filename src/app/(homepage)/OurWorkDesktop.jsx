@@ -119,7 +119,7 @@ const WorkShowcaseGrid1 = () => {
 
   return (
     <section className="py-16 sm:py-20 bg-gray-50">
-      <div className="max-w-6xl p-4 sm:p-6 lg:p-8 justify-center mx-auto">
+      <div className="max-w-7xl p-4 sm:p-6 lg:p-8 justify-center mx-auto">
         {/* This text animation logic remains the same */}
         <div className="text-center mb-12 sm:mb-16">
           {/* ... (your H2 and P tags remain the same) ... */}
@@ -128,12 +128,9 @@ const WorkShowcaseGrid1 = () => {
             whileInView={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
             viewport={{ once: true }}
-            className=" leading-tight sm:text-lg text-xl md:text-5xl font-medium text-gray-900 mb-4"
+            className=" leading-tight max-w-4xl mx-auto sm:text-lg text-xl md:text-5xl font-medium text-gray-900 mb-4"
           >
-            Partnering To Create{" "}
-            <span className="text-xl text-gray-500 md:!text-5xl font-medium">
-              Smart Spaces & <br /> Custom Products
-            </span>
+            Partnering To Create Smart Spaces & Custom Products
           </motion.h2>
 
           <motion.p
@@ -141,7 +138,7 @@ const WorkShowcaseGrid1 = () => {
             whileInView={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
             viewport={{ once: true }}
-            className="text-base sm:text-2xl leading-snug font-light text-gray-500 max-w-4xl mx-auto"
+            className="text-base sm:text-2xl leading-snug font-light text-[#999999] max-w-4xl mx-auto"
           >
             We Create Products That Stand Out, Inspire, And Perform. From Design
             To Engineering And Branding, Apex Is Where Bold Visions Turn Into
@@ -150,9 +147,6 @@ const WorkShowcaseGrid1 = () => {
         </div>
 
         <div className="relative">
-          {/* --- FIX 2: Changed to 'md:grid-cols-4' ---
-             This is the 4-column base grid.
-          */}
           <motion.div
             className="grid grid-cols-1 md:grid-cols-4 gap-4 sm:gap-6 lg:gap-4"
             variants={gridVariants}
