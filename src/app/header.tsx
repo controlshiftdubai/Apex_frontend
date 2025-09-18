@@ -62,9 +62,9 @@ export default function Navbar() {
   return (
     <>
       <header
-        className={`sticky top-0 left-0 right-0 w-full h-[80px] z-40 bg-white`}
+        className={`sticky top-0 left-0 right-0 w-full h-[61px] md:h-20 z-40 bg-white`}
       >
-        <div className="max-w-none px-4 mx-auto h-full">
+        <div className="max-w-none px-4 pr-6 mx-auto h-full">
           <div className="flex justify-between items-center h-full">
             {/* Logo */}
             <Link href="/" className="rounded-md">

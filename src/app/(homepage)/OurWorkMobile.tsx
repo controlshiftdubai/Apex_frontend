@@ -111,7 +111,7 @@ const WorkShowcaseGrid = () => {
 
   return (
     <section className="py-16 sm:py-20 bg-gray-50">
-      <div className="max-w-6xl p-4 sm:p-6 lg:p-8 mx-auto">
+      <div className="max-w-6xl p-8 sm:p-6 lg:p-8 mx-auto">
         {/* Heading */}
         <div className="text-center mb-12 sm:mb-16">
           <motion.h2
@@ -119,7 +119,7 @@ const WorkShowcaseGrid = () => {
             whileInView={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
             viewport={{ once: true }}
-            className="leading-tight sm:text-lg text-xl md:text-5xl font-medium text-gray-900 mb-4"
+            className="leading-tight text-2xl sm:text-lg md:text-5xl font-medium text-gray-900 mb-4"
           >
             Partnering To Create Smart Spaces & Custom Products
           </motion.h2>
@@ -129,7 +129,7 @@ const WorkShowcaseGrid = () => {
             whileInView={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
             viewport={{ once: true }}
-            className="text-base sm:text-2xl leading-snug font-light text-[#999999] max-w-4xl mx-auto"
+            className="text-base sm:text-2xl leading-snug font-light text-[#999999] mt-12 max-w-4xl mx-auto"
           >
             We Create Products That Stand Out, Inspire, And Perform. From Design
             To Engineering And Branding, Apex Is Where Bold Visions Turn Into

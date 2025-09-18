@@ -69,20 +69,23 @@ const content = [
 
 const StatsMobileShowcase = () => (
   <div className="p-4">
-    <div className="mt-12 space-y-16">
+    <div className="mt-12 space-y-24">
       {content.map((item, idx) => (
-        <div key={idx} className="relative flex flex-col justify-start">
-           <AnimatePresence mode="wait">
-              <motion.p
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -30 }}
-                transition={{ duration: 0.4, ease: "easeIn" }}
-                className="text-2xl text-black text-center"
-              >
-                {item.title}
-              </motion.p>
-            </AnimatePresence>
+        <div
+          key={idx}
+          className="relative flex flex-col gap-y-12 justify-start"
+        >
+          <AnimatePresence mode="wait">
+            <motion.p
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -30 }}
+              transition={{ duration: 0.4, ease: "easeIn" }}
+              className="text-2xl text-black text-center"
+            >
+              {item.title}
+            </motion.p>
+          </AnimatePresence>
           <div className="overflow-hidden">
             <AnimatePresence mode="wait">
               <motion.div
@@ -96,7 +99,7 @@ const StatsMobileShowcase = () => (
             </AnimatePresence>
           </div>
 
-          <div className="mt-4 max-w-sm space-y-2">
+          <div className="mt-8 max-w-sm space-y-2">
             <AnimatePresence mode="wait">
               <motion.p
                 initial={{ opacity: 0, y: 30 }}
@@ -109,22 +112,21 @@ const StatsMobileShowcase = () => (
               </motion.p>
             </AnimatePresence>
 
-{item.subtitle && (
-  <AnimatePresence mode="wait">
-    <motion.div
-      className="w-full flex justify-center" // center the content
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
-      transition={{ duration: 0.4, ease: "easeIn" }}
-    >
-      <span className="relative inline-block px-3 py-1 text-xl font-medium text-slate-900 link-highlight link-highlight-mint">
-        {item.subtitle}
-      </span>
-    </motion.div>
-  </AnimatePresence>
-)}
-
+            {item.subtitle && (
+              <AnimatePresence mode="wait">
+                <motion.div
+                  className="w-full flex justify-center" // center the content
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.4, ease: "easeIn" }}
+                >
+                  <span className="relative inline-block px-3 py-1 text-xl font-medium text-slate-900 link-highlight link-highlight-mint">
+                    {item.subtitle}
+                  </span>
+                </motion.div>
+              </AnimatePresence>
+            )}
           </div>
         </div>
       ))}
@@ -138,7 +140,6 @@ export default function WorkShowcaseStickyScroll() {
       <section className="w-full py-20 md:py-20">
         <h2 className="text-xl md:text-5xl mx-auto max-w-6xl font-medium  text-gray-900 mb-6 leading-tight text-center">
           Our Impact
-          
         </h2>
 
         <p className="text-base md:text-3xl text-center max-w-[830px] mb-10 mx-auto md:mb-24 text-centersm:text-lg  text-black/35 font-regular leading-tight">
