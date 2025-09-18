@@ -229,7 +229,7 @@ export function ScrollStickyCards({ className = "", banners }: Props) {
           </div>
 
           {/* Right column for "Explore Our Expertise" */}
-          <div className="col-span-1 relative h-full"></div>
+          <div className="col-span-1 "></div>
         </div>
       </div>
     </section>
