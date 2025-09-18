@@ -185,7 +185,7 @@ export function ScrollStickyCards({ className = "", banners }: Props) {
         </motion.h1>
 
       
-          <div className="max-w-3xl md:ml-20">
+          <div className="max-w-3xl md:ml-24">
             {banners.map((banner, idx) => {
               const isActive = idx === activeIndex;
 
