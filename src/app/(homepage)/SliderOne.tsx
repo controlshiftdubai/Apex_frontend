@@ -80,7 +80,7 @@ const Banner = () => {
       />
 
       {/* Text */}
-     <div className="relative z-30 flex h-full items-center justify-center text-center px-4">
+     <div className="relative z-10 flex h-full items-center justify-center text-center px-4">
   {videoLoaded && (
     <motion.div
       initial="hidden"
