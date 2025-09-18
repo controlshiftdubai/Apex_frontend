@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import Image from "next/image"; // This is now used
 import React from "react";
+import AnimateOnViewOnce from "@/components/AnimateOnViewOnce";
 
 const WorkShowcaseGrid1 = () => {
   const workData = [
@@ -23,7 +24,8 @@ const WorkShowcaseGrid1 = () => {
       id: 3,
       title: "Speaker System",
       // no video -> image will render
-      image: "https://cdn.layerdesign.com/wp-content/uploads/2022/08/NNEW-Resizing-1331-x-821px.jpg.webp",
+      image:
+        "https://cdn.layerdesign.com/wp-content/uploads/2022/08/NNEW-Resizing-1331-x-821px.jpg.webp",
       category: "Viture",
       layout: "col-span-2 aspect-[8/4.7]",
     },
@@ -41,8 +43,7 @@ const WorkShowcaseGrid1 = () => {
     {
       id: 5,
       title: "Calma",
-      video:
-        "https://cdn.layerdesign.com/wp-content/uploads/2023/01/SAGA.mp4",
+      video: "https://cdn.layerdesign.com/wp-content/uploads/2023/01/SAGA.mp4",
       image: "/fallbacks/calma.jpg",
       category: "Andreau World",
       layout: "col-span-2 aspect-[8/4.7]",
@@ -50,7 +51,8 @@ const WorkShowcaseGrid1 = () => {
     {
       id: 6,
       title: "Emerge",
-      image: "https://cdn.layerdesign.com/wp-content/uploads/2022/11/643-x-821px_0074_Calma-1.jpg.webp",
+      image:
+        "https://cdn.layerdesign.com/wp-content/uploads/2022/11/643-x-821px_0074_Calma-1.jpg.webp",
       category: "Bang & Olufsen",
       layout: "col-span-1 aspect-[4/4.8]",
     },
@@ -87,7 +89,8 @@ const WorkShowcaseGrid1 = () => {
       id: 10,
       title: "Connectivity 2",
       // no video -> image will render
-      image: "https://cdn.layerdesign.com/wp-content/uploads/2022/08/DT-FEATURED.jpg.webp",
+      image:
+        "https://cdn.layerdesign.com/wp-content/uploads/2022/08/DT-FEATURED.jpg.webp",
       category: "Deutsche Telekom Design",
       layout: "col-span-2 aspect-[8/4.7]",
     },
@@ -214,9 +217,11 @@ const WorkShowcaseGrid1 = () => {
 
           <div className="mt-12 sm:mt-24 text-center">
             <Link href="/projects">
-              <p className="link-highlight link-highlight-brown relative inline-block text-2xl font-medium text-black px-2">
-                See our projects
-              </p>
+              <AnimateOnViewOnce delay={300} className="link-highlight link-highlight-brown ">
+                <p className="relative inline-block text-2xl text-black px-2">
+                  See our projects
+                </p>
+              </AnimateOnViewOnce>
             </Link>
           </div>
         </div>

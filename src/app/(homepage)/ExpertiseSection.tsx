@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
+import AnimateOnViewOnce from "@/components/AnimateOnViewOnce";
 
 const banners = [
   {
@@ -135,7 +136,7 @@ export function ScrollStickyCards({ className = "", banners }: Props) {
   }, [banners, activeIndex]); // Added activeIndex to dependencies
 
   return (
-    <section ref={sectionRef} className={`relative w-full ${className}`}>
+    <section ref={sectionRef} className={`relative w-full z-0 ${className}`}>
       {/* FULL SCREEN STICKY IMAGE */}
       <div className="sticky top-0 h-screen w-full z-0">
         <AnimatePresence>
@@ -161,19 +162,24 @@ export function ScrollStickyCards({ className = "", banners }: Props) {
             );
           })}
         </AnimatePresence>
-        
+
         {/* Position the link inside the sticky container so it remains visible only during this section */}
-        <div className="absolute top-[85%] max-sm:hidden right-24 md:right-[15%] text-center z-20">
+        <div className="absolute top-[85%] max-sm:hidden right-24 md:right-[15%] text-center z-[9999]">
           <Link href="/projects">
-            <p className="link-highlight  link-highlight-purple relative inline-block text-[26px] font-medium text-white px-2">
-              Explore Our Expertise
-            </p>
+            <AnimateOnViewOnce
+              delay={300}
+              className="link-highlight link-highlight-purple"
+            >
+              <p className="relative inline-block text-[26px] font-medium text-white px-">
+                Explore Our Expertise
+              </p>
+            </AnimateOnViewOnce>
           </Link>
         </div>
       </div>
 
       {/* TEXT BLOCKS */}
-      <div className="relative z-99 -mt-[85vh] z-10 max-w-[1500px] px-4 md:px-10 mx-auto overflow-hidden">
+      <div className="relative -mt-[85vh] z-10 max-w-[1500px] px-4 md:px-10 mx-auto overflow-hidden">
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -184,50 +190,48 @@ export function ScrollStickyCards({ className = "", banners }: Props) {
           Our Expertise
         </motion.h1>
 
-      
-          <div className="max-w-3xl md:ml-24">
-            {banners.map((banner, idx) => {
-              const isActive = idx === activeIndex;
+        <div className="max-w-3xl md:ml-24">
+          {banners.map((banner, idx) => {
+            const isActive = idx === activeIndex;
 
-              return (
-                <div
-                  key={banner.id}
-                  data-index={idx}
-                  ref={setTriggerRef(idx)}
-                  className={cn(
-                    "relative flex items-center",
-                    idx != 0 ? "py-28 md:py-48" : "pb-28 md:pb-48"
-                  )}
+            return (
+              <div
+                key={banner.id}
+                data-index={idx}
+                ref={setTriggerRef(idx)}
+                className={cn(
+                  "relative flex items-center",
+                  idx != 0 ? "py-28 md:py-48" : "pb-28 md:pb-48"
+                )}
+              >
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, ease: "easeOut" }}
+                  viewport={{ once: true }}
+                  className="max-w-8xl mt-[18rem]"
                 >
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, ease: "easeOut" }}
-                    viewport={{ once: true }}
-                    className="max-w-8xl mt-[18rem]"
+                  <h2
+                    className={`text-xl md:text-5xl font-light leading-tight mb-4 transition-all duration-500 ${
+                      isActive ? "text-white" : "text-white/20"
+                    }`}
                   >
-                    <h2
-                      className={`text-xl md:text-5xl font-light leading-tight mb-4 transition-all duration-500 ${
+                    {banner.title}
+                  </h2>
+                  {banner.subtitle && (
+                    <p
+                      className={`text-2xl font-light transition-all duration-500 ${
                         isActive ? "text-white" : "text-white/20"
                       }`}
                     >
-                      {banner.title}
-                    </h2>
-                    {banner.subtitle && (
-                      <p
-                        className={`text-2xl font-light transition-all duration-500 ${
-                          isActive ? "text-white" : "text-white/20"
-                        }`}
-                      >
-                        {banner.subtitle}
-                      </p>
-                    )}
-                  </motion.div>
-                </div>
-              );
-            })}
-          </div>
-       
+                      {banner.subtitle}
+                    </p>
+                  )}
+                </motion.div>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </section>
   );

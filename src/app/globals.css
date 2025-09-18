@@ -132,7 +132,7 @@
   transform: scaleX(0);              /* collapsed */
   transform-origin: left;            /* animate from left to right */
   background-color: transparent;     /* no color at very start */
-  animation: highlight-fill 1.5s ease-in-out forwards; /* run once on load */
+  animation: highlight-fill 0.6s ease-in-out forwards; /* run once on load */
   @apply transition-all
 
 }
@@ -140,7 +140,6 @@
 @keyframes highlight-fill {
   0% {
     transform: scaleX(0);
-    background-color: transparent;
   }
   100% {
     transform: scaleX(1);
@@ -163,7 +162,6 @@
   height: 40px;
   bottom: -3px;
 }
-
 
 /* color variants (apply after animation finishes) */
 .link-highlight-yellow::after {
