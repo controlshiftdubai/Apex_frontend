@@ -61,7 +61,7 @@ export default function Navbar() {
   return (
     <>
       <header
-        className={`sticky top-0 left-0 right-0 w-full h-[70px] z-40 bg-white`}
+        className={`sticky top-0 left-0 right-0 w-full h-[80px] z-40 bg-white`}
       >
         <div className="max-w-none px-4 mx-auto h-full">
           <div className="flex justify-between items-center h-full">
@@ -72,18 +72,18 @@ export default function Navbar() {
                 alt="3d logo"
                 width={0}
                 height={0}
-                className="h-[40px] w-full"
+                className="h-[50px] w-full"
                 priority
                 sizes="100vw"
               />
             </Link>
 
             {/* Desktop nav */}
-            <nav className="hidden md:flex items-center ml-auto gap-x-14 px-6">
+            <nav className="hidden md:flex items-center ml-auto gap-x-14 px-10">
               {navLinks.map((link, idx) => (
                 <Link key={link.name} href={link.href}>
                   <span
-                    className="relative text-lg font-light uppercase text-black hover:text-gray-800 transition-colors duration-200 nav-link-animate"
+                    className="relative text-xl font-light uppercase text-black hover:text-gray-800 transition-colors duration-200 nav-link-animate"
                     style={{
                       ["--underline-color" as any]: colors[idx],
                     }}

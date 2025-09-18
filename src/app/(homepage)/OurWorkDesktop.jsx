@@ -6,7 +6,6 @@ import Link from "next/link";
 import React from "react";
 
 const WorkShowcaseGrid1 = () => {
-  // --- 1. THE NEW LAYOUT ---
   const workData = [
     // Row 1: Square, Rectangle, Square
     {
@@ -119,16 +118,14 @@ const WorkShowcaseGrid1 = () => {
 
   return (
     <section className="py-16 sm:py-20 bg-gray-50">
-      <div className="max-w-7xl p-4 sm:p-6 lg:p-8 justify-center mx-auto">
-        {/* This text animation logic remains the same */}
-        <div className="text-center mb-12 sm:mb-16">
-          {/* ... (your H2 and P tags remain the same) ... */}
+      <div className="max-w-[1220px] p-4 sm:p-6 justify-center mx-auto">
+        <div className="text-center mb-12 sm:mb-24">
           <motion.h2
             initial={{ x: -100, opacity: 0 }}
             whileInView={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
             viewport={{ once: true }}
-            className=" leading-tight max-w-4xl mx-auto sm:text-lg text-xl md:text-5xl font-medium text-gray-900 mb-4"
+            className=" leading-tight max-w-4xl mx-auto sm:text-lg text-xl md:text-5xl font-medium text-gray-900 mb-4 sm:mb-6"
           >
             Partnering To Create Smart Spaces & Custom Products
           </motion.h2>
@@ -166,7 +163,7 @@ const WorkShowcaseGrid1 = () => {
                     {item.video && (
                       <video
                         src={item.video}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        className="w-full h-full object-cover"
                         autoPlay
                         loop
                         muted
@@ -175,43 +172,41 @@ const WorkShowcaseGrid1 = () => {
                       />
                     )}
 
+                    {/* --- START: FIX --- */}
                     <motion.div
-                      className="absolute inset-0 flex items-center justify-center 
-               bg-black/0 group-hover:bg-black/50 
-               transition-colors duration-300 text-white"
+                      className="absolute inset-0 flex flex-col items-center justify-center 
+                               bg-black/0 group-hover:bg-black/15 
+                               transition-colors duration-300 text-white text-center"
                       variants={textOverlayVariants}
                       initial="hidden"
                       whileHover="visible"
                     >
-                      <div className="text-center">
-                        <AnimatedText
-                          as="h3"
-                          text={item.title}
-                          className="font-extrabold mb-2 text-5xl sm:text-4xl drop-shadow-lg"
-                        />
-                        <AnimatedText
-                          as="p"
-                          text={item.category}
-                          className="text-gray-200 text-xl sm:text-lg font-semibold drop-shadow-md"
-                        />
-                      </div>
+                      {/* Text elements are now direct children of the flex container */}
+                      <AnimatedText
+                        as="h3"
+                        text={item.title}
+                        className="font-extrabold mb-2 text-5xl sm:text-4xl drop-shadow-lg"
+                      />
+                      <AnimatedText
+                        as="p"
+                        text={item.category}
+                        className="text-gray-100 text-xl sm:text-xl font-semibold drop-shadow-md"
+                      />
                     </motion.div>
+                    {/* --- END: FIX --- */}
                   </div>
                 </div>
               </motion.div>
             ))}
           </motion.div>
 
-          {/* --- START: NEW BUTTON ADDED --- */}
-          <div className="mt-12 sm:mt-16 text-center">
+          <div className="mt-12 sm:mt-24 text-center">
             <Link href="/projects">
               <p className="link-highlight link-highlight-brown relative inline-block text-2xl font-medium text-black px-2">
                 See our projects
               </p>
             </Link>
           </div>
-
-          {/* --- END: NEW BUTTON ADDED --- */}
         </div>
       </div>
     </section>
