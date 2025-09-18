@@ -151,6 +151,9 @@
 .link-highlight-brown::after {
   background-color: #ffc89f;
 }
+.link-highlight-purple::after {
+  background-color: #fd87ff;
+}
 .link-highlight-mint::after {
   background-color: #c7feea;
 }

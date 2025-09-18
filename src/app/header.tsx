@@ -61,29 +61,29 @@ export default function Navbar() {
   return (
     <>
       <header
-        className={`sticky top-0 left-0 right-0 w-full h-[70px] z-40 bg-white !cursor:pointer`}
+        className={`sticky top-0 left-0 right-0 w-full h-[80px] z-40 bg-white`}
       >
         <div className="max-w-none px-4 mx-auto h-full">
           <div className="flex justify-between items-center h-full">
             {/* Logo */}
-            <Link href="/" className="rounded-md flex items-center">
-  <Image
-    src="/logo.png"
-    alt="3d logo"
-    width={160}              // set intrinsic width
-    height={40}              // set intrinsic height (keeps aspect ratio)
-    className="h-10 w-auto"  // prevent stretch, respect aspect ratio
-    priority
-    sizes="(max-width: 768px) 160px, 160px"
-  />
-</Link>
+            <Link href="/" className="rounded-md">
+              <Image
+                src="/logo.png"
+                alt="3d logo"
+                width={0}
+                height={0}
+                className="h-[50px] w-full"
+                priority
+                sizes="100vw"
+              />
+            </Link>
 
             {/* Desktop nav */}
-            <nav className="hidden md:flex items-center ml-auto gap-x-14 px-6 hover:!cursor-pointer">
+            <nav className="hidden md:flex items-center ml-auto gap-x-14 px-10">
               {navLinks.map((link, idx) => (
                 <Link key={link.name} href={link.href}>
                   <span
-                    className="relative text-lg font-light uppercase text-black hover:text-gray-800 transition-colors duration-200 nav-link-animate"
+                    className="relative text-xl font-light uppercase text-black hover:text-gray-800 transition-colors duration-200 nav-link-animate"
                     style={{
                       ["--underline-color" as any]: colors[idx],
                     }}

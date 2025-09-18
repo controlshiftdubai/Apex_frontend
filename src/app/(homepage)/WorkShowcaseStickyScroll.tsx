@@ -135,15 +135,13 @@ const StatsMobileShowcase = () => (
 export default function WorkShowcaseStickyScroll() {
   return (
     <div className="bg-[#f6f3f1]">
-      <section className="w-full py-20 md:py-32">
-        <h2 className="text-xl md:text-5xl mx-auto max-w-6xl font-medium  text-black mb-6 leading-tight text-center">
-          Our&nbsp;
-          <span className="text-xl md:text-5xl text-black font-medium leading-relaxed">
-            Impact
-          </span>
+      <section className="w-full py-20 md:py-20">
+        <h2 className="text-xl md:text-5xl mx-auto max-w-6xl font-medium  text-gray-900 mb-6 leading-tight text-center">
+          Our Impact
+          
         </h2>
 
-        <p className="text-base md:text-2xl text-center max-w-5xl mb-10 mx-auto md:mb-24 text-centersm:text-lg  text-gray-500 font-regular leading-tight">
+        <p className="text-base md:text-3xl text-center max-w-[830px] mb-10 mx-auto md:mb-24 text-centersm:text-lg  text-black/35 font-regular leading-tight">
           We create products and experiences that capture attention, drive
           value, and open new markets for our partners worldwide.
         </p>

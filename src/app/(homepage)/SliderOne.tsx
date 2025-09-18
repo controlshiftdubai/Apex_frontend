@@ -29,7 +29,7 @@ const Banner = () => {
   }
 
   return (
-   <div className="relative h-[60vh] sm:h-[80vh] w-full overflow-hidden">
+   <div className="relative h-[60vh] sm:h-[85vh] w-full overflow-hidden">
   {/* Desktop Video */}
   <motion.video
     autoPlay
