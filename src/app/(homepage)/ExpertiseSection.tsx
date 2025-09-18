@@ -10,9 +10,9 @@ const banners = [
   {
     id: 1,
     desktop:
-      "https://mypubblicbucket.s3.ap-south-1.amazonaws.com/2025-09-17T10%3A13%3A05.877Z-1.png",
+      "https://d33609liqwio9r.cloudfront.net/2025-09-18T10:38:40.984Z-step11%20-%20Edited.png",
     mobile:
-      "https://mypubblicbucket.s3.ap-south-1.amazonaws.com/2025-09-15T15%3A10%3A28.213Z-Frame%201000003798.png",
+      "https://d33609liqwio9r.cloudfront.net/2025-09-18T10:50:31.977Z-mv1%20-%20Edited.png",
     title: "Product Innovation That Blends Design,",
     subtitle: "Technology, And Performance",
     className: "object-[77%]",
@@ -20,9 +20,9 @@ const banners = [
   {
     id: 2,
     desktop:
-      "https://mypubblicbucket.s3.ap-south-1.amazonaws.com/2025-09-17T10%3A16%3A39.678Z-1.png",
+      "https://d33609liqwio9r.cloudfront.net/2025-09-18T10:40:25.124Z-step222%20-%20Edited.png",
     mobile:
-      "https://mypubblicbucket.s3.ap-south-1.amazonaws.com/2025-09-15T15%3A14%3A25.549Z-Group%2039.png",
+      "https://d33609liqwio9r.cloudfront.net/2025-09-18T10:51:07.981Z-mv22%20-%20Edited.png",
     title: "Smart Engineering. Unmatched",
     subtitle: "Functionality. Unforgettable Impact",
     className: "",
@@ -30,9 +30,9 @@ const banners = [
   {
     id: 3,
     desktop:
-      "https://d33609liqwio9r.cloudfront.net/2025-09-17T10:14:43.871Z-2.png",
+      "https://d33609liqwio9r.cloudfront.net/2025-09-18T10:41:27.779Z-step33%20-%20Edited.png",
     mobile:
-      "https://mypubblicbucket.s3.ap-south-1.amazonaws.com/2025-09-15T15%3A14%3A58.632Z-Group%2040.png",
+      "https://d33609liqwio9r.cloudfront.net/2025-09-18T10:51:44.667Z-mv3%20-%20Edited.png",
     title: "We Craft Brand Identities That",
     subtitle: "Stand Out, Resonate, And Last",
     className: "object-[90%]",
@@ -40,7 +40,7 @@ const banners = [
   {
     id: 4,
     desktop:
-      "https://d33609liqwio9r.cloudfront.net/2025-09-17T10:15:29.725Z-3.png",
+      "https://d33609liqwio9r.cloudfront.net/2025-09-18T10:42:03.398Z-step55%20-%20Edited.png",
     mobile:
       "https://mypubblicbucket.s3.ap-south-1.amazonaws.com/2025-09-15T15%3A15%3A31.611Z-Group%2041.png",
     title: "We Craft Immersive Environments Where",
@@ -163,9 +163,9 @@ export function ScrollStickyCards({ className = "", banners }: Props) {
         </AnimatePresence>
         
         {/* Position the link inside the sticky container so it remains visible only during this section */}
-        <div className="absolute top-[85%] right-24 md:right-[15%] text-center z-20">
+        <div className="absolute top-[85%] max-sm:hidden right-24 md:right-[15%] text-center z-20">
           <Link href="/projects">
-            <p className="link-highlight link-highlight-purple relative inline-block text-[26px] font-medium text-white px-2">
+            <p className="link-highlight  link-highlight-purple relative inline-block text-[26px] font-medium text-white px-2">
               Explore Our Expertise
             </p>
           </Link>
@@ -173,7 +173,7 @@ export function ScrollStickyCards({ className = "", banners }: Props) {
       </div>
 
       {/* TEXT BLOCKS */}
-      <div className="relative -mt-[85vh] z-10 max-w-[1500px] px-4 md:px-10 mx-auto overflow-hidden">
+      <div className="relative z-99 -mt-[85vh] z-10 max-w-[1500px] px-4 md:px-10 mx-auto overflow-hidden">
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}

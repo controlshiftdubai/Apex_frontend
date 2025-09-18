@@ -36,8 +36,8 @@ export default function Footer() {
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 1.8, ease: "easeOut", delay: 1.8 }}
+          viewport={{ once: true, amount: 0.6 }}
+          transition={{ duration: 0.8, ease: "easeOut", delay: 1 }}
           className="link-highlight !cursor-pointer px-6 link-highlight-yellow relative inline-block text-2xl text-black my-12"
         >
           See your  projects today
