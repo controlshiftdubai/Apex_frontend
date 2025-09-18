@@ -162,17 +162,7 @@ export function ScrollStickyCards({ className = "", banners }: Props) {
       </div>
 
       {/* TEXT BLOCKS */}
-      <div className="relative -mt-[85vh] z-10 max-w-[1400px] px-4 md:px-10 mx-auto overflow-hidden">
-        <motion.h1
-  initial={{ opacity: 0, y: 30 }}
-  whileInView={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.7, ease: "easeOut" }}
-  viewport={{ once: true }}
-  className="text-6xl md:text-4xl font-medium  text-white text-center"
->
-  Our Expertise
-</motion.h1>
-
+      <div className="relative -mt-[65vh] z-10 max-w-[1400px] px-4 md:px-10 mx-auto overflow-hidden">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="col-span-1">
             {banners.map((banner, idx) => {
@@ -184,7 +174,7 @@ export function ScrollStickyCards({ className = "", banners }: Props) {
                   data-index={idx}
                   ref={setTriggerRef(idx)}
                   className={cn(
-                    "relative flex items-center",
+                    "flex items-center",
                     idx != 0 ? "py-28 md:py-48" : "pb-28 md:pb-48"
                   )}
                 >
@@ -193,10 +183,10 @@ export function ScrollStickyCards({ className = "", banners }: Props) {
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, ease: "easeOut" }}
                     viewport={{ once: true }}
-                    className="max-w-7xl mt-[18rem]"
+                    className="max-w-7xl"
                   >
                     <h2
-                      className={`text-xl md:text-3xl font-extrabold leading-tight mb-4  transition-all duration-500 ${
+                      className={`text-5xl md:text-6xl font-extrabold leading-tight mb-4 uppercase transition-all duration-500 ${
                         isActive ? "text-white" : "text-white/20"
                       }`}
                     >
@@ -204,18 +194,14 @@ export function ScrollStickyCards({ className = "", banners }: Props) {
                     </h2>
                     {banner.subtitle && (
                       <p
-                        className={`text-lg font-bold  transition-all duration-500 ${
+                        className={`text-lg font-bold uppercase transition-all duration-500 ${
                           isActive ? "text-white" : "text-white/20"
                         }`}
                       >
                         {banner.subtitle}
                       </p>
                     )}
-                     
-                    
                   </motion.div>
-   
-
                 </div>
               );
             })}
