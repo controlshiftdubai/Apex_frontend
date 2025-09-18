@@ -136,9 +136,9 @@ export default function WorkShowcaseStickyScroll() {
   return (
     <div className="bg-[#f6f3f1]">
       <section className="w-full py-20 md:py-32">
-        <h2 className="text-xl md:text-5xl mx-auto max-w-6xl font-medium  text-gray-900 mb-6 leading-tight text-center">
+        <h2 className="text-xl md:text-5xl mx-auto max-w-6xl font-medium  text-black mb-6 leading-tight text-center">
           Our&nbsp;
-          <span className="text-xl md:text-5xl text-gray-500 font-medium leading-relaxed">
+          <span className="text-xl md:text-5xl text-black font-medium leading-relaxed">
             Impact
           </span>
         </h2>

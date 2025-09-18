@@ -61,7 +61,7 @@ export default function Navbar() {
   return (
     <>
       <header
-        className={`sticky top-0 left-0 right-0 w-full h-[70px] z-40 bg-white`}
+        className={`sticky top-0 left-0 right-0 w-full h-[70px] z-40 bg-white !cursor:pointer`}
       >
         <div className="max-w-none px-4 mx-auto h-full">
           <div className="flex justify-between items-center h-full">
@@ -79,7 +79,7 @@ export default function Navbar() {
 </Link>
 
             {/* Desktop nav */}
-            <nav className="hidden md:flex items-center ml-auto gap-x-14 px-6">
+            <nav className="hidden md:flex items-center ml-auto gap-x-14 px-6 hover:!cursor-pointer">
               {navLinks.map((link, idx) => (
                 <Link key={link.name} href={link.href}>
                   <span
