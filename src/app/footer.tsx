@@ -13,18 +13,18 @@ export default function Footer() {
   className="space-y-2"
 >
   <FlipText
-    className="font-light text-gray-900 leading-tight text-center text-2xl sm:text-3xl md:text-4xl lg:text-[34px] max-w-3xl"
-    duration={0.05}
-    delayMultiple={0.04}
+    className="font-light text-gray-900 leading-tight text-center text-2xl sm:text-3xl md:text-4xl lg:text-[48px] max-w-5xl"
+    duration={0.01}
+    delayMultiple={0.01}
   >
     Together, we can shape the future
   </FlipText>
 
   <FlipText
-    className="font-light text-gray-900 leading-tight text-center text-2xl sm:text-3xl md:text-4xl lg:text-[34px] max-w-3xl"
-    duration={0.05}
-    delayMultiple={0.04}
-    startDelay={1.6} // 👈 delay until first line completes
+    className="font-light text-gray-900 leading-tight text-center text-2xl sm:text-3xl md:text-4xl lg:text-[48px] max-w-5xl"
+    duration={0.01}
+    delayMultiple={0.01}
+    startDelay={0.4} // 👈 delay until first line completes
   >
     with powerful creations.
   </FlipText>
