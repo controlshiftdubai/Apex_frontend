@@ -68,15 +68,15 @@ export default function Navbar() {
           <div className="flex justify-between items-center h-full">
             {/* Logo */}
             <Link href="/" className="rounded-md">
-               <Image
-    src="/logo.png"
-    alt="3d logo"
-    width={160}              
-    height={40}              
-    className="h-10 w-auto" 
-    priority
-    sizes="(max-width: 768px) 160px, 160px"
-  />
+              <Image
+                src="/logo.png"
+                alt="3d logo"
+                width={160}
+                height={40}
+                className="h-10 w-auto aspect-auto max-h-10 max-w-fit"
+                priority
+                sizes="(max-width: 768px) 160px, 160px"
+              />
             </Link>
 
             {/* Desktop nav */}

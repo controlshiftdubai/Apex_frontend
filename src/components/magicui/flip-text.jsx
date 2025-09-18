@@ -16,13 +16,20 @@ export function FlipText({
   as: Component = "span",
   variants = defaultVariants,
   startDelay = 0,
+  containerClassName = "",
   ...props
 }) {
   const MotionComponent = motion[Component] || motion.span;
   const words = React.Children.toArray(children).join("").split(" ");
 
   return (
-    <div className="flex justify-center flex-wrap gap-x-2 gap-y-3" style={{ perspective: "1000px" }}>
+    <div
+      className={cn(
+        "flex justify-center flex-wrap gap-x-2 gap-y-3",
+        containerClassName
+      )}
+      style={{ perspective: "1000px" }}
+    >
       {words.map((word, wordIndex) => {
         const precedingChars = words
           .slice(0, wordIndex)
@@ -33,10 +40,11 @@ export function FlipText({
             {word.split("").map((char, charIndex) => (
               <MotionComponent
                 key={charIndex}
-                variants={variants}                                  // inherit parent's animate state
+                variants={variants} // inherit parent's animate state
                 transition={{
                   duration,
-                                    delay: startDelay + (precedingChars + charIndex) * delayMultiple, // 👈 add startDelay
+                  delay:
+                    startDelay + (precedingChars + charIndex) * delayMultiple, // 👈 add startDelay
 
                   ease: "easeInOut",
                 }}

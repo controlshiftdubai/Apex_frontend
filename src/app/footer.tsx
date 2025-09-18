@@ -11,23 +11,15 @@ export default function Footer() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.5 }}
-          className="space-y-2"
+          className="mx-auto max-w-xs md:max-w-2xl"
         >
           <FlipText
-            className="font-light text-gray-900 leading-tight text-center text-2xl sm:text-3xl md:text-4xl lg:text-[48px] max-w-5xl"
+            className="font-normal text-gray-900 text-center leading-0 text-[30px] lg:text-[45px]"
             duration={0.01}
             delayMultiple={0.01}
+            containerClassName="space-y-0 gap-y-0 leading-9 md:leading-14"
           >
-            Together, we can shape the future
-          </FlipText>
-
-          <FlipText
-            className="font-light text-gray-900 leading-tight text-center text-2xl sm:text-3xl md:text-4xl lg:text-[48px] max-w-5xl"
-            duration={0.01}
-            delayMultiple={0.01}
-            startDelay={0.4} // 👈 delay until first line completes
-          >
-            with powerful creations.
+            Together, we can change the world through design.
           </FlipText>
         </motion.div>
 
@@ -36,11 +28,14 @@ export default function Footer() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.6 }}
           transition={{ duration: 0.8, ease: "easeOut", delay: 1 }}
-          className="pt-12"
+          className="pt-8 md:pt-12"
         >
-          <AnimateOnViewOnce delay={1700} className="link-highlight link-highlight-yellow">
-            <span className="!cursor-pointer px-6 relative inline-block text-2xl text-black">
-              See your projects today
+          <AnimateOnViewOnce
+            delay={1700}
+            className="link-highlight link-highlight-yellow"
+          >
+            <span className="!cursor-pointer px-5 relative inline-block text-lg md:text-[22px] text-black">
+              Start your project today
             </span>
           </AnimateOnViewOnce>
         </motion.div>
