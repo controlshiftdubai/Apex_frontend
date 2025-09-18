@@ -55,7 +55,7 @@ const Banner = () => {
     transition={{ duration: 1.4, ease: "easeOut" }}
     className="absolute inset-0 w-full h-full object-cover sm:hidden"
   >
-    <source src="https://download-video-ak.vimeocdn.com/v3-1/playback/578f8768-8e6f-4a20-bfed-04161ba9970b/91e350b2-8d36a683?__token__=st=1758186272~exp=1758189872~acl=%2Fv3-1%2Fplayback%2F578f8768-8e6f-4a20-bfed-04161ba9970b%2F91e350b2-8d36a683%2A~hmac=7f4296372ddd6020d2691f64d36c4cfd1a91aaf469c8a682aa9b6b2c10361fc5&r=dXMtd2VzdDE%3D" type="video/mp4" />
+    <source src="https://player.vimeo.com/progressive_redirect/playback/1109027791/rendition/720p/file.mp4?loc=external&log_user=0&signature=4bb3a9e93e3f8f0124884dd5599751f2fe15614869707712f757ef0239c55105" type="video/mp4" />
   </motion.video>
 
       {/* Black overlay while video loads */}
