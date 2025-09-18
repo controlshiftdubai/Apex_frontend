@@ -138,7 +138,7 @@ export function ScrollStickyCards({ className = "", banners }: Props) {
   return (
     <section ref={sectionRef} className={`relative w-full z-0 ${className}`}>
       {/* FULL SCREEN STICKY IMAGE */}
-      <div className="sticky top-0 h-screen w-full z-0">
+      <div className="sticky top-0 h-screen w-full z-10">
         <AnimatePresence>
           {banners.map((banner, idx) => {
             if (idx !== activeIndex) return null;
@@ -149,7 +149,7 @@ export function ScrollStickyCards({ className = "", banners }: Props) {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.6, ease: "easeOut" }}
-                className="absolute inset-0 w-full h-full"
+                className="absolute inset-0 z-20 w-full h-full"
               >
                 <Image
                   src={banner.desktop}
@@ -162,9 +162,10 @@ export function ScrollStickyCards({ className = "", banners }: Props) {
             );
           })}
         </AnimatePresence>
-
+      </div>
+      <div className="sticky top-0 h-screen w-full -mt-[100vh] z-50">
         {/* Position the link inside the sticky container so it remains visible only during this section */}
-        <div className="absolute top-[85%] max-sm:hidden right-24 md:right-[15%] text-center z-[9999]">
+        <div className="absolute top-[85%] max-sm:hidden right-24 md:right-[15%] text-center z-50">
           <Link href="/projects">
             <AnimateOnViewOnce
               delay={300}
@@ -200,7 +201,7 @@ export function ScrollStickyCards({ className = "", banners }: Props) {
                 data-index={idx}
                 ref={setTriggerRef(idx)}
                 className={cn(
-                  "relative flex items-center",
+                  "relative flex items-center px-4",
                   idx != 0 ? "py-28 md:py-48" : "pb-28 md:pb-48"
                 )}
               >
@@ -212,7 +213,7 @@ export function ScrollStickyCards({ className = "", banners }: Props) {
                   className="max-w-8xl mt-[18rem]"
                 >
                   <h2
-                    className={`text-xl md:text-5xl font-light leading-tight mb-4 transition-all duration-500 ${
+                    className={`text-3xl md:text-5xl font-light leading-tight mb-4 transition-all duration-500 ${
                       isActive ? "text-white" : "text-white/20"
                     }`}
                   >
@@ -220,7 +221,7 @@ export function ScrollStickyCards({ className = "", banners }: Props) {
                   </h2>
                   {banner.subtitle && (
                     <p
-                      className={`text-2xl font-light transition-all duration-500 ${
+                      className={`text-xl md:text-2xl font-light transition-all duration-500 ${
                         isActive ? "text-white" : "text-white/20"
                       }`}
                     >
