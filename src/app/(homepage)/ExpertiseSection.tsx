@@ -207,7 +207,7 @@ export function ScrollStickyCards({ className = "", banners }: Props) {
                     className="max-w-8xl mt-[18rem]"
                   >
                     <h2
-                      className={`text-xl md:text-4xl font-extrabold leading-tight mb-4 transition-all duration-500 ${
+                      className={`text-xl md:text-5xl font-light leading-tight mb-4 transition-all duration-500 ${
                         isActive ? "text-white" : "text-white/20"
                       }`}
                     >
@@ -215,7 +215,7 @@ export function ScrollStickyCards({ className = "", banners }: Props) {
                     </h2>
                     {banner.subtitle && (
                       <p
-                        className={`text-xl font-bold transition-all duration-500 ${
+                        className={`text-2xl font-light transition-all duration-500 ${
                           isActive ? "text-white" : "text-white/20"
                         }`}
                       >
