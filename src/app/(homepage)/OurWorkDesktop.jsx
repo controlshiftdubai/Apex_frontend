@@ -1,8 +1,10 @@
 "use client";
+
 import { AnimatedText } from "@/components/magicui/AnimatedText";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
+import Image from "next/image"; // This is now used
 import React from "react";
 
 const WorkShowcaseGrid1 = () => {
@@ -12,41 +14,43 @@ const WorkShowcaseGrid1 = () => {
       id: 2,
       title: "Light Vison",
       video:
-        "https://mypubblicbucket.s3.ap-south-1.amazonaws.com/WhatsApp+Video+2025-09-13+at+16.41.39_afb1b9ff+(1).mp4",
+        "https://cdn.layerdesign.com/wp-content/uploads/2022/08/BALANCE_Portrait.mp4",
+      image: "/fallbacks/light-vision.jpg",
       category: "Resonate",
       layout: "col-span-1 aspect-[4/4.8]",
-    }, // 4:3 Ratio
+    }, // 4:3-ish portrait
     {
       id: 3,
       title: "Speaker System",
-      video:
-        "https://mypubblicbucket.s3.ap-south-1.amazonaws.com/WhatsApp+Video+2025-09-13+at+16.41.51_0041f070+(1).mp4",
+      // no video -> image will render
+      image: "https://cdn.layerdesign.com/wp-content/uploads/2022/08/NNEW-Resizing-1331-x-821px.jpg.webp",
       category: "Viture",
       layout: "col-span-2 aspect-[8/4.7]",
-    }, // 8:3 Ratio (matches 4:3 height)
+    },
     {
       id: 4,
       title: "Halo Bike",
       video:
-        "https://mypubblicbucket.s3.ap-south-1.amazonaws.com/WhatsApp+Video+2025-09-13+at+16.41.37_49945eb7+(1).mp4",
+        "https://cdn.layerdesign.com/wp-content/uploads/2022/08/VITURE_PORTRAIT.mp4",
+      image: "/fallbacks/halo-bike.jpg",
       category: "SAGA",
       layout: "col-span-1 aspect-[4/4.8]",
-    }, // 4:3 Ratio
+    },
 
     // Row 2: Square, Square, Rectangle
     {
       id: 5,
       title: "Calma",
       video:
-        "https://mypubblicbucket.s3.ap-south-1.amazonaws.com/details-fabric-and-textile-modern-brown-gray-chair-4k-2025-08-28-13-55-51-utc+(1).mov",
+        "https://cdn.layerdesign.com/wp-content/uploads/2023/01/SAGA.mp4",
+      image: "/fallbacks/calma.jpg",
       category: "Andreau World",
       layout: "col-span-2 aspect-[8/4.7]",
     },
     {
       id: 6,
       title: "Emerge",
-      video:
-        "https://mypubblicbucket.s3.ap-south-1.amazonaws.com/WhatsApp+Video+2025-09-13+at+16.41.31_6a6b1000+(1).mp4",
+      image: "https://cdn.layerdesign.com/wp-content/uploads/2022/11/643-x-821px_0074_Calma-1.jpg.webp",
       category: "Bang & Olufsen",
       layout: "col-span-1 aspect-[4/4.8]",
     },
@@ -54,7 +58,8 @@ const WorkShowcaseGrid1 = () => {
       id: 7,
       title: "Ledger",
       video:
-        "https://mypubblicbucket.s3.ap-south-1.amazonaws.com/WhatsApp+Video+2025-09-13+at+16.41.51_f16362ce+(1).mp4",
+        "https://cdn.layerdesign.com/wp-content/uploads/2022/08/EMERGE_PORTRAIT-1.mp4",
+      image: "/fallbacks/ledger.jpg",
       category: "Ledger",
       layout: "col-span-1 aspect-[4/4.8]",
     },
@@ -64,7 +69,8 @@ const WorkShowcaseGrid1 = () => {
       id: 8,
       title: "Go",
       video:
-        "https://mypubblicbucket.s3.ap-south-1.amazonaws.com/WhatsApp+Video+2025-09-13+at+16.41.36_e22712e1+(1).mp4",
+        "https://cdn.layerdesign.com/wp-content/uploads/2022/12/LEDGER_PORTRAIT.mp4",
+      image: "/fallbacks/go.jpg",
       category: "Nike",
       layout: "col-span-1 aspect-[4/4.8]",
     },
@@ -72,15 +78,16 @@ const WorkShowcaseGrid1 = () => {
       id: 9,
       title: "Connectivity",
       video:
-        "https://mypubblicbucket.s3.ap-south-1.amazonaws.com/WhatsApp+Video+2025-09-13+at+16.41.50_04921f72+(1).mp4",
+        "https://cdn.layerdesign.com/wp-content/uploads/2022/08/GO_PORTRAIT.mp4",
+      image: "/fallbacks/connectivity.jpg",
       category: "Deutsche Telekom Design",
       layout: "col-span-1 aspect-[4/4.8]",
     },
     {
       id: 10,
       title: "Connectivity 2",
-      video:
-        "https://mypubblicbucket.s3.ap-south-1.amazonaws.com/WhatsApp+Video+2025-09-13+at+16.41.50_04921f72+(1).mp4",
+      // no video -> image will render
+      image: "https://cdn.layerdesign.com/wp-content/uploads/2022/08/DT-FEATURED.jpg.webp",
       category: "Deutsche Telekom Design",
       layout: "col-span-2 aspect-[8/4.7]",
     },
@@ -90,9 +97,7 @@ const WorkShowcaseGrid1 = () => {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
+      transition: { staggerChildren: 0.1 },
     },
   };
 
@@ -101,10 +106,7 @@ const WorkShowcaseGrid1 = () => {
     visible: {
       opacity: 1,
       y: 0,
-      transition: {
-        duration: 0.5,
-        ease: "easeOut",
-      },
+      transition: { duration: 0.5, ease: "easeOut" },
     },
   };
 
@@ -160,7 +162,9 @@ const WorkShowcaseGrid1 = () => {
               >
                 <div className="relative group cursor-pointer h-full">
                   <div className="relative overflow-hidden bg-gray-700 h-full group">
-                    {item.video && (
+                    {/* --- START: FIX --- */}
+                    {/* Use a ternary operator to show video if it exists, otherwise show the image */}
+                    {item.video ? (
                       <video
                         src={item.video}
                         className="w-full h-full object-cover"
@@ -168,11 +172,21 @@ const WorkShowcaseGrid1 = () => {
                         loop
                         muted
                         playsInline
+                        preload="metadata"
+                        poster={item.image}
                         key={item.video}
                       />
+                    ) : (
+                      <Image
+                        src={item.image}
+                        alt={item.title}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                      />
                     )}
+                    {/* --- END: FIX --- */}
 
-                    {/* --- START: FIX --- */}
                     <motion.div
                       className="absolute inset-0 flex flex-col items-center justify-center 
                                bg-black/0 group-hover:bg-black/15 
@@ -181,7 +195,6 @@ const WorkShowcaseGrid1 = () => {
                       initial="hidden"
                       whileHover="visible"
                     >
-                      {/* Text elements are now direct children of the flex container */}
                       <AnimatedText
                         as="h3"
                         text={item.title}
@@ -193,7 +206,6 @@ const WorkShowcaseGrid1 = () => {
                         className="text-gray-100 text-xl sm:text-xl font-semibold drop-shadow-md"
                       />
                     </motion.div>
-                    {/* --- END: FIX --- */}
                   </div>
                 </div>
               </motion.div>

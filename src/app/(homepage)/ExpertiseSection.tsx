@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import Link from "next/link";
 
 const banners = [
   {
@@ -69,6 +70,7 @@ type Props = {
 
 export function ScrollStickyCards({ className = "", banners }: Props) {
   const [activeIndex, setActiveIndex] = useState(0);
+  const sectionRef = useRef<HTMLElement>(null);
   const triggerRefs = useRef<Array<HTMLDivElement | null>>([]);
 
   const setTriggerRef = (index: number) => (el: HTMLDivElement | null) => {
@@ -133,7 +135,7 @@ export function ScrollStickyCards({ className = "", banners }: Props) {
   }, [banners, activeIndex]); // Added activeIndex to dependencies
 
   return (
-    <section className={`relative w-full ${className}`}>
+    <section ref={sectionRef} className={`relative w-full ${className}`}>
       {/* FULL SCREEN STICKY IMAGE */}
       <div className="sticky top-0 h-screen w-full z-0">
         <AnimatePresence>
@@ -159,10 +161,29 @@ export function ScrollStickyCards({ className = "", banners }: Props) {
             );
           })}
         </AnimatePresence>
+        
+        {/* Position the link inside the sticky container so it remains visible only during this section */}
+        <div className="absolute top-[85%] right-24 md:right-[15%] text-center z-20">
+          <Link href="/projects">
+            <p className="link-highlight link-highlight-purple relative inline-block text-[26px] font-medium text-white px-2">
+              Explore Our Expertise
+            </p>
+          </Link>
+        </div>
       </div>
 
       {/* TEXT BLOCKS */}
-      <div className="relative -mt-[65vh] z-10 max-w-[1400px] px-4 md:px-10 mx-auto overflow-hidden">
+      <div className="relative -mt-[85vh] z-10 max-w-[1500px] px-4 md:px-10 mx-auto overflow-hidden">
+        <motion.h1
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+          viewport={{ once: true }}
+          className="text-6xl font-medium text-white text-center"
+        >
+          Our Expertise
+        </motion.h1>
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="col-span-1">
             {banners.map((banner, idx) => {
@@ -174,7 +195,7 @@ export function ScrollStickyCards({ className = "", banners }: Props) {
                   data-index={idx}
                   ref={setTriggerRef(idx)}
                   className={cn(
-                    "flex items-center",
+                    "relative flex items-center",
                     idx != 0 ? "py-28 md:py-48" : "pb-28 md:pb-48"
                   )}
                 >
@@ -183,10 +204,10 @@ export function ScrollStickyCards({ className = "", banners }: Props) {
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, ease: "easeOut" }}
                     viewport={{ once: true }}
-                    className="max-w-7xl"
+                    className="max-w-8xl mt-[18rem]"
                   >
                     <h2
-                      className={`text-5xl md:text-6xl font-extrabold leading-tight mb-4 uppercase transition-all duration-500 ${
+                      className={`text-xl md:text-4xl font-extrabold leading-tight mb-4 transition-all duration-500 ${
                         isActive ? "text-white" : "text-white/20"
                       }`}
                     >
@@ -194,7 +215,7 @@ export function ScrollStickyCards({ className = "", banners }: Props) {
                     </h2>
                     {banner.subtitle && (
                       <p
-                        className={`text-lg font-bold uppercase transition-all duration-500 ${
+                        className={`text-xl font-bold transition-all duration-500 ${
                           isActive ? "text-white" : "text-white/20"
                         }`}
                       >
@@ -207,8 +228,8 @@ export function ScrollStickyCards({ className = "", banners }: Props) {
             })}
           </div>
 
-          {/* empty right column to maintain grid layout */}
-          <div className="col-span-1" />
+          {/* Right column for "Explore Our Expertise" */}
+          <div className="col-span-1 relative h-full"></div>
         </div>
       </div>
     </section>
