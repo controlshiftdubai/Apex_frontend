@@ -195,7 +195,7 @@ export function ScrollStickyCards({ className = "", banners }: Props) {
                   data-index={idx}
                   ref={setTriggerRef(idx)}
                   className={cn(
-                    "flex items-center",
+                    "relative flex items-center",
                     idx != 0 ? "py-28 md:py-48" : "pb-28 md:pb-48"
                   )}
                 >
@@ -204,10 +204,10 @@ export function ScrollStickyCards({ className = "", banners }: Props) {
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, ease: "easeOut" }}
                     viewport={{ once: true }}
-                    className="max-w-7xl"
+                    className="max-w-8xl mt-[18rem]"
                   >
                     <h2
-                      className={`text-5xl md:text-6xl font-extrabold leading-tight mb-4 uppercase transition-all duration-500 ${
+                      className={`text-xl md:text-5xl font-light leading-tight mb-4 transition-all duration-500 ${
                         isActive ? "text-white" : "text-white/20"
                       }`}
                     >
@@ -215,7 +215,7 @@ export function ScrollStickyCards({ className = "", banners }: Props) {
                     </h2>
                     {banner.subtitle && (
                       <p
-                        className={`text-lg font-bold uppercase transition-all duration-500 ${
+                        className={`text-2xl font-light transition-all duration-500 ${
                           isActive ? "text-white" : "text-white/20"
                         }`}
                       >
@@ -229,7 +229,7 @@ export function ScrollStickyCards({ className = "", banners }: Props) {
           </div>
 
           {/* Right column for "Explore Our Expertise" */}
-          <div className="col-span-1 relative h-full"></div>
+          <div className="col-span-1 "></div>
         </div>
       </div>
     </section>
