@@ -50,10 +50,11 @@ export default function Navbar() {
   }, []);
 
   const navLinks = [
-    { name: "Home", href: "/" },
-    { name: "About Us", href: "/a" },
-    { name: "Projects", href: "/b" },
-    { name: "Careers", href: "/c" },
+    { name: "Expertise", href: "/" },
+    { name: "Projects", href: "/a" },
+    { name: "Process", href: "/b" },
+    { name: "Impact", href: "/c" },
+    { name: "Studio", href: "/d" },
     { name: "Contact", href: "/d" },
   ];
   const colors = ["#fca5a5", "#93c5fd", "#86efac", "#c4b5fd", "#fdba74"];
@@ -70,9 +71,9 @@ export default function Navbar() {
                <Image
     src="/logo.png"
     alt="3d logo"
-    width={160}              // set intrinsic width
-    height={40}              // set intrinsic height (keeps aspect ratio)
-    className="h-10 w-auto"  // prevent stretch, respect aspect ratio
+    width={160}              
+    height={40}              
+    className="h-10 w-auto" 
     priority
     sizes="(max-width: 768px) 160px, 160px"
   />
