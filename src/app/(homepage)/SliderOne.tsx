@@ -33,7 +33,7 @@ const Banner = () => {
     transition={{ duration: 1.4, ease: "easeOut" }}
     className="absolute inset-0 w-full h-full object-cover hidden sm:block"
   >
-    <source src={desktopVideo} type="video/mp4" />
+    <source src="https://download-video-ak.vimeocdn.com/v3-1/playback/6ced432a-f0a7-42d3-8fb6-6edae4024e44/fabf5cc5-525244ae?__token__=st=1758177915~exp=1758181515~acl=%2Fv3-1%2Fplayback%2F6ced432a-f0a7-42d3-8fb6-6edae4024e44%2Ffabf5cc5-525244ae%2A~hmac=9fd83d77b37769cfe18977c8751b3bdf73c748e73540229b569a131863dfc605&r=dXMtY2VudHJhbDE%3D" type="video/mp4" />
   </motion.video>
 
   {/* Mobile Video */}
@@ -47,7 +47,7 @@ const Banner = () => {
     transition={{ duration: 1.4, ease: "easeOut" }}
     className="absolute inset-0 w-full h-full object-cover sm:hidden"
   >
-    <source src={mobileVideo} type="video/mp4" />
+    <source src="https://download-video-ak.vimeocdn.com/v3-1/playback/578f8768-8e6f-4a20-bfed-04161ba9970b/91e350b2-8d36a683?__token__=st=1758177884~exp=1758181484~acl=%2Fv3-1%2Fplayback%2F578f8768-8e6f-4a20-bfed-04161ba9970b%2F91e350b2-8d36a683%2A~hmac=88abb2ca9f6b0c56787cab89f5d2d69df537fdb967b04b2aac563d2f3ce4e3ef&r=dXMtd2VzdDE%3D" type="video/mp4" />
   </motion.video>
 
   {/* Gradient overlay */}
