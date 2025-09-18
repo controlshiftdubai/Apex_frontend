@@ -73,7 +73,7 @@ const StatsMobileShowcase = () => (
       {content.map((item, idx) => (
         <div
           key={idx}
-          className="relative flex flex-col gap-y-12 justify-start"
+          className="relative flex flex-col md:gap-y-12 gap-y-4 justify-start"
         >
           <AnimatePresence mode="wait">
             <motion.p
