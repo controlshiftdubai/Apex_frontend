@@ -184,8 +184,8 @@ export function ScrollStickyCards({ className = "", banners }: Props) {
           Our Expertise
         </motion.h1>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="col-span-1">
+      
+          <div className="max-w-3xl md:ml-20">
             {banners.map((banner, idx) => {
               const isActive = idx === activeIndex;
 
@@ -227,10 +227,7 @@ export function ScrollStickyCards({ className = "", banners }: Props) {
               );
             })}
           </div>
-
-          {/* Right column for "Explore Our Expertise" */}
-          <div className="col-span-1 "></div>
-        </div>
+       
       </div>
     </section>
   );
