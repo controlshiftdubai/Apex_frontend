@@ -68,7 +68,7 @@ const content = [
 ];
 
 const StatsMobileShowcase = () => (
-  <div className="p-4">
+  <div className="p-1">
     <div className="mt-12 space-y-24">
       {content.map((item, idx) => (
         <div
@@ -138,7 +138,7 @@ export default function WorkShowcaseStickyScroll() {
   return (
     <div className="bg-[#f6f3f1]">
       <section className="w-full py-20 md:py-20">
-        <h2 className="text-xl md:text-5xl mx-auto max-w-6xl font-medium  text-gray-900 mb-6 leading-tight text-center">
+        <h2 className="text-xl md:text-5xl mx-auto max-w-7xl font-medium  text-gray-900 mb-6 leading-tight text-center">
           Our Impact
         </h2>
 

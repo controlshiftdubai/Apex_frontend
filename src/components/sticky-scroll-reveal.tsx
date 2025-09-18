@@ -41,7 +41,7 @@ export const StickyScroll: FC<StickyScrollProps> = ({ showcaseContent }) => {
 
   return (
     <section className="relative w-full">
-      <div className="grid grid-cols-2 gap-50 max-w-6xl mx-auto">
+      <div className="grid grid-cols-2 gap-40 max-w-7xl mx-auto">
         {/* LEFT SIDE */}
         <div className="p-4">
           <div className="mt-12 space-y-16">
@@ -65,7 +65,7 @@ export const StickyScroll: FC<StickyScrollProps> = ({ showcaseContent }) => {
                   </AnimatePresence>
                 </div>
 
-                <div className="mt-4 max-w-sm space-y-2">
+                <div className="mt-8 max-w-xl space-y-5">
                   <AnimatePresence mode="wait">
                     <motion.p
                       initial={{ opacity: 0, y: 30 }}
