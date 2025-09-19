@@ -9,7 +9,7 @@ import React from "react";
 import AnimateOnViewOnce from "@/components/AnimateOnViewOnce";
 
 const WorkShowcaseGrid1 = () => {
-  const workData = [
+const workData = [
     // Row 1: Square, Rectangle, Square
     {
       id: 2,
@@ -51,6 +51,7 @@ const WorkShowcaseGrid1 = () => {
     {
       id: 6,
       title: "Emerge",
+
       image:
         "https://cdn.layerdesign.com/wp-content/uploads/2022/11/643-x-821px_0074_Calma-1.jpg.webp",
       category: "Bang & Olufsen",
