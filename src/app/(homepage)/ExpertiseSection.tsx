@@ -14,7 +14,7 @@ const banners = [
       "https://d33609liqwio9r.cloudfront.net/2025-09-18T10:38:40.984Z-step11%20-%20Edited.png",
     mobile:
       "https://d33609liqwio9r.cloudfront.net/2025-09-18T10:50:31.977Z-mv1%20-%20Edited.png",
-    title: "Product Innovation That Blends Design,",
+    title: "Product innovation that blends design, technology, and performance",
     subtitle: "Technology, And Performance",
     className: "object-[77%]",
   },
@@ -24,7 +24,7 @@ const banners = [
       "https://d33609liqwio9r.cloudfront.net/2025-09-18T10:40:25.124Z-step222%20-%20Edited.png",
     mobile:
       "https://d33609liqwio9r.cloudfront.net/2025-09-18T10:51:07.981Z-mv22%20-%20Edited.png",
-    title: "Smart Engineering. Unmatched",
+    title: "Smart engineering. Unmatched functionality. Unforgettable impact",
     subtitle: "Functionality. Unforgettable Impact",
     className: "",
   },
@@ -34,7 +34,7 @@ const banners = [
       "https://d33609liqwio9r.cloudfront.net/2025-09-18T10:41:27.779Z-step33%20-%20Edited.png",
     mobile:
       "https://d33609liqwio9r.cloudfront.net/2025-09-18T10:51:44.667Z-mv3%20-%20Edited.png",
-    title: "We Craft Brand Identities That",
+    title: "We craft brand identities that stand out, resonate, and last",
     subtitle: "Stand Out, Resonate, And Last",
     className: "object-[90%]",
   },
@@ -44,7 +44,7 @@ const banners = [
       "https://d33609liqwio9r.cloudfront.net/2025-09-18T10:42:03.398Z-step55%20-%20Edited.png",
     mobile:
       "https://mypubblicbucket.s3.ap-south-1.amazonaws.com/2025-09-15T15%3A15%3A31.611Z-Group%2041.png",
-    title: "We Craft Immersive Environments Where",
+    title: "We craft immersive environments where design, technology, and emotion collide",
     subtitle: "Design, Technology, And Emotion Collide",
     className: "",
   },
@@ -188,7 +188,7 @@ export function ScrollStickyCards({ className = "", banners }: Props) {
           viewport={{ once: true }}
           className="text-6xl font-medium text-white text-center"
         >
-          Our Expertise
+          Explore Our Expertise
         </motion.h1>
 
         <div className="max-w-3xl md:ml-24">

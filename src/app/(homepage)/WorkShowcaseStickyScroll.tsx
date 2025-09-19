@@ -36,7 +36,7 @@ const content = [
     ),
   },
   {
-    title: "Expanding Media Recognition",
+    title: "Multiple Patents & IPs Secured",
     description:
       "We create groundbreaking products that set new standards — and our work is already attracting global recognition.",
     subtitle: "Discover our achievements",
@@ -51,7 +51,7 @@ const content = [
     ),
   },
   {
-    title: "350+ Media Features",
+    title: "Expanding Media Recognition",
     description:
       "Our work captures global media attention, ensuring every creation gets the spotlight it deserves.",
     subtitle: "Read our press features",

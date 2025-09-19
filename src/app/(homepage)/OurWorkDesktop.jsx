@@ -132,7 +132,7 @@ const WorkShowcaseGrid1 = () => {
             viewport={{ once: true }}
             className=" leading-tight max-w-4xl mx-auto sm:text-lg text-xl md:text-5xl font-medium text-gray-900 mb-4 sm:mb-6"
           >
-            Partnering To Create Smart Spaces & Custom Products
+            Designing products that demand attention
           </motion.h2>
 
           <motion.p

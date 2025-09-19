@@ -19,7 +19,7 @@ export default function Footer() {
             delayMultiple={0.01}
             containerClassName="space-y-0 gap-y-0 leading-9 md:leading-14"
           >
-            Together, we can change the world through design.
+            Together, we can shape the future with powerful creations.
           </FlipText>
         </motion.div>
 
