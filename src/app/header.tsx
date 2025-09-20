@@ -88,7 +88,7 @@ function InlineSearch({
         value={q}
         onChange={(e) => setQ(e.target.value)}
         placeholder="Search"
-        className="rounded-full ring w-full font-light ltr:ps-9 rtl:pe-9 py-1 ring-gray-300 focus:ring-2 focus:ring-[rgb(150,150,180)] transition-all outline-none"
+        className="rounded-full ring-1 ring-gray-300 focus:ring-2 focus:ring-[rgb(150,150,180)] w-full font-light ltr:ps-9 rtl:pe-9 py-1 transition-all outline-none"
       />
       <SearchIcon className="pointer-events-none size-4 absolute left-3 top-1/2 -translate-y-1/2" />
     </form>
@@ -108,14 +108,14 @@ function LangToggle({
   const colors = { en: "#fbbf24", ar: "#a7f3d0" };
 
   return (
-    <div 
+    <div
       className="relative"
       onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={() => setIsOpen(false)}
     >
       <button
         type="button"
-        className="flex items-center gap-1 px-2 py-1 text-[13px] uppercase tracking-wide transition-colors duration-200 cursor-pointer hover:text-gray-7200"
+        className="flex items-center gap-1 px-2 py-1 text-[13px] uppercase tracking-wide transition-colors duration-200 cursor-pointer hover:text-gray-700"
         aria-expanded={isOpen}
         aria-haspopup="true"
       >
@@ -339,48 +339,38 @@ export default function Navbar() {
                 </div>
               </div>
             </div>
+          </div>
 
-            {/* Mobile row */}
-            <div className="md:hidden flex items-center h-full">
-              <Link
-                href="/"
-                className="rounded-md block shrink-0 cursor-pointer"
+          {/* Mobile row */}
+          <div className="flex md:hidden items-center h-full">
+            <Link href="/" className="rounded-md block shrink-0 cursor-pointer">
+              <Image
+                src="/logo.png"
+                alt="logo"
+                width={140}
+                height={34}
+                sizes="140px"
+                className="block h-9 w-auto"
+                priority
+              />
+            </Link>
+
+            <div className="ml-auto flex items-center gap-1">
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setOpenMenuMobile((v) => !v)}
+                className="h-10 w-10 hover:bg-gray-100 cursor-pointer"
+                aria-label={openMenuMobile ? "Close menu" : "Open menu"}
+                aria-controls="mobile-drawer"
+                aria-expanded={openMenuMobile}
               >
-                <Image
-                  src="/logo.png"
-                  alt="logo"
-                  width={140}
-                  height={34}
-                  sizes="140px"
-                  className="block h-9 w-auto"
-                  priority
-                />
-              </Link>
-
-              <div className="ml-auto flex items-center gap-1">
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => router.push("/search")}
-                  className="h-10 w-10 hover:bg-gray-100 cursor-pointer"
-                  aria-label="Search"
-                >
-                  <SearchIcon className="h-5 w-5" />
-                </Button>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => setOpenMenuMobile((v) => !v)}
-                  className="h-10 w-10 hover:bg-gray-100 cursor-pointer"
-                  aria-label={openMenuMobile ? "Close menu" : "Open menu"}
-                >
-                  {openMenuMobile ? (
-                    <CrossIcon className="!h-7 !w-7" />
-                  ) : (
-                    <MenuIcon className="!h-7 !w-7" />
-                  )}
-                </Button>
-              </div>
+                {openMenuMobile ? (
+                  <CrossIcon className="!h-7 !w-7" />
+                ) : (
+                  <MenuIcon className="!h-7 !w-7" />
+                )}
+              </Button>
             </div>
           </div>
         </div>
@@ -397,6 +387,7 @@ export default function Navbar() {
           { name: "Shop", href: "/" },
           { name: "Contact", href: "/" },
         ]}
+        id="mobile-drawer"
       />
     </>
   );
