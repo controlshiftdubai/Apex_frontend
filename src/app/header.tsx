@@ -50,11 +50,11 @@ export default function Navbar() {
   }, []);
 
   const navLinks = [
-    { name: "Expertise", href: "/" },
-    { name: "Projects", href: "/a" },
-    { name: "Process", href: "/b" },
-    { name: "Impact", href: "/c" },
-    { name: "Studio", href: "/d" },
+    { name: "Hub", href: "/" },
+    { name: "Studio", href: "/a" },
+    { name: "Projects", href: "/b" },
+    { name: "Innovation", href: "/c" },
+    { name: "Shop", href: "/d" },
     { name: "Contact", href: "/d" },
   ];
   const colors = ["#fca5a5", "#93c5fd", "#86efac", "#c4b5fd", "#fdba74"];
