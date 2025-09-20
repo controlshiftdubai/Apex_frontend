@@ -57,7 +57,9 @@ export default function Navbar() {
     { name: "Shop", href: "/d" },
     { name: "Contact", href: "/d" },
   ];
-  const colors = ["#fca5a5", "#93c5fd", "#86efac", "#c4b5fd", "#fdba74"];
+  // const colors = ["#fca5a5", "#93c5fd", "#86efac", "#c4b5fd", "#fdba74"];
+    // const colors = ["#e0f2fe", "#fef9c3", "#fce7f3", "#d9f99d", "#fecdd3"];
+    const colors = ["#fbbf24", "#a7f3d0", "#bfdbfe", "#c7d2fe", "#fca5a5"];
 
   return (
     <>
