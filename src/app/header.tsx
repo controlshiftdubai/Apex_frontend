@@ -82,13 +82,13 @@ function InlineSearch({
       onSubmit={submit}
       role="search"
       aria-label="Site search"
-      className="min-w-[320px] w-full max-w-[350px] xl:max-w-sm 2xl:max-w-md relative"
+      className="min-w-[250px] w-full max-w-[300px] xl:max-w-sm 2xl:max-w-md relative"
     >
       <input
         value={q}
         onChange={(e) => setQ(e.target.value)}
         placeholder="Search"
-        className="rounded-full ring w-full font-light ps-9 py-1 ring-gray-300 focus:ring-2 focus:ring-[rgb(150,150,180)] transition-all outline-none"
+        className="rounded-full ring w-full font-light ltr:ps-9 rtl:pe-9 py-1 ring-gray-300 focus:ring-2 focus:ring-[rgb(150,150,180)] transition-all outline-none"
       />
       <SearchIcon className="pointer-events-none size-4 absolute left-3 top-1/2 -translate-y-1/2" />
     </form>
@@ -103,58 +103,57 @@ function LangToggle({
   value: "en" | "ar";
   onChange: (v: "en" | "ar") => void;
 }) {
+  const [isOpen, setIsOpen] = useState(false);
   const isEN = value === "en";
   const colors = { en: "#fbbf24", ar: "#a7f3d0" };
 
   return (
-    <div className="flex items-center select-none gap-1">
+    <div 
+      className="relative"
+      onMouseEnter={() => setIsOpen(true)}
+      onMouseLeave={() => setIsOpen(false)}
+    >
       <button
         type="button"
-        onClick={() => onChange("en")}
-        className="group relative px-2 text-[13px] uppercase tracking-wide transition-colors duration-200 cursor-pointer"
-        style={{ ["--underline-color" as any]: colors.en }}
-        aria-pressed={isEN}
+        className="flex items-center gap-1 px-2 py-1 text-[13px] uppercase tracking-wide transition-colors duration-200 cursor-pointer hover:text-gray-7200"
+        aria-expanded={isOpen}
+        aria-haspopup="true"
       >
-        <span
-          className={
-            isEN
-              ? "text-gray-700 font-semibold"
-              : "text-gray-500 hover:text-gray-700"
-          }
+        <span className="">{value.toUpperCase()}</span>
+        <svg
+          className={cn("h-3 w-3 transition-transform duration-200", isOpen && "rotate-180")}
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
         >
-          EN
-        </span>
-        <span
-          className="pointer-events-none absolute left-1/2 -translate-x-1/2 -bottom-0.5 h-0.5 w-3 origin-left scale-x-0 group-hover:scale-x-100 group-focus-visible:scale-x-100 transition-transform duration-200 motion-reduce:transition-none"
-          style={{ background: "var(--underline-color)" }}
-          aria-hidden="true"
-        />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        </svg>
       </button>
 
-      <span className="text-gray-300">|</span>
-
-      <button
-        type="button"
-        onClick={() => onChange("ar")}
-        className="group relative px-2 text-[13px] uppercase tracking-wide transition-colors duration-200 cursor-pointer"
-        style={{ ["--underline-color" as any]: colors.ar }}
-        aria-pressed={!isEN}
-      >
-        <span
-          className={
-            !isEN
-              ? "text-gray-900 font-semibold"
-              : "text-gray-500 hover:text-gray-700"
-          }
-        >
-          AR
-        </span>
-        <span
-          className="pointer-events-none absolute left-1/2 -translate-x-1/2 -bottom-0.5 h-0.5 w-3 origin-left scale-x-0 group-hover:scale-x-100 group-focus-visible:scale-x-100 transition-transform duration-200 motion-reduce:transition-none"
-          style={{ background: "var(--underline-color)" }}
-          aria-hidden="true"
-        />
-      </button>
+      {isOpen && (
+        <div className="absolute top-full left-0 -mt-1 bg-white border border-gray-200 rounded-md overflow-hidden shadow-lg z-50">
+          <button
+            type="button"
+            onClick={() => onChange("en")}
+            className="group relative w-full text-left text-[13px] uppercase tracking-wide transition-colors duration-200 cursor-pointer hover:bg-gray-200 px-4 py-2"
+            style={{ ["--underline-color" as any]: colors.en }}
+          >
+            <span className={isEN ? "text-gray-900 font-semibold" : "text-gray-600"}>
+              EN
+            </span>
+          </button>
+          <button
+            type="button"
+            onClick={() => onChange("ar")}
+            className="group relative w-full text-left text-[13px] uppercase tracking-wide transition-colors duration-200 cursor-pointer hover:bg-gray-200 px-4 py-2"
+            style={{ ["--underline-color" as any]: colors.ar }}
+          >
+            <span className={!isEN ? "text-gray-900 font-semibold" : "text-gray-600"}>
+              AR
+            </span>
+          </button>
+        </div>
+      )}
     </div>
   );
 }
@@ -188,10 +187,6 @@ export default function Navbar() {
     if (typeof window !== "undefined") {
       localStorage.setItem("lang", lang);
       document.documentElement.setAttribute("lang", lang);
-      document.documentElement.setAttribute(
-        "dir",
-        lang === "ar" ? "rtl" : "ltr"
-      );
     }
   }, [lang]);
 
@@ -233,7 +228,7 @@ export default function Navbar() {
                 width={156}
                 height={42}
                 sizes="(max-width: 1024px) 140px, 156px"
-                className="block h-12 w-auto"
+                className="block h-14 w-auto"
                 priority
               />
             </Link>
