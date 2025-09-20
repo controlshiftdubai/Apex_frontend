@@ -207,7 +207,7 @@ export default function Navbar() {
           {/* Desktop row */}
           <div className="hidden md:flex items-center h-full">
             {/* Logo — make it block so Safari doesn't add baseline gap; add sizes to prevent CLS */}
-            <Link href="/" className="rounded-md block mr-6 shrink-0">
+            <Link href="/" className="rounded-md block mr-10 shrink-0">
               <Image
                 src="/logo.png"
                 alt="logo"
