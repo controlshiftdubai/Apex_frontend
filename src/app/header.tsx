@@ -47,7 +47,11 @@ const SearchIcon = ({ className }: { className?: string }) => (
     className={className ?? "h-4 w-4"}
     aria-hidden="true"
   >
-    <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-4.35-4.35m1.1-4.4a7.75 7.75 0 1 1-15.5 0 7.75 7.75 0 0 1 15.5 0Z" />
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="m21 21-4.35-4.35m1.1-4.4a7.75 7.75 0 1 1-15.5 0 7.75 7.75 0 0 1 15.5 0Z"
+    />
   </svg>
 );
 
@@ -189,6 +193,45 @@ function Badge({ count }: { count?: number }) {
   );
 }
 
+/* ---------- Uniform action icon button (mobile + desktop) ---------- */
+function ActionIconButton({
+  onClick,
+  label,
+  iconSrc,
+  count,
+  underlineColor,
+  className,
+}: {
+  onClick: () => void;
+  label: string;
+  iconSrc: string;
+  count?: number;
+  underlineColor?: string;
+  className?: string;
+}) {
+  return (
+    <Button
+      variant="ghost"
+      size="icon"
+      onClick={onClick}
+      aria-label={label}
+      className={cn(
+        "group relative h-11 w-11 rounded-full hover:bg-gray-100 cursor-pointer", // 44px+ tap target
+        className
+      )}
+      style={{ ["--underline-color" as any]: underlineColor ?? "#a7f3d0" }}
+    >
+      <Image src={iconSrc} alt="" width={20} height={20} sizes="20px" className="block h-5 w-5" priority />
+      <Badge count={count} />
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute left-2 right-2 bottom-1 h-0.5 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-200"
+        style={{ background: "var(--underline-color)" }}
+      />
+    </Button>
+  );
+}
+
 export default function Navbar() {
   const [openMenuMobile, setOpenMenuMobile] = useState(false);
   const [lang, setLang] = useState<"en" | "ar">("en");
@@ -196,9 +239,7 @@ export default function Navbar() {
 
   useEffect(() => {
     const saved =
-      typeof window !== "undefined"
-        ? (localStorage.getItem("lang") as "en" | "ar" | null)
-        : null;
+      typeof window !== "undefined" ? (localStorage.getItem("lang") as "en" | "ar" | null) : null;
     if (saved === "en" || saved === "ar") setLang(saved);
   }, []);
 
@@ -258,115 +299,107 @@ export default function Navbar() {
                 ))}
               </nav>
 
-              {/* Search + Language */}
-              <div className="flex-1 flex items-center mx-auto gap-2 ">
+              {/* Search + Language + Actions */}
+              <div className="flex-1 flex items-center mx-auto gap-2">
                 <InlineSearch onSubmit={handleSearchSubmit} underlineColor={colors[2]} />
                 <LangDropdown value={lang} onChange={setLang} />
 
-                {/* Actions */}
-                <div className="grid grid-cols-3 gap-3 shrink-0">
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="group relative h-9 w-9 cursor-pointer rounded-full hover:bg-gray-100"
-                    style={{ ["--underline-color" as any]: actionColors[0] }}
+                {/* Actions (desktop) — normalized to same size */}
+                <div className="flex items-center gap-2 shrink-0">
+                  <ActionIconButton
                     onClick={() => router.push("/wishlist")}
-                    aria-label="Wishlist"
-                  >
-                    <Image src="/icons/wishlist.svg" alt="" width={22} height={22} sizes="22px" className="block h-[22px] w-[22px]" priority />
-                    <Badge count={0} />
-                    <span
-                      className="pointer-events-none absolute left-2 right-2 bottom-1 h-0.5 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-200"
-                      style={{ background: "var(--underline-color)" }}
-                      aria-hidden="true"
-                    />
-                  </Button>
-
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="group relative h-9 w-9 cursor-pointer rounded-full hover:bg-gray-100"
-                    style={{ ["--underline-color" as any]: actionColors[1] }}
+                    label="Wishlist"
+                    iconSrc="/icons/wishlist.svg"
+                    count={0}
+                    underlineColor={actionColors[0]}
+                  />
+                  <ActionIconButton
                     onClick={() => router.push("/cart")}
-                    aria-label="Cart"
-                  >
-                    <Image src="/icons/cart.svg" alt="" width={22} height={22} sizes="22px" className="block h-[22px] w-[22px]" priority />
-                    <Badge count={0} />
-                    <span
-                      className="pointer-events-none absolute left-2 right-2 bottom-1 h-0.5 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-200"
-                      style={{ background: "var(--underline-color)" }}
-                      aria-hidden="true"
-                    />
-                  </Button>
-
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="group relative h-9 w-9 cursor-pointer rounded-full hover:bg-gray-100"
-                    style={{ ["--underline-color" as any]: actionColors[2] }}
+                    label="Cart"
+                    iconSrc="/icons/cart.svg"
+                    count={0}
+                    underlineColor={actionColors[1]}
+                  />
+                  <ActionIconButton
                     onClick={() => router.push("/account")}
-                    aria-label="Profile"
-                  >
-                    <Image src="/icons/profile.svg" alt="" width={22} height={22} sizes="22px" className="block h-[22px] w-[22px]" priority />
-                    <span
-                      className="pointer-events-none absolute left-2 right-2 bottom-1 h-0.5 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-200"
-                      style={{ background: "var(--underline-color)" }}
-                      aria-hidden="true"
-                    />
-                  </Button>
+                    label="Profile"
+                    iconSrc="/icons/profile.svg"
+                    underlineColor={actionColors[2]}
+                  />
                 </div>
               </div>
             </div>
           </div>
 
+          {/* Mobile header row */}
+          <div className="flex md:hidden items-center h-full px-3">
+            {/* Left: logo */}
+            <Link href="/" className="rounded-md block shrink-0 cursor-pointer">
+              <Image
+                src="/logo.png"
+                alt="logo"
+                width={140}
+                height={34}
+                sizes="140px"
+                className="block h-9 w-auto"
+                priority
+              />
+            </Link>
 
-<div className="flex md:hidden items-center h-full px-3">
-  {/* Left: logo */}
-  <Link href="/" className="rounded-md block shrink-0 cursor-pointer">
-    <Image
-      src="/logo.png"
-      alt="logo"
-      width={140}
-      height={34}
-      sizes="140px"
-      className="block h-9 w-auto"
-      priority
-    />
-  </Link>
+            {/* Right cluster: EN | Actions | Search | Menu */}
+            <div className="ml-auto flex items-center gap-1.5">
+              {/* Language */}
+              <LangDropdown value={lang} onChange={setLang} />
 
-  {/* Right: EN | Search | Menu */}
-  <div className="ml-auto flex items-center gap-2">
-    {/* EN dropdown trigger */}
-    <LangDropdown value={lang} onChange={setLang} />
+              {/* 3 equal action buttons */}
+              <div className="flex items-center gap-1.5">
+                <ActionIconButton
+                  onClick={() => router.push("/wishlist")}
+                  label="Wishlist"
+                  iconSrc="/icons/wishlist.svg"
+                  count={0} // set your real count here
+                  underlineColor="#a7f3d0"
+                />
+                <ActionIconButton
+                  onClick={() => router.push("/cart")}
+                  label="Cart"
+                  iconSrc="/icons/cart.svg"
+                  count={0} // set your real count here
+                  underlineColor="#fca5a5"
+                />
+                <ActionIconButton
+                  onClick={() => router.push("/account")}
+                  label="Profile"
+                  iconSrc="/icons/profile.svg"
+                  underlineColor="#bfdbfe"
+                />
+              </div>
 
+              {/* Search (normalized to same size) */}
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => router.push("/search")}
+                className="h-11 w-11 rounded-full hover:bg-gray-100 cursor-pointer"
+                aria-label="Search"
+              >
+                <SearchIcon className="h-5 w-5" />
+              </Button>
 
-
-    {/* Search icon */}
-    <Button
-      variant="ghost"
-      size="icon"
-      onClick={() => router.push("/")}
-      className="h-10 w-10 hover:bg-gray-100 cursor-pointer"
-      aria-label="Search"
-    >
-      <SearchIcon className="h-[18px] w-[18px]" />
-    </Button>
-
-    {/* Menu (hamburger) */}
-    <Button
-      variant="ghost"
-      size="icon"
-      onClick={() => setOpenMenuMobile((v) => !v)}
-      className="h-10 w-10 hover:bg-gray-100 cursor-pointer"
-      aria-label={openMenuMobile ? "Close menu" : "Open menu"}
-      aria-controls="mobile-drawer"
-      aria-expanded={openMenuMobile}
-    >
-      {openMenuMobile ? <CrossIcon className="!h-6 !w-6" /> : <MenuIcon className="!h-6 !w-6" />}
-    </Button>
-  </div>
-</div>
-
+              {/* Menu (same size, toggles icon) */}
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setOpenMenuMobile((v) => !v)}
+                className="h-11 w-11 rounded-full hover:bg-gray-100 cursor-pointer"
+                aria-label={openMenuMobile ? "Close menu" : "Open menu"}
+                aria-controls="mobile-drawer"
+                aria-expanded={openMenuMobile}
+              >
+                {openMenuMobile ? <CrossIcon className="!h-5 !w-5" /> : <MenuIcon className="!h-5 !w-5" />}
+              </Button>
+            </div>
+          </div>
         </div>
       </header>
 
