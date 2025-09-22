@@ -89,7 +89,7 @@ export default function MobileNavbar({
     >
       {/* Left: logo */}
       <Link href="/" className="rounded-md block shrink-0 mr-2">
-        <Image src="/logo.png" alt="logo" width={128} height={30} sizes="128px" className="block h-12 w-auto" priority />
+        <Image src="/logo.png" alt="logo" width={128} height={30} sizes="128px" className="block h-11 w-auto" priority />
       </Link>
 
       {/* Right: EN |  Search  Menu */}
