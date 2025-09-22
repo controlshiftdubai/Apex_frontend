@@ -42,8 +42,8 @@ function LangSquare({
       aria-label="Change language"
       className={cn(
         "inline-flex items-center justify-center ",
-        "text-[15px] font-semibold text-gray-700",
-        "h-10 w-10 hover:bg-gray-50",
+        "text-[17px] font-semibold text-gray-700",
+        "h-12 w-12 hover:bg-gray-50",
         className
       )}
     >
