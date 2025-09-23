@@ -173,7 +173,7 @@ export default function DesktopNavbar({
   const navLinks = [
     { name: "Hub", href: "/" },
     { name: "Studio", href: "/" },
-    { name: "Projects", href: "/" },
+    { name: "Projects", href: "/projects" },
     { name: "Innovation", href: "/" },
     { name: "Shop", href: "/" },
     { name: "Contact", href: "/" },

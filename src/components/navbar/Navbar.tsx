@@ -11,7 +11,10 @@ export default function Navbar() {
   const [lang, setLang] = React.useState<"en" | "ar">("en");
 
   React.useEffect(() => {
-    const saved = typeof window !== "undefined" ? (localStorage.getItem("lang") as "en" | "ar" | null) : null;
+    const saved =
+      typeof window !== "undefined"
+        ? (localStorage.getItem("lang") as "en" | "ar" | null)
+        : null;
     if (saved === "en" || saved === "ar") setLang(saved);
   }, []);
 
@@ -19,14 +22,17 @@ export default function Navbar() {
     if (typeof window !== "undefined") {
       localStorage.setItem("lang", lang);
       document.documentElement.setAttribute("lang", lang);
-      document.documentElement.setAttribute("dir", lang === "ar" ? "rtl" : "ltr");
+      document.documentElement.setAttribute(
+        "dir",
+        lang === "ar" ? "rtl" : "ltr"
+      );
     }
   }, [lang]);
 
   const navLinks = [
     { name: "Hub", href: "/" },
     { name: "Studio", href: "/" },
-    { name: "Projects", href: "/" },
+    { name: "Projects", href: "/projects" },
     { name: "Innovation", href: "/" },
     { name: "Shop", href: "/" },
     { name: "Contact", href: "/" },
