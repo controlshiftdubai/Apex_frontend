@@ -9,11 +9,11 @@ export type Project = {
 };
 
 // ---- Nike ----
-export const nikeProjects: Project[] = [
+export const productProjects: Project[] = [
   {
     id: 7,
-    title: "Go",
-    subTitle: "Go",
+    title: "Stax",
+    subTitle: "Ledger",
     video:
       "https://cdn.layerdesign.com/wp-content/uploads/2022/12/LEDGER_PORTRAIT.mp4",
     image: "/fallbacks/go.jpg",
@@ -21,11 +21,11 @@ export const nikeProjects: Project[] = [
 ];
 
 // ---- Lara (example: Resonate / Light Vision) ----
-export const laraProjects: Project[] = [
+export const brandProjects: Project[] = [
   {
     id: 1,
-    title: "Light Vision",
-    subTitle: "Light Vision",
+    title: "Balance",
+    subTitle: "Bang & Olufsen",
     video:
       "https://cdn.layerdesign.com/wp-content/uploads/2022/08/BALANCE_Portrait.mp4",
     image: "/fallbacks/light-vision.jpg",
@@ -33,18 +33,18 @@ export const laraProjects: Project[] = [
 ];
 
 // ---- Viture ----
-export const vitureProjects: Project[] = [
+export const digitalProjects: Project[] = [
   {
     id: 2,
-    title: "Speaker System",
-    subTitle: "Speaker System",
+    title: "Lightvision",
+    subTitle: "Resonate",
     image:
       "https://cdn.layerdesign.com/wp-content/uploads/2022/08/NNEW-Resizing-1331-x-821px.jpg.webp",
   },
   {
     id: 3,
-    title: "Halo Bike",
-    subTitle: "Halo Bike",
+    title: "Viture One",
+    subTitle: "Viture",
     video:
       "https://cdn.layerdesign.com/wp-content/uploads/2022/08/VITURE_PORTRAIT.mp4",
     image: "/fallbacks/halo-bike.jpg",
@@ -52,81 +52,45 @@ export const vitureProjects: Project[] = [
 ];
 
 // ---- Andreau World ----
-export const andreauWorldProjects: Project[] = [
+export const furnitureProjects: Project[] = [
   {
     id: 4,
-    title: "Calma",
-    subTitle: "Calma",
+    title: "HoloBike",
+    subTitle: "SAGA",
     video: "https://cdn.layerdesign.com/wp-content/uploads/2023/01/SAGA.mp4",
     image: "/fallbacks/calma.jpg",
   },
 ];
 
 // ---- Bang & Olufsen ----
-export const bangOlufsenProjects: Project[] = [
+export const spaceProjects: Project[] = [
   {
     id: 5,
-    title: "Emerge",
-    subTitle: "Emerge",
+    title: "Calma",
+    subTitle: "Andreu World",
     image:
       "https://cdn.layerdesign.com/wp-content/uploads/2022/11/643-x-821px_0074_Calma-1.jpg.webp",
   },
 ];
 
-// ---- Ledger ----
-export const ledgerProjects: Project[] = [
-  {
-    id: 6,
-    title: "Ledger",
-    subTitle: "Ledger",
-    video:
-      "https://cdn.layerdesign.com/wp-content/uploads/2022/08/EMERGE_PORTRAIT-1.mp4",
-    image: "/fallbacks/ledger.jpg",
-  },
-];
 
-// ---- Deutsche Telekom ----
-export const deutscheTelekomProjects: Project[] = [
-  {
-    id: 8,
-    title: "Connectivity",
-    subTitle: "Connectivity",
-    video:
-      "https://cdn.layerdesign.com/wp-content/uploads/2022/08/GO_PORTRAIT.mp4",
-    image: "/fallbacks/connectivity.jpg",
-  },
-  {
-    id: 9,
-    title: "Connectivity 2",
-    subTitle: "Connectivity 2",
-    image:
-      "https://cdn.layerdesign.com/wp-content/uploads/2022/08/DT-FEATURED.jpg.webp",
-  },
-];
 
 // ---- Collect all ----
 export const allProjects: Project[] = [
-  ...nikeProjects,
-  ...laraProjects,
-  ...vitureProjects,
-  ...andreauWorldProjects,
-  ...bangOlufsenProjects,
-  ...ledgerProjects,
-  ...deutscheTelekomProjects,
+  ...productProjects,
+  ...brandProjects,
+  ...digitalProjects,
+  ...furnitureProjects,
+  ...spaceProjects,
+
 ];
 
 // ---- Tabs ----
 export const tabs = [
   { key: "all", label: "All", data: allProjects },
-  { key: "nike", label: "Nike", data: nikeProjects },
-  { key: "lara", label: "Lara", data: laraProjects },
-  { key: "viture", label: "Viture", data: vitureProjects },
-  { key: "andreauWorld", label: "Andreau World", data: andreauWorldProjects },
-  { key: "bangOlufsen", label: "Bang & Olufsen", data: bangOlufsenProjects },
-  { key: "ledger", label: "Ledger", data: ledgerProjects },
-  {
-    key: "deutscheTelekom",
-    label: "Deutsche Telekom",
-    data: deutscheTelekomProjects,
-  },
+  { key: "product", label: "Product", data: productProjects },
+  { key: "brand", label: "Brand", data: brandProjects },
+  { key: "digital", label: "Digital", data: digitalProjects },
+  { key: "furniture", label: "Furniture", data: furnitureProjects },
+  { key: "space", label: "Space", data: spaceProjects },
 ];
