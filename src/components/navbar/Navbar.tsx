@@ -30,19 +30,19 @@ export default function Navbar() {
   }, [lang]);
 
   const navLinks = [
-    { name: "Hub", href: "/" },
+    { name: "Hub", href: "/hub" },
     { name: "Studio", href: "/studio" },
     { name: "Projects", href: "/projects" },
-    { name: "Innovation", href: "/" },
-    { name: "Shop", href: "/" },
-    { name: "Contact", href: "/" },
+    { name: "Innovation", href: "#" },
+    { name: "Shop", href: "#" },
+    { name: "Contact", href: "#" },
   ];
 
   return (
     <>
       <header className="sticky top-0 z-40 bg-white backdrop-blur border-b border-gray-100">
         <div className="mx-auto h-[72px] md:h-[84px] px-3 sm:px-4 lg:px-6">
-          <DesktopNavbar />
+          <DesktopNavbar navLinks={navLinks} />
           <MobileNavbar
             lang={lang}
             setLang={setLang}

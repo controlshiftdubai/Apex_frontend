@@ -185,7 +185,11 @@ function Badge({ count }: { count?: number }) {
   );
 }
 
-export default function Navbar() {
+export default function Navbar({
+  navLinks,
+}: {
+  navLinks: { name: string; href: string }[];
+}) {
   const [openMenuMobile, setOpenMenuMobile] = useState(false);
   const [lang, setLang] = useState<"en" | "ar">("en");
   const router = useRouter();
@@ -203,15 +207,6 @@ export default function Navbar() {
       document.documentElement.setAttribute("lang", lang);
     }
   }, [lang]);
-
-  const navLinks = [
-    { name: "Hub", href: "/" },
-    { name: "Studio", href: "/studio" },
-    { name: "Projects", href: "/projects" },
-    { name: "Innovation", href: "/" },
-    { name: "Shop", href: "/" },
-    { name: "Contact", href: "/" },
-  ];
 
   const colors = [
     "#fbbf24",

@@ -34,7 +34,7 @@ export default function ParallaxImage({
     <div
       ref={ref}
       className={cn(
-        "group relative aspect-[3/2] overflow-hidden md:aspect-[3/1] -top-8 sm:-top-4",
+        "group relative aspect-[3/2] overflow-hidden md:aspect-[3/1]",
         className,
       )}
     >
