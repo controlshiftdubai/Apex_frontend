@@ -3,6 +3,7 @@
 export type Project = {
   id: number;
   title: string;
+  subTitle: string;
   video?: string;
   image: string;
 };
@@ -12,6 +13,7 @@ export const nikeProjects: Project[] = [
   {
     id: 7,
     title: "Go",
+    subTitle: "Go",
     video:
       "https://cdn.layerdesign.com/wp-content/uploads/2022/12/LEDGER_PORTRAIT.mp4",
     image: "/fallbacks/go.jpg",
@@ -23,6 +25,7 @@ export const laraProjects: Project[] = [
   {
     id: 1,
     title: "Light Vision",
+    subTitle: "Light Vision",
     video:
       "https://cdn.layerdesign.com/wp-content/uploads/2022/08/BALANCE_Portrait.mp4",
     image: "/fallbacks/light-vision.jpg",
@@ -34,12 +37,14 @@ export const vitureProjects: Project[] = [
   {
     id: 2,
     title: "Speaker System",
+    subTitle: "Speaker System",
     image:
       "https://cdn.layerdesign.com/wp-content/uploads/2022/08/NNEW-Resizing-1331-x-821px.jpg.webp",
   },
   {
     id: 3,
     title: "Halo Bike",
+    subTitle: "Halo Bike",
     video:
       "https://cdn.layerdesign.com/wp-content/uploads/2022/08/VITURE_PORTRAIT.mp4",
     image: "/fallbacks/halo-bike.jpg",
@@ -51,6 +56,7 @@ export const andreauWorldProjects: Project[] = [
   {
     id: 4,
     title: "Calma",
+    subTitle: "Calma",
     video: "https://cdn.layerdesign.com/wp-content/uploads/2023/01/SAGA.mp4",
     image: "/fallbacks/calma.jpg",
   },
@@ -61,6 +67,7 @@ export const bangOlufsenProjects: Project[] = [
   {
     id: 5,
     title: "Emerge",
+    subTitle: "Emerge",
     image:
       "https://cdn.layerdesign.com/wp-content/uploads/2022/11/643-x-821px_0074_Calma-1.jpg.webp",
   },
@@ -71,6 +78,7 @@ export const ledgerProjects: Project[] = [
   {
     id: 6,
     title: "Ledger",
+    subTitle: "Ledger",
     video:
       "https://cdn.layerdesign.com/wp-content/uploads/2022/08/EMERGE_PORTRAIT-1.mp4",
     image: "/fallbacks/ledger.jpg",
@@ -82,6 +90,7 @@ export const deutscheTelekomProjects: Project[] = [
   {
     id: 8,
     title: "Connectivity",
+    subTitle: "Connectivity",
     video:
       "https://cdn.layerdesign.com/wp-content/uploads/2022/08/GO_PORTRAIT.mp4",
     image: "/fallbacks/connectivity.jpg",
@@ -89,6 +98,7 @@ export const deutscheTelekomProjects: Project[] = [
   {
     id: 9,
     title: "Connectivity 2",
+    subTitle: "Connectivity 2",
     image:
       "https://cdn.layerdesign.com/wp-content/uploads/2022/08/DT-FEATURED.jpg.webp",
   },
@@ -114,5 +124,9 @@ export const tabs = [
   { key: "andreauWorld", label: "Andreau World", data: andreauWorldProjects },
   { key: "bangOlufsen", label: "Bang & Olufsen", data: bangOlufsenProjects },
   { key: "ledger", label: "Ledger", data: ledgerProjects },
-  { key: "deutscheTelekom", label: "Deutsche Telekom", data: deutscheTelekomProjects },
+  {
+    key: "deutscheTelekom",
+    label: "Deutsche Telekom",
+    data: deutscheTelekomProjects,
+  },
 ];

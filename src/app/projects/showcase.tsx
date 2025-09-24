@@ -129,7 +129,12 @@ export default function ProjectsShowcase() {
                       <AnimatedText
                         as="h3"
                         text={item.title}
-                        className="font-extrabold mb-2 text-3xl sm:text-4xl drop-shadow-lg"
+                        className="font-extrabold text-3xl sm:text-4xl drop-shadow-lg"
+                      />
+                      <AnimatedText
+                        as="h3"
+                        text={item.subTitle}
+                        className="!font-normal text-xl sm:text-2xl drop-shadow-lg"
                       />
                     </motion.div>
                   </div>
