@@ -42,7 +42,7 @@ export default function Navbar() {
     <>
       <header className="sticky top-0 z-40 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80 border-b border-gray-100">
         <div className="mx-auto h-[72px] md:h-[84px] px-3 sm:px-4 lg:px-6">
-          <DesktopNavbar lang={lang} setLang={setLang} />
+          <DesktopNavbar />
           <MobileNavbar
             lang={lang}
             setLang={setLang}
