@@ -1,141 +1,78 @@
 // projects-data.ts
 
-export type Project = {
+export type Section = {
   id: number;
+  slug: string;       // used for tabs/anchors
   title: string;
-  subTitle: string;
-  image: string;
-  video?: string;
-  description: string; // used by the new image+text layout
-  ctaLabel?: string;
-  ctaHref?: string;
+  description: string;
+  images?: string[];  // multiple images (preferred)
+  image?: string;     // single image fallback
+  imageAlt?: string;
 };
 
-// ---- Product ----
-export const productProjects: Project[] = [
+export const sections: Section[] = [
   {
-    id: 101,
-    title: "Stax",
-    subTitle: "Ledger",
-    video:
-      "https://cdn.layerdesign.com/wp-content/uploads/2022/12/LEDGER_PORTRAIT.mp4",
-    image: "/fallbacks/go.jpg",
-    description:
-      "A compact device that balances daily utility with a simple, durable form. Designed to feel effortless in the hand and clear in use.",
-    ctaLabel: "View Case Study",
-  },
-  {
-    id: 102,
-    title: "Halo Bike",
-    subTitle: "SAGA",
-    video: "https://cdn.layerdesign.com/wp-content/uploads/2023/01/SAGA.mp4",
-    image: "/fallbacks/halo-bike.jpg",
-    description:
-      "Performance-first engineering with a softer, human touch. Materials chosen for longevity and a quiet, confident ride.",
-  },
-];
-
-// ---- Brand ----
-export const brandProjects: Project[] = [
-  {
-    id: 201,
-    title: "Balance",
-    subTitle: "Bang & Olufsen",
-    video:
-      "https://cdn.layerdesign.com/wp-content/uploads/2022/08/BALANCE_Portrait.mp4",
-    image: "/fallbacks/light-vision.jpg",
-    description:
-      "A calm identity system that scales across product, packaging, and retail. Clear rules, simple typography, generous space.",
-  },
-  {
-    id: 202,
-    title: "North Star",
-    subTitle: "Concept Brand",
-    image: "/fallbacks/calma.jpg",
-    description:
-      "A modern visual language focused on clarity and inclusivity. Premium without feeling distant, flexible across channels.",
-  },
-];
-
-// ---- Digital ----
-export const digitalProjects: Project[] = [
-  {
-    id: 301,
-    title: "Lightvision",
-    subTitle: "Resonate",
-    image:
-      "https://cdn.layerdesign.com/wp-content/uploads/2022/08/NNEW-Resizing-1331-x-821px.jpg.webp",
-    description:
-      "An intuitive product site that puts content first. Fast, accessible, and designed to scale with new launches.",
-  },
-  {
-    id: 302,
-    title: "Viture One",
-    subTitle: "Viture",
-    video:
-      "https://cdn.layerdesign.com/wp-content/uploads/2022/08/VITURE_PORTRAIT.mp4",
-    image: "/fallbacks/halo-bike.jpg",
-    description:
-      "A lightweight interface for a lightweight device. Motion, sound, and tactility support real tasks, not distract from them.",
-  },
-];
-
-// ---- Furniture ----
-export const furnitureProjects: Project[] = [
-  {
-    id: 401,
-    title: "Calma Chair",
-    subTitle: "Andreu World",
-    image:
-      "https://cdn.layerdesign.com/wp-content/uploads/2022/11/643-x-821px_0074_Calma-1.jpg.webp",
-    description:
-      "Warm materials, honest construction, and an inviting profile. Built for comfort today and repairability tomorrow.",
-  },
-  {
-    id: 402,
-    title: "Arc Bench",
-    subTitle: "Studio Concept",
-    image: "/fallbacks/calma.jpg",
-    description:
-      "Soft curves meet strong structure. Adapts from lobby to living room with finishes that wear in, not out.",
-  },
-];
-
-// ---- Space ----
-export const spaceProjects: Project[] = [
-  {
-    id: 501,
+    id: 2,
+    slug: "values",
     title: "Our Values",
-    subTitle: "Studio",
-    image: "/fallbacks/light-vision.jpg",
     description:
       "It’s our mission to make the world a better place through design, and we approach our collaborations thoughtfully with a focus on strategic thinking, inclusivity, and sustainability. We nurture talent within the studio and choose to work with partners who share our values to pave the way for a positive tomorrow.",
+    images: [
+      "https://cdn.layerdesign.com/wp-content/uploads/2022/12/Our-Values-02-2.jpg.webp",
+      "https://cdn.layerdesign.com/wp-content/uploads/2022/12/Our-Values-01-2-1536x909.jpg.webp",
+            "https://cdn.layerdesign.com/wp-content/uploads/2022/12/Our-Values-03-2-1536x909.jpg.webp",
+    ],
+    imageAlt: "Flat lay of materials and samples",
   },
   {
-    id: 502,
+    id: 1,
+    slug: "studio",
     title: "Our Studio",
-    subTitle: "Workspace",
-    image: "/fallbacks/go.jpg",
     description:
       "The LAYER studio in East London is where we bring your ideas to life. We have a workshop equipped with 3D printers, laser cutters, industrial sewing machines and material libraries; dedicated zones for research and development; powerful technology that we use to create cutting-edge visuals; and collaborative spaces where we craft evocative design stories.",
+     images: [
+      "https://cdn.layerdesign.com/wp-content/uploads/2022/12/Our-Studio-02.jpg.webp",
+      "https://cdn.layerdesign.com/wp-content/uploads/2023/01/Studio-4.jpg.webp",
+      "https://cdn.layerdesign.com/wp-content/uploads/2022/12/Our-Studio-03.jpg.webp",
+    ],
+    imageAlt: "Studio interior with display niches and chair",
+  },
+  {
+    id: 3,
+    slug: "process",
+    title: "Our Team",
+    description:
+      "We are a team of industrial and digital designers, engineers, strategists, and branding specialists from around the world. We collaborate across disciplines to create holistic experiences. Fueled by our unique perspectives, we uncover new ways of looking at the world and discover behavioural insights that drive our human-centred approach.",
+    images: [
+      "https://cdn.layerdesign.com/wp-content/uploads/2022/12/Our-Team-02.jpg.webp",
+      "https://cdn.layerdesign.com/wp-content/uploads/2022/12/Our-Values-04-1.jpg.webp",
+      "https://cdn.layerdesign.com/wp-content/uploads/2022/12/Our-Team-04.jpg.webp",
+    ],
+    imageAlt: "Hands prototyping with tools and materials",
+  },
+  {
+    id: 4,
+    slug: "materials",
+    title: "Awards",
+    description:
+      "Our work in collaboration with our partners has been recognised by the world’s most prestigious awards bodies, across diverse categories ranging from sustainability to technology and workplace. These accolades have been instrumental in our partners’ growth and notoriety on a global stage.",
+    images: [
+      "https://cdn.layerdesign.com/wp-content/uploads/2022/12/Our-Team-04.jpg.webp",
+    ],
+    imageAlt: "Shelves with materials and samples",
+  },
+  {
+    id: 5,
+    slug: "impact",
+    title: "Founder",
+    description:
+      "Fathy Ahmed is the visionary founder and driving force behind Apex Innovation & Creations. With over 25 years of hands-on leadership in design, production, and business development, he established Apex as a platform to merge creativity, technology, and bold ideas into iconic products and projects. Under his leadership, Apex is shaping the future of innovation and building a global ecosystem of creators, partners, and investors.",
+      images: [
+      "https://cdn.layerdesign.com/wp-content/uploads/2022/12/Our-Team-02.jpg.webp",
+    ],
+    imageAlt: "Calm space with natural light",
   },
 ];
 
-// ---- Collect all ----
-export const allProjects: Project[] = [
-  ...productProjects,
-  ...brandProjects,
-  ...digitalProjects,
-  ...furnitureProjects,
-  ...spaceProjects,
-];
-
-// ---- Tabs ----
-export const tabs = [
-  { key: "all", label: "All", data: allProjects },
-  { key: "product", label: "Product", data: productProjects },
-  { key: "brand", label: "Brand", data: brandProjects },
-  { key: "digital", label: "Digital", data: digitalProjects },
-  { key: "furniture", label: "Furniture", data: furnitureProjects },
-  { key: "space", label: "Space", data: spaceProjects },
-];
+// Optional: a nav order different from array order
+export const navOrder = ["values", "studio", "process", "materials", "impact"];

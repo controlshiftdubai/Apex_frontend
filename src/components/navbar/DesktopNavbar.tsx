@@ -206,7 +206,7 @@ export default function Navbar() {
 
   const navLinks = [
     { name: "Hub", href: "/" },
-    { name: "Studio", href: "/" },
+    { name: "Studio", href: "/studio" },
     { name: "Projects", href: "/projects" },
     { name: "Innovation", href: "/" },
     { name: "Shop", href: "/" },
@@ -256,7 +256,7 @@ export default function Navbar() {
                     className="shrink-0 cursor-pointer"
                   >
                     <span
-                      className="relative cursor-pointer text-[clamp(12px,0.95vw,15px)] tracking-wide font-light uppercase text-gray-900 hover:text-gray-800 transition-colors duration-200 nav-link-animate"
+                      className="relative cursor-pointer text-[clamp(17px,0.95vw,15px)] tracking-wide font-light uppercase text-gray-900 hover:text-gray-800 transition-colors duration-200 nav-link-animate"
                       style={{
                         ["--underline-color" as any]:
                           colors[idx % colors.length],
