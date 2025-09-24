@@ -39,16 +39,16 @@ export default function ProjectsShowcase() {
   };
 
   return (
-    <section className="py-6 sm:py-10 bg-gray-50">
-      <div className="max-w-[1220px] p-4 sm:p-6 mx-auto">
+    <section className="pb-6 sm:pb-10">
+      <div className="max-w-[1220px] p-6 sm:p-5 mx-auto">
         {/* Tabs */}
-        <div className="flex justify-center gap-6 mb-12">
+        <div className="flex justify-center flex-wrap gap-y-2 gap-x-3 mb-6 md:gap-x-6 sticky py-4 md:py-5 top-16 md:top-20 bg-white z-10">
           {tabs.map((tab) => (
             <button
               key={tab.key}
               onClick={() => setActiveTab(tab.key)}
               className={cn(
-                `px-4 py-2 rounded-md text-lg font-medium transition-colors`,
+                `px-4 py-2 rounded-md md:text-lg font-medium transition-colors cursor-pointer`,
 
                 activeTab === tab.key
                   ? "text-black"
@@ -62,7 +62,7 @@ export default function ProjectsShowcase() {
 
         {/* Showcase Grid */}
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 lg:gap-8"
+          className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 p-1"
           variants={gridVariants}
           initial="hidden"
           whileInView="visible"
@@ -94,7 +94,7 @@ export default function ProjectsShowcase() {
                   ease: "easeOut",
                 }} // 👈 unique delay per item
               >
-                <div className="relative group cursor-pointer h-[420px]">
+                <div className="relative group cursor-pointer w-full aspect-auto h-min md:h-[420px]">
                   <div className="relative overflow-hidden bg-gray-700 h-full group">
                     {item.video ? (
                       <video
@@ -119,9 +119,7 @@ export default function ProjectsShowcase() {
                     )}
 
                     <motion.div
-                      className="absolute inset-0 flex flex-col items-center justify-center 
-                bg-black/0 group-hover:bg-black/15 
-                transition-colors duration-300 text-white text-center"
+                      className="absolute inset-0 flex flex-col items-center justify-center bg-black/0 group-hover:bg-black/15 transition-colors duration-300 text-white text-center"
                       variants={textOverlayVariants}
                       initial="hidden"
                       whileHover="visible"

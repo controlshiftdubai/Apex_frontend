@@ -34,24 +34,24 @@ export default function ParallaxImage({
     <div
       ref={ref}
       className={cn(
-        "group relative aspect-[3/2] overflow-hidden md:aspect-[3/1]",
+        "group relative aspect-[3/2] overflow-hidden md:aspect-[3/1] -top-8 sm:-top-4",
         className,
       )}
     >
-      <motion.div className="absolute inset-0 z-0 -top-4" style={{ y }}>
+      <motion.div className="absolute inset-0 z-0" style={{ y }}>
         <Image
           src={src}
           alt={alt}
           fill
           sizes="(max-width: 768px) 100vw, 75vw"
           className={cn(
-            "object-cover object-center brightness-75 transition-all duration-500 ease-in-out group-hover:scale-110 group-hover:brightness-50",
+            "object-cover object-center transition-all duration-700 ease-in-out group-hover:scale-110 group-hover:brightness-75",
             imageClassName,
           )}
         />
       </motion.div>
       <h3
-        className={cn("absolute w-full px-4 text-center text-2xl font-extrabold text-white sm:text-3xl lg:text-4xl",textClassName)}
+        className={cn("absolute w-full px-4 text-center text-lg font-extrabold text-white sm:text-2xl lg:text-4xl",textClassName)}
         style={{
           top: "50%",
           left: "50%",
