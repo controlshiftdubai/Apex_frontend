@@ -1,13 +1,14 @@
 "use client";
+
 import React, { useEffect, useMemo, useRef, useState, RefObject } from "react";
 import { motion } from "framer-motion";
 import { ShowcaseItem, showCases } from "./showcase-data";
 import ParallaxImage from "@/components/parallaxImageContainer";
 
-function useRafThrottle<T extends (...args: any[]) => void>(
-  fn: T,
-  fps = 60
-): T {
+/* -----------------------------------------------------------
+   Small helper: throttle work on scroll with requestAnimationFrame
+----------------------------------------------------------- */
+function useRafThrottle<T extends (...args: any[]) => void>(fn: T, fps = 60): T {
   const lastRef = useRef<number & { rafId?: number }>(0);
   return ((...args: any[]) => {
     const now = performance.now();
@@ -25,6 +26,9 @@ function useRafThrottle<T extends (...args: any[]) => void>(
   }) as T;
 }
 
+/* -----------------------------------------------------------
+   Main page section
+----------------------------------------------------------- */
 export default function Showcases() {
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const heroRef = useRef<HTMLElement | null>(null);
@@ -38,19 +42,18 @@ export default function Showcases() {
 
   const [lineHeight, setLineHeight] = useState(0);
   const [lineTopOffset, setLineTopOffset] = useState(0);
-  const [itemActive, setItemActive] = useState<boolean[]>(() =>
-    showCases.map(() => false)
+  const [itemActive, setItemActive] = useState<boolean[]>(
+    () => showCases.map(() => false)
   );
 
-  // New state for horizontal line progress
-  const [horizontalProgress, setHorizontalProgress] = useState<number[]>(() =>
-    showCases.map(() => 0)
+  // progress for each row’s horizontal “tick” line
+  const [horizontalProgress, setHorizontalProgress] = useState<number[]>(
+    () => showCases.map(() => 0)
   );
 
   useEffect(() => {
     function computeOffsets() {
-      if (!wrapperRef.current || !heroRef.current || !showcaseRef.current)
-        return;
+      if (!wrapperRef.current || !heroRef.current || !showcaseRef.current) return;
       const heroH = heroRef.current.offsetHeight;
       const startOffset = heroH + 24;
       setLineTopOffset(startOffset);
@@ -88,7 +91,7 @@ export default function Showcases() {
 
     const currentCenterY = start + rawHeight;
 
-    // Update existing logic for itemActive
+    // mark rows as “active” when the line crosses their mid-point
     setItemActive((prev) => {
       const next = [...prev];
       itemRefs.forEach((ref, idx) => {
@@ -101,7 +104,7 @@ export default function Showcases() {
       return next;
     });
 
-    // New logic for horizontal line progress
+    // compute horizontal tick width for each row
     setHorizontalProgress((prev) => {
       const next = [...prev];
       itemRefs.forEach((ref, idx) => {
@@ -113,25 +116,19 @@ export default function Showcases() {
         const itemBottom = window.scrollY + rect.bottom;
         const itemMidAbs = itemTop + rect.height / 2;
 
-        // Calculate progress based on how far the vertical line has passed the item's midpoint
         if (currentCenterY >= itemMidAbs) {
-          // Find the next item to calculate the range
           const nextItemRef = itemRefs[idx + 1];
-          let nextItemMidAbs = itemBottom + 200; // Default range if no next item
-
+          let nextItemMidAbs = itemBottom + 200;
           if (nextItemRef && nextItemRef.current) {
             const nextRect = nextItemRef.current.getBoundingClientRect();
             nextItemMidAbs =
               window.scrollY + nextRect.top + nextRect.height / 2;
           }
-
-          // Calculate progress between current item midpoint and next item midpoint
           const progressRange = nextItemMidAbs - itemMidAbs;
           const currentProgress = Math.min(
             (currentCenterY - itemMidAbs) / progressRange,
             1
           );
-
           next[idx] = Math.max(0, Math.min(100, currentProgress * 100));
         } else {
           next[idx] = 0;
@@ -149,14 +146,14 @@ export default function Showcases() {
 
   return (
     <div ref={wrapperRef} className="relative bg-white text-neutral-900 py-24">
-      {/* PROGRESS LINE (vertical) */}
+      {/* Vertical progress line down the center */}
       <div
         className="pointer-events-none absolute left-1/2 -translate-x-1/2 top-0 w-[5px] max-md:hidden"
         style={{ top: lineTopOffset }}
       >
         <motion.div
           ref={lineRef}
-          className="w-1.5 bg-[#e5e2e1]"
+          className="w-1.5 bg-[#D8FFD7]"
           style={{ height: Math.max(0, lineHeight) }}
           initial={{ height: 0 }}
           animate={{ height: Math.max(0, lineHeight) }}
@@ -164,7 +161,7 @@ export default function Showcases() {
         />
       </div>
 
-      {/* HORIZONTAL PROGRESS LINES */}
+      {/* Horizontal ticks per row */}
       {showCases.map((_, idx) => (
         <HorizontalProgressLines
           key={idx}
@@ -176,12 +173,12 @@ export default function Showcases() {
         />
       ))}
 
-      {/* SHOWCASE */}
+      {/* The grid of rows */}
       <section
         ref={showcaseRef}
         className="relative mx-auto max-w-6xl px-4 sm:px-6 pb-24 md:pb-32"
       >
-        <div className="space-y-20 md:space-y-24">
+        <div className="space-y-20 md:space-y-34">
           {showCases.map((item, idx) => (
             <ShowCaseRow
               key={idx}
@@ -199,6 +196,9 @@ export default function Showcases() {
   );
 }
 
+/* -----------------------------------------------------------
+   Horizontal lines that extend from the vertical progress line
+----------------------------------------------------------- */
 function HorizontalProgressLines({
   idx,
   progress,
@@ -251,30 +251,30 @@ function HorizontalProgressLines({
   const calculated = (progress / 30) * 200;
   const width =
     calculated > maxWidth ? maxWidth : calculated < 0 ? 0 : calculated;
+
   return (
     <div
       className="pointer-events-none absolute left-1/2 -translate-x-1/2  max-md:hidden"
       style={{ top: lineTopOffset + linePosition.top }}
     >
-      {/* Right horizontal line (to number) */}
+      {/* to the number */}
       <motion.div
-        className="absolute w-1.5 bg-[#e5e2e1] origin-left"
+        className="absolute w-1.5 bg-[#FFEADB] origin-left"
         style={{
           top: `${rightLineOffset}px`,
           left: "0px",
-          height: "2px",
+          height: "4px",
           maxWidth: "200px",
           width: `${width}px`,
         }}
       />
-
-      {/* Left horizontal line (to image) */}
+      {/* to the image block */}
       <motion.div
-        className="absolute w-1.5 bg-[#e5e2e1] origin-right"
+        className="absolute w-1.5 bg-[#FFEADB] origin-right"
         style={{
           top: `${leftLineOffset}px`,
           right: "0px",
-          height: "2px",
+          height: "4px",
           maxWidth: "200px",
           width: `${width}px`,
         }}
@@ -283,124 +283,80 @@ function HorizontalProgressLines({
   );
 }
 
+/* -----------------------------------------------------------
+   Image block: BIG on top + TWO small below (the new layout)
+   images[0] -> big hero
+   images[1], images[2] -> small tiles underneath
+----------------------------------------------------------- */
 type OverlapImagesProps = {
-  images: string[];
-  overlapPercent?: number; // default 10
-  alternate?: boolean; // zig-zag positioning
-  maxWidth?: number; // max width for images in px
-  maxHeight?: number; // max height for images in px
-  containerHeight?: number; // container min height in px
+  images: string[];              // [big, small1, small2]
+  alternate?: boolean;           // if true, swap the smalls for a subtle variation
+  heroHeight?: string;           // tailwind heights for hero
+  smallHeight?: string;          // tailwind heights for smalls
 };
 
 export function OverlapImages({
   images,
-  overlapPercent = 10,
   alternate = false,
-  maxWidth = 380,
-  maxHeight = 290,
-  containerHeight = 840,
+  heroHeight = "h-[360px] sm:h-[420px] md:h-[520px] lg:h-[260px]",
+  smallHeight = "h-[240px] sm:h-[260px] md:h-[180px]",
 }: OverlapImagesProps) {
-  const getPositionAndOverlapStyle = (idx: number) => {
-    const baseStyle = {
-      position: "absolute" as const,
-      width: `${maxWidth}px`,
-      height: `${maxHeight}px`,
-    };
+  let [big, s1, s2] = [
+    images?.[0] ?? "",
+    images?.[1] ?? "",
+    images?.[2] ?? "",
+  ];
 
-    if (alternate) {
-      // Alternate layout: left-right-left pattern
-      switch (idx) {
-        case 0: // First image - top left
-          return {
-            ...baseStyle,
-            top: "0%",
-            left: "0%",
-            zIndex: 30,
-          };
-        case 1: // Second image - middle right with overlap
-          return {
-            ...baseStyle,
-            top: "30%",
-            right: "0%",
-            transform: "translateY(-30%)",
-            marginLeft: `-${overlapPercent}%`,
-            zIndex: 20,
-          };
-        case 2: // Third image - bottom left
-          return {
-            ...baseStyle,
-            bottom: "0%",
-            left: "0%",
-            zIndex: 10,
-          };
-        default:
-          return baseStyle;
-      }
-    } else {
-      // Default layout: triangular arrangement
-      switch (idx) {
-        case 0: // First image - top right
-          return {
-            ...baseStyle,
-            top: "0%",
-            right: "0%",
-            zIndex: 12,
-          };
-        case 1: // Second image - middle left with overlap
-          return {
-            ...baseStyle,
-            top: "35%",
-            left: "0%",
-            transform: "translateY(-35%)",
-            marginLeft: `-${overlapPercent}%`,
-            zIndex: 11,
-          };
-        case 2: // Third image - bottom right with top overlap
-          return {
-            ...baseStyle,
-            bottom: "0%",
-            right: "0%",
-            marginTop: `-${overlapPercent}%`,
-            zIndex: 10,
-          };
-        default:
-          return baseStyle;
-      }
-    }
-  };
+  // for alternating rows you can swap the small images
+  if (alternate) [s1, s2] = [s2, s1];
 
   return (
-    <div
-      className="relative flex items-center justify-center w-full"
-      style={{ minHeight: `${containerHeight * 1.07}px` }}
-    >
-      {images.slice(0, 3).map((src, idx) => {
-        const imageStyle = getPositionAndOverlapStyle(idx);
+    <div className="w-full">
+      {/* Big hero image (full width) */}
+      {big && (
+        <div className={`relative w-full overflow-hidden  shadow-lg ${heroHeight}`}>
+          <ParallaxImage
+            src={big}
+            alt="Showcase-hero"
+            text=""
+            className="w-full h-full "
+            imageClassName="object-cover"
+          />
+        </div>
+      )}
 
-        return (
-          <motion.div
-            key={idx}
-            style={imageStyle}
-            className=""
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.5, delay: idx * 0.1 }}
-          >
+      {/* Two small images below */}
+      <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-6">
+        {s1 && (
+          <div className={`relative w-full overflow-hidden  shadow-lg ${smallHeight}`}>
             <ParallaxImage
-              src={src}
-              alt={`Showcase-${idx}`}
+              src={s1}
+              alt="Showcase-small-1"
               text=""
-              className="w-full h-full  brightness-100 group-hover:scale-100 group-hover:brightness-100"
-              imageClassName="rounded-lg shadow-lg"
+              className="w-full h-full "
+              imageClassName="object-cover"
             />
-          </motion.div>
-        );
-      })}
+          </div>
+        )}
+        {s2 && (
+          <div className={`relative w-full overflow-hidden  shadow-lg ${smallHeight}`}>
+            <ParallaxImage
+              src={s2}
+              alt="Showcase-small-2"
+              text=""
+              className="w-full h-full "
+              imageClassName="object-cover"
+            />
+          </div>
+        )}
+      </div>
     </div>
   );
 }
 
+/* -----------------------------------------------------------
+   One row: images on the left, text on the right (stacks on mobile)
+----------------------------------------------------------- */
 function ShowCaseRow({
   item,
   idx,
@@ -418,7 +374,7 @@ function ShowCaseRow({
       ref={itemRef}
       className="grid md:grid-cols-2 items-start gap-32"
     >
-      {/* Left: overlapping images */}
+      {/* Left: BIG + two small images */}
       <div className="max-md:order-2">
         <OverlapImages images={item.images} alternate={Boolean(idx % 2)} />
       </div>

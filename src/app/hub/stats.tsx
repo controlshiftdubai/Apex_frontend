@@ -24,7 +24,7 @@ export default function StatsSection() {
   return (
     <section
       className={cn(
-        "w-full px-6 bg-[#f6f3f1]",
+        "w-full px-6 bg-[#FFEADB]",
         "md:h-[340px] max-md:py-5 flex justify-between items-center"
       )}
     >
@@ -44,7 +44,7 @@ export type StatItem = {
 
 function Stat({ heading, content }: StatItem) {
   return (
-    <div className="text-center aspect-[7/5] w-80 flex flex-col items-center justify-center">
+    <div className="text-center aspect-[7/5] w-80  flex flex-col items-center justify-center">
       <div className="text-4xl md:text-5xl tracking-tight">{heading}</div>
       <div className="mt-5 text-[17px] text-[#999999] leading-tight">
         {content}

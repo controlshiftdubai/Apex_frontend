@@ -33,9 +33,9 @@ export default function Navbar() {
     { name: "Hub", href: "/hub" },
     { name: "Studio", href: "/studio" },
     { name: "Projects", href: "/projects" },
-    { name: "Innovation", href: "#" },
-    { name: "Shop", href: "#" },
-    { name: "Contact", href: "#" },
+    { name: "Innovation", href: "/innovation" },
+    { name: "Shop", href: "/expertise" },
+    { name: "Contact", href: "/contact" },
   ];
 
   return (
