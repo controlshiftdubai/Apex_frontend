@@ -1,11 +1,9 @@
-
-
-
 import type { Metadata } from "next";
 import "./globals.css";
 import localFont from "next/font/local";
 import Navbar from "../components/navbar/Navbar";
 import Footer from "./footer";
+import HashScroll from "@/components/has-scroll";
 export const sofiaPro = localFont({
   src: [
     {
@@ -38,11 +36,12 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
-
   return (
     <html lang="en">
-      <body className={`${sofiaPro.variable} antialiased font-sans font-normal`}>
+      <body
+        className={`${sofiaPro.variable} antialiased font-sans font-normal`}
+      >
+        <HashScroll />
         <Navbar />
         <main className="">{children}</main>
         <Footer />

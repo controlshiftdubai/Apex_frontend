@@ -12,6 +12,8 @@ interface ParallaxImageProps {
   className?: string;
   imageClassName?: string;
   textClassName?: string;
+  disableHoverEffect?: boolean;
+  strength?: number;
 }
 
 export default function ParallaxImage({
@@ -21,6 +23,8 @@ export default function ParallaxImage({
   className,
   textClassName,
   imageClassName,
+  disableHoverEffect = false,
+  strength = 25,
 }: ParallaxImageProps) {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
@@ -28,14 +32,19 @@ export default function ParallaxImage({
     offset: ["start end", "end start"],
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], ["-25%", "25%"]);
+  //
+  const y = useTransform(
+    scrollYProgress,
+    [0, 1],
+    [`-${strength}%`, `${strength}%`]
+  );
 
   return (
     <div
       ref={ref}
       className={cn(
         "group relative aspect-[3/2] overflow-hidden md:aspect-[3/1]",
-        className,
+        className
       )}
     >
       <motion.div className="absolute inset-0 z-0" style={{ y }}>
@@ -45,13 +54,18 @@ export default function ParallaxImage({
           fill
           sizes="(max-width: 768px) 100vw, 75vw"
           className={cn(
-            "object-cover object-center transition-all duration-700 ease-in-out group-hover:scale-110 group-hover:brightness-75",
-            imageClassName,
+            "object-cover object-center",
+            !disableHoverEffect &&
+              "transition-all duration-700 ease-in-out group-hover:scale-110 group-hover:brightness-75",
+            imageClassName
           )}
         />
       </motion.div>
       <h3
-        className={cn("absolute w-full px-4 text-center text-lg font-extrabold text-white sm:text-2xl lg:text-4xl",textClassName)}
+        className={cn(
+          "absolute w-full px-4 text-center text-lg font-extrabold text-white sm:text-2xl lg:text-4xl",
+          textClassName
+        )}
         style={{
           top: "50%",
           left: "50%",
