@@ -7,6 +7,10 @@ import { cn } from "@/lib/utils";
 import { useState } from "react";
 import Image from "next/image";
 
+/** Pastel palette + faint tint helper (same as your other page) */
+const TITLE_BG_COLORS = ["#a7f3d0", "#bfdbfe", "#c7d2fe", "#fca5a5", "#fde68a"];
+const tint = (hex: string, alphaHex = "33") => `${hex}${alphaHex}`;
+
 export default function ProjectsShowcase() {
   const [activeTab, setActiveTab] = useState("all");
 
@@ -41,23 +45,28 @@ export default function ProjectsShowcase() {
   return (
     <section className="pb-6 sm:pb-10">
       <div className="max-w-[1220px] p-6 sm:p-5 mx-auto">
-        {/* Tabs */}
+        {/* Tabs with pastel active tint */}
         <div className="flex justify-center flex-wrap gap-y-2 gap-x-3 mb-6 md:gap-x-6 sticky py-4 md:py-5 top-16 md:top-20 bg-white z-10">
-          {tabs.map((tab) => (
-            <button
-              key={tab.key}
-              onClick={() => setActiveTab(tab.key)}
-              className={cn(
-                `px-4 py-2 rounded-md md:text-lg font-medium transition-colors cursor-pointer`,
-
-                activeTab === tab.key
-                  ? "text-black"
-                  : "text-gray-500 hover:text-black"
-              )}
-            >
-              {tab.label}
-            </button>
-          ))}
+          {tabs.map((tab, i) => {
+            const isActive = activeTab === tab.key;
+            return (
+              <button
+                key={tab.key}
+                onClick={() => setActiveTab(tab.key)}
+                className={cn(
+                  "px-4 py-2 rounded-md md:text-lg font-medium transition-colors cursor-pointer",
+                  isActive ? "text-black" : "text-gray-500 hover:text-black"
+                )}
+                style={
+                  isActive
+                    ? { backgroundColor: tint(TITLE_BG_COLORS[i % TITLE_BG_COLORS.length]) }
+                    : undefined
+                }
+              >
+                {tab.label}
+              </button>
+            );
+          })}
         </div>
 
         {/* Showcase Grid */}
@@ -92,7 +101,7 @@ export default function ProjectsShowcase() {
                   delay: index * 0.2,
                   duration: 0.6,
                   ease: "easeOut",
-                }} // 👈 unique delay per item
+                }}
               >
                 <div className="relative group cursor-pointer w-full aspect-auto h-min md:h-[420px]">
                   <div className="relative overflow-hidden bg-gray-700 h-full group">

@@ -6,6 +6,9 @@ import { sections, navOrder } from "./projects-data";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
+/** Soft pastel palette for title background stripes */
+const TITLE_BG_COLORS = ["#a7f3d0", "#bfdbfe", "#c7d2fe", "#fca5a5", "#fde68a"];
+
 /** Single section renderer with in-view slideshow + scroll-spy hook */
 function SectionItem({
   slug,
@@ -54,6 +57,9 @@ function SectionItem({
 
   const currentSrc = slides[current] ?? "";
 
+  // Pick the background color for this title
+  const stripeColor = TITLE_BG_COLORS[idx % TITLE_BG_COLORS.length];
+
   return (
     <motion.article
       id={slug}
@@ -71,9 +77,19 @@ function SectionItem({
           reverse ? "md:order-2" : "md:order-1"
         )}
       >
-        <h2 className="text-2xl md:text-3xl lg:text-5xl text-gray-900">
-          {title}
+        {/* Title with colored background stripe */}
+        <h2 className="text-2xl md:text-3xl lg:text-5xl text-gray-900 leading-tight">
+          <span className="relative inline-block">
+            <span className="relative z-10 px-0.5">{title}</span>
+            {/* stripe behind text */}
+            <span
+              aria-hidden
+              className="absolute inset-x-0 bottom-1 h-3 rounded-md"
+              style={{ backgroundColor: stripeColor }}
+            />
+          </span>
         </h2>
+
         <p className="mt-2 text-base md:text-lg leading-7 text-gray-500">
           {description}
         </p>
@@ -114,9 +130,7 @@ export default function ProjectsShowcase() {
   const items = useMemo(() => {
     if (navOrder && navOrder.length) {
       const map = new Map(sections.map((s) => [s.slug, s]));
-      return navOrder
-        .map((slug) => map.get(slug))
-        .filter(Boolean) as typeof sections;
+      return navOrder.map((slug) => map.get(slug)).filter(Boolean) as typeof sections;
     }
     return sections;
   }, []);
@@ -148,17 +162,20 @@ export default function ProjectsShowcase() {
     <section className="py-12 lg:py-20">
       <div className="max-w-[1330px] mx-auto px-6 lg:px-8">
         {/* Tabs — same visual style as your original */}
-        <div className="flex justify-center flex-wrap gap-y-2 gap-x-3 mb-6 md:gap-x-6 sticky py-4 md:py-5 top-16 md:top-20 bg-white z-10">
-          {tabs.map((tab) => (
+        <div className="flex justify-center flex-wrap gap-y-2 gap-x-3 mb-6 md:gap-x-6 sticky py-4 md:py-5 top-16 md:top-20 bg-white z-70">
+          {tabs.map((tab, i) => (
             <button
               key={tab.key}
               onClick={() => scrollTo(tab.key)}
               className={cn(
                 "px-4 py-2 rounded-md md:text-lg font-medium transition-colors cursor-pointer",
-                activeSlug === tab.key
-                  ? "text-black"
-                  : "text-gray-500 hover:text-black"
+                activeSlug === tab.key ? "text-black" : "text-gray-500 hover:text-black"
               )}
+              style={
+                activeSlug === tab.key
+                  ? { backgroundColor: `${TITLE_BG_COLORS[i % TITLE_BG_COLORS.length]}33` } // faint tint for active tab
+                  : undefined
+              }
             >
               {tab.label}
             </button>

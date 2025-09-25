@@ -17,6 +17,31 @@ const ACCENTS = [
   "#fde68a", // yellow-300
 ];
 
+/** Reusable heading with pastel background stripe behind the text */
+function HeadingStripe({
+  children,
+  color,
+  className = "",
+}: {
+  children: React.ReactNode;
+  color: string;
+  className?: string;
+}) {
+  return (
+    <h3 className={`text-2xl sm:text-3xl text-neutral-900 ${className}`}>
+      <span className="relative inline-block align-baseline">
+        <span className="relative z-10 px-0.5">{children}</span>
+        {/* stripe behind text (same vibe as previous pages) */}
+        <span
+          aria-hidden
+          className="absolute inset-x-0 bottom-1 h-3 rounded-md"
+          style={{ backgroundColor: color }}
+        />
+      </span>
+    </h3>
+  );
+}
+
 export default function ProjectsShowcase() {
   return (
     <section className="py-14 sm:py-20">
@@ -30,13 +55,12 @@ export default function ProjectsShowcase() {
               whileInView="show"
               viewport={{ once: true, amount: 0.35 }}
             >
-              <h3 className="text-2xl sm:text-3xl text-neutral-900">Join Us</h3>
+              <h3 className="text-2xl mt-4 sm:text-3xl text-neutral-900">
+                Join Us</h3>
               <p className="mt-2 text-[15px] sm:text-base lg:text-lg leading-7 text-neutral-600">
                 Grow with our team and shape the future with us.
               </p>
-
-              {/* Use one of your accents for underline (same on hover) */}
-              <EmailLink href="mailto:careers@apex.com" color={ACCENTS[1]}>
+              <EmailLink href="mailto:careers@apex.com" color={ACCENTS[0]}>
                 careers@apex.com
               </EmailLink>
             </motion.div>
@@ -46,14 +70,11 @@ export default function ProjectsShowcase() {
               whileInView="show"
               viewport={{ once: true, amount: 0.35 }}
             >
-              <h3 className="text-2xl sm:text-3xl text-neutral-900">
-                Start a Project
-              </h3>
-              <p className="mt-2 text-[15px] sm:text-base lg:text-lg leading-7 text-neutral-600">
+              <p className="mt-4  text-[15px] sm:text-base lg:text-lg leading-7 text-neutral-600">
                 Collaborate with us to bring your ideas to life.
               </p>
-
-              <EmailLink href="mailto:enquiries@apex.com" color={ACCENTS[5]}>
+              {/* fixed: ACCENTS[5] would be out of range */}
+              <EmailLink href="mailto:enquiries@apex.com" color={ACCENTS[1]}>
                 enquiries@apex.com
               </EmailLink>
             </motion.div>
@@ -105,13 +126,12 @@ export default function ProjectsShowcase() {
               whileInView="show"
               viewport={{ once: true, amount: 0.35 }}
             >
-              <h3 className="text-2xl sm:text-3xl text-neutral-900">
-                Publish our work
-              </h3>
+
+
+              <h3 className="text-2xl sm:text-3xl text-neutral-900">Publish our work</h3>
               <p className="mt-2 text-[15px] sm:text-base lg:text-lg leading-7 text-neutral-600">
                 For media, features, and press enquiries.
               </p>
-
               <EmailLink href="mailto:press@apex.com" color={ACCENTS[4]}>
                 press@apex.com
               </EmailLink>
@@ -163,7 +183,7 @@ function Social({
       href={href}
       aria-label={aria}
       style={{ ["--accent" as any]: color }}
-      className="group p-2.5  transition
+      className="group p-2.5 rounded-full border transition
                  border-[var(--accent)] hover:bg-[var(--accent)] hover:text-neutral-900"
       title={aria}
     >

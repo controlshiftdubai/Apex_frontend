@@ -11,10 +11,10 @@ export default function TempPage() {
     <section>
       <Hero />
       <div className="relative">
-        <Tabs />
+        {/* <Tabs /> */}
         <ScrambleSection />
-        <CollabAndTestimonials />
-        <OurPress />
+        {/* <CollabAndTestimonials />
+        <OurPress /> */}
       </div>
     </section>
   );
