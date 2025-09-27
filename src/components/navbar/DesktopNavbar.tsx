@@ -3,7 +3,7 @@
 import { useState, useEffect, FormEvent } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import MobileDrawer from "@/components/MobileDrawer";
 import { cn } from "@/lib/utils";
@@ -19,11 +19,7 @@ const MenuIcon = ({ className }: { className?: string }) => (
     className={className}
     aria-hidden="true"
   >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M3.75 7h16.5M3.75 17h16.5"
-    />
+    <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 7h16.5M3.75 17h16.5" />
   </svg>
 );
 const CrossIcon = ({ className }: { className?: string }) => (
@@ -36,11 +32,7 @@ const CrossIcon = ({ className }: { className?: string }) => (
     className={className}
     aria-hidden="true"
   >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M6 6l12 12M6 18L18 6"
-    />
+    <path strokeLinecap="round" strokeLinejoin="round" d="M6 6l12 12M6 18L18 6" />
   </svg>
 );
 const SearchIcon = ({ className }: { className?: string }) => (
@@ -119,22 +111,14 @@ function LangToggle({
         aria-expanded={isOpen}
         aria-haspopup="true"
       >
-        <span className="">{value.toUpperCase()}</span>
+        <span>{value.toUpperCase()}</span>
         <svg
-          className={cn(
-            "h-3 w-3 transition-transform duration-200",
-            isOpen && "rotate-180"
-          )}
+          className={cn("h-3 w-3 transition-transform duration-200", isOpen && "rotate-180")}
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
         >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M19 9l-7 7-7-7"
-          />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
         </svg>
       </button>
 
@@ -146,11 +130,7 @@ function LangToggle({
             className="group relative w-full text-left text-[13px] uppercase tracking-wide transition-colors duration-200 cursor-pointer hover:bg-gray-200 px-4 py-2"
             style={{ ["--underline-color" as any]: colors.en }}
           >
-            <span
-              className={isEN ? "text-gray-900 font-semibold" : "text-gray-600"}
-            >
-              EN
-            </span>
+            <span className={isEN ? "text-gray-900 font-semibold" : "text-gray-600"}>EN</span>
           </button>
           <button
             type="button"
@@ -158,13 +138,7 @@ function LangToggle({
             className="group relative w-full text-left text-[13px] uppercase tracking-wide transition-colors duration-200 cursor-pointer hover:bg-gray-200 px-4 py-2"
             style={{ ["--underline-color" as any]: colors.ar }}
           >
-            <span
-              className={
-                !isEN ? "text-gray-900 font-semibold" : "text-gray-600"
-              }
-            >
-              AR
-            </span>
+            <span className={!isEN ? "text-gray-900 font-semibold" : "text-gray-600"}>AR</span>
           </button>
         </div>
       )}
@@ -193,6 +167,7 @@ export default function Navbar({
   const [openMenuMobile, setOpenMenuMobile] = useState(false);
   const [lang, setLang] = useState<"en" | "ar">("en");
   const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
     const saved =
@@ -208,18 +183,10 @@ export default function Navbar({
     }
   }, [lang]);
 
-  const colors = [
-    "#fbbf24",
-    "#a7f3d0",
-    "#bfdbfe",
-    "#c7d2fe",
-    "#fca5a5",
-    "#fde68a",
-  ];
+  const colors = ["#fbbf24", "#a7f3d0", "#bfdbfe", "#c7d2fe", "#fca5a5", "#fde68a"];
   const actionColors = ["#a7f3d0", "#fca5a5", "#bfdbfe"];
 
-  const handleSearchSubmit = (q: string) =>
-    router.push(`/search?q=${encodeURIComponent(q)}`);
+  const handleSearchSubmit = (q: string) => router.push(`/search?q=${encodeURIComponent(q)}`);
 
   return (
     <>
@@ -227,10 +194,7 @@ export default function Navbar({
         <div className="mx-auto h-[72px] md:h-[84px]">
           {/* Desktop row */}
           <div className="hidden md:flex justify-between items-center h-full">
-            <Link
-              href="/"
-              className="rounded-md block mr-10 shrink-0 cursor-pointer"
-            >
+            <Link href="/" className="rounded-md block mr-10 shrink-0 cursor-pointer">
               <Image
                 src="/logo.png"
                 alt="logo"
@@ -243,31 +207,36 @@ export default function Navbar({
             </Link>
 
             <div className="flex items-center">
-              <nav className="flex items-center gap-x-6 lg:gap-x-8 xl:gap-x-10 2xl:gap-x-12 md:pr-8">
-                {navLinks.map((link, idx) => (
-                  <Link
-                    key={link.name}
-                    href={link.href}
-                    className="shrink-0 cursor-pointer"
-                  >
-                    <span
-                      className="relative cursor-pointer text-[clamp(17px,0.95vw,15px)] tracking-wide font-light uppercase text-gray-900 hover:text-gray-800 transition-colors duration-200 nav-link-animate"
-                      style={{
-                        ["--underline-color" as any]:
-                          colors[idx % colors.length],
-                      }}
-                    >
-                      {link.name}
-                    </span>
-                  </Link>
-                ))}
-              </nav>
+             <nav className="flex items-center gap-x-6 lg:gap-x-8 xl:gap-x-10 2xl:gap-x-12 md:pr-8">
+  {navLinks.map((link, idx) => {
+    const isActive = pathname === link.href;
+    return (
+      <Link
+        key={link.name}
+        href={link.href}
+        className={cn(
+          "relative shrink-0 cursor-pointer text-[clamp(17px,0.95vw,15px)] tracking-wide font-light uppercase transition-colors duration-200 nav-link-animate px-1",
+          isActive
+            ? "text-black font-medium"
+            : "text-gray-900 hover:text-gray-800"
+        )}
+        style={{ ["--underline-color" as any]: colors[idx % colors.length] }}
+      >
+        {link.name}
+        {isActive && (
+          <span
+            className="absolute left-0 right-0  -bottom-1 h-[7px] "
+            style={{ background: colors[idx % colors.length] }}
+          />
+        )}
+      </Link>
+    );
+  })}
+</nav>
+
 
               <div className="flex-1 flex items-center gap-2">
-                <InlineSearch
-                  onSubmit={handleSearchSubmit}
-                  underlineColor={colors[2]}
-                />
+                <InlineSearch onSubmit={handleSearchSubmit} underlineColor={colors[2]} />
                 <LangToggle value={lang} onChange={setLang} />
 
                 {/* Actions */}
@@ -351,10 +320,7 @@ export default function Navbar({
 
             {/* Mobile row */}
             <div className="md:hidden flex items-center h-full">
-              <Link
-                href="/"
-                className="rounded-md block shrink-0 cursor-pointer"
-              >
+              <Link href="/" className="rounded-md block shrink-0 cursor-pointer">
                 <Image
                   src="/logo.png"
                   alt="logo"
@@ -399,12 +365,12 @@ export default function Navbar({
         open={openMenuMobile}
         onClose={() => setOpenMenuMobile(false)}
         navLinks={[
-          { name: "Hub", href: "/" },
-          { name: "Studio", href: "/" },
-          { name: "Projects", href: "/" },
-          { name: "Innovation", href: "/" },
-          { name: "Shop", href: "/" },
-          { name: "Contact", href: "/" },
+          { name: "Hub", href: "/hub" },
+          { name: "Studio", href: "/studio" },
+          { name: "Projects", href: "/projects" },
+          { name: "Innovation", href: "/innovation" },
+          { name: "Shop", href: "/expertise" },
+          { name: "Contact", href: "/contact" },
         ]}
       />
     </>

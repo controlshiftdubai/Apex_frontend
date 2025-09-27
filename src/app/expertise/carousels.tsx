@@ -1,13 +1,5 @@
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-} from "@/components/carousel";
 import { cn } from "@/lib/utils";
-import {
-  ChevronLeft,
-  ChevronRight,
-} from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -61,7 +53,8 @@ function SingleCarouselRow({
         <button
           onClick={prevSlide}
           className={cn(
-            "absolute left-36 z-10 transition-opacity",
+            "absolute max-sm:bottom-0 max-sm:left-72 z-10 transition-opacity", // SM (and mobile): bottom-right, next to the other arrow
+            "left-36", // MD and up: reverts to original bottom-left
             current === 0 ? "opacity-0 pointer-events-none" : "opacity-100",
             "group"
           )}
@@ -71,7 +64,12 @@ function SingleCarouselRow({
           <ChevronLeft
             size={96}
             strokeWidth={1.5}
-            className="text-gray-400 group-hover:text-black transition-colors"
+            className="text-gray-400 md:block hidden group-hover:text-black transition-colors"
+          />
+          <ChevronLeft
+            size={48}
+            strokeWidth={1.5}
+            className="text-gray-400 block md:hidden group-hover:text-black transition-colors"
           />
         </button>
 
@@ -90,7 +88,10 @@ function SingleCarouselRow({
                 className="flex-shrink-0"
                 style={{ width: "100vw" }}
               >
-                <div className="relative w-[67%] mx-auto " style={{ aspectRatio: "800/340" }}>
+                <div
+                  className="relative w-[67%] max-sm:hidden mx-auto "
+                  style={{ aspectRatio: "800/340" }}
+                >
                   <Image
                     src={image.src || "/placeholder.svg"}
                     alt={image.alt}
@@ -100,7 +101,20 @@ function SingleCarouselRow({
                     priority={index === current}
                   />
                 </div>
-                <p className="text-left mt-4 text-lg text-[#999999] max-w-4xl mx-auto px-6">
+                <div
+                  className="relative sm:hidden max-sm-w-full w-[85%] mx-auto "
+                  style={{ aspectRatio: "800/600" }}
+                >
+                  <Image
+                    src={image.src || "/placeholder.svg"}
+                    alt={image.alt}
+                    fill
+                    className="object-cover"
+                    sizes="100vw"
+                    priority={index === current}
+                  />
+                </div>
+                <p className="text-left mt-4 text-sm sm:text-base max-sm:pb-24 md:text-lg  text-[#999999] w-[85%] sm:max-w-4xl mx-auto sm:px-6">
                   {image.description}
                 </p>
               </div>
@@ -112,8 +126,11 @@ function SingleCarouselRow({
         <button
           onClick={nextSlide}
           className={cn(
-            "absolute right-36 z-10 transition-opacity",
-            current === images.length - 1 ? "opacity-0 pointer-events-none" : "opacity-100",
+            "absolute max-sm:bottom-0 max-sm:right-4  z-10 transition-opacity", // SM (and mobile): bottom-right
+            "right-36", // MD and up: reverts to original middle-right
+            current === images.length - 1
+              ? "opacity-0 pointer-events-none"
+              : "opacity-100",
             "group"
           )}
           aria-label="Next"
@@ -122,7 +139,12 @@ function SingleCarouselRow({
           <ChevronRight
             size={96}
             strokeWidth={1.5}
-            className="text-gray-400 group-hover:text-black transition-colors"
+            className="text-gray-400 md:block hidden group-hover:text-black transition-colors"
+          />
+          <ChevronRight
+            size={48}
+            strokeWidth={1.5}
+            className="text-gray-400 block md:hidden group-hover:text-black transition-colors"
           />
         </button>
       </div>
@@ -150,11 +172,9 @@ const carouselData: ImageData[][] = [
       description:
         "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.",
     },
-   
   ],
   [
-    { 
-      
+    {
       src: "https://cdn.layerdesign.com/wp-content/uploads/2022/12/Engineering-Hero-1920x803.jpg.webp",
       alt: "Random Image 1",
       description: `We develop digital experiences that make sense of complex information. Our approach to UX is defined by clear usability, empowering a diverse audience. By employing a cross-platform approach across various devices, we capture larger markets for higher visibility.
