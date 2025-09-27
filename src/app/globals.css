@@ -107,7 +107,10 @@
   transform-origin: left;
   transition: transform 0.3s ease-in-out;
 }
-
+.nav-link-animate.active::after {
+  transform: scaleX(1);
+  transition: transform 0.3s;
+}
 .nav-link-animate:hover::after {
   transform: scaleX(1);
   transition: transform 200ms;

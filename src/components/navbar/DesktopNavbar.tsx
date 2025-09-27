@@ -3,7 +3,7 @@
 import { useState, useEffect, FormEvent } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import MobileDrawer from "@/components/MobileDrawer";
 import { cn } from "@/lib/utils";
@@ -221,6 +221,7 @@ export default function Navbar({
   const handleSearchSubmit = (q: string) =>
     router.push(`/search?q=${encodeURIComponent(q)}`);
 
+  const pathname = usePathname();
   return (
     <>
       <header className="sticky max-md:hidden top-0 z-40 border-b border-gray-100">
@@ -244,23 +245,30 @@ export default function Navbar({
 
             <div className="flex items-center">
               <nav className="flex items-center gap-x-6 lg:gap-x-8 xl:gap-x-10 2xl:gap-x-12 md:pr-8">
-                {navLinks.map((link, idx) => (
-                  <Link
-                    key={link.name}
-                    href={link.href}
-                    className="shrink-0 cursor-pointer"
-                  >
-                    <span
-                      className="relative cursor-pointer text-[clamp(17px,0.95vw,15px)] tracking-wide font-light uppercase text-gray-900 hover:text-gray-800 transition-colors duration-200 nav-link-animate"
-                      style={{
-                        ["--underline-color" as any]:
-                          colors[idx % colors.length],
-                      }}
+                {navLinks.map((link, idx) => {
+                  const isActive = pathname === link.href;
+
+                  return (
+                    <Link
+                      key={link.name}
+                      href={link.href}
+                      className="shrink-0 cursor-pointer"
                     >
-                      {link.name}
-                    </span>
-                  </Link>
-                ))}
+                      <span
+                        className={cn(
+                          "relative cursor-pointer text-[clamp(17px,0.95vw,15px)] tracking-wide font-light uppercase text-gray-900 transition-colors duration-200 nav-link-animate",
+                          isActive && "active"
+                        )}
+                        style={{
+                          ["--underline-color" as any]:
+                            colors[idx % colors.length],
+                        }}
+                      >
+                        {link.name}
+                      </span>
+                    </Link>
+                  );
+                })}
               </nav>
 
               <div className="flex-1 flex items-center gap-2">
