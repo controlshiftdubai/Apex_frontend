@@ -139,99 +139,46 @@ export type ImageData = {
 const carouselData: ImageData[][] = [
   [
     {
-      src: "https://picsum.photos/800/450?random=1",
+      src: "https://cdn.layerdesign.com/wp-content/uploads/2022/12/Industrial-Design-Hero-2-1536x643.jpg.webp",
       alt: "Random Image 1",
       description:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore.",
     },
     {
-      src: "https://picsum.photos/800/450?random=2",
+      src: "https://cdn.layerdesign.com/wp-content/uploads/2023/03/gesha-expertise-1920x806.jpg.webp",
       alt: "Random Image 2",
       description:
         "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.",
     },
-    {
-      src: "https://picsum.photos/800/450?random=3",
-      alt: "Random Image 3",
-      description:
-        "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla.",
-    },
-    {
-      src: "https://picsum.photos/800/450?random=4",
-      alt: "Random Image 4",
-      description:
-        "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim.",
-    },
-    {
-      src: "https://picsum.photos/800/450?random=5",
-      alt: "Random Image 5",
-      description:
-        "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.",
-    },
+   
   ],
   [
     { 
       
-      src: "https://picsum.photos/800/450?random=1",
+      src: "https://cdn.layerdesign.com/wp-content/uploads/2022/12/Engineering-Hero-1920x803.jpg.webp",
       alt: "Random Image 1",
       description: `We develop digital experiences that make sense of complex information. Our approach to UX is defined by clear usability, empowering a diverse audience. By employing a cross-platform approach across various devices, we capture larger markets for higher visibility.
 Our digital design work encompasses everything from UI, wearables and apps, to websites, animations, and e-commerce platforms. With in-house design, development, programming, artworking, and UX capabilities, we can deliver your entire project from concept to market.`,
     },
     {
-      src: "https://picsum.photos/800/450?random=2",
+      src: "https://cdn.layerdesign.com/wp-content/uploads/2022/12/viture_glasses_inside_3-1-1536x643.jpg.webp",
       alt: "Random Image 2",
       description:
         "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.",
-    },
-    {
-      src: "https://picsum.photos/800/450?random=3",
-      alt: "Random Image 3",
-      description:
-        "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla.",
-    },
-    {
-      src: "https://picsum.photos/800/450?random=4",
-      alt: "Random Image 4",
-      description:
-        "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim.",
-    },
-    {
-      src: "https://picsum.photos/800/450?random=5",
-      alt: "Random Image 5",
-      description:
-        "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.",
     },
   ],
   [
     {
-      src: "https://picsum.photos/800/450?random=1",
+      src: "https://cdn.layerdesign.com/wp-content/uploads/2023/02/ER-Branding-1536x643.jpg.webp",
       alt: "Random Image 1",
       description: `We develop digital experiences that make sense of complex information. Our approach to UX is defined by clear usability, empowering a diverse audience. By employing a cross-platform approach across various devices, we capture larger markets for higher visibility.
 Our digital design work encompasses everything from UI, wearables and apps, to websites, animations, and e-commerce platforms. With in-house design, development, programming, artworking, and UX capabilities, we can deliver your entire project from concept to market.`,
     },
     {
-      src: "https://picsum.photos/800/450?random=2",
+      src: "https://cdn.layerdesign.com/wp-content/uploads/2023/03/Earth-Rated-Expertise-1536x643.jpg.webp",
       alt: "Random Image 2",
       description:
         "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.",
-    },
-    {
-      src: "https://picsum.photos/800/450?random=3",
-      alt: "Random Image 3",
-      description:
-        "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla.",
-    },
-    {
-      src: "https://picsum.photos/800/450?random=4",
-      alt: "Random Image 4",
-      description:
-        "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim.",
-    },
-    {
-      src: "https://picsum.photos/800/450?random=5",
-      alt: "Random Image 5",
-      description:
-        "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.",
     },
   ],
 ];
