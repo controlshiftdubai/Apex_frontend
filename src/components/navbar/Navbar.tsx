@@ -5,10 +5,12 @@ import DesktopNavbar from "./DesktopNavbar";
 import MobileNavbar from "./MobileNavbar";
 import MobileBottomBar from "./MobileBottomBar";
 import MobileDrawer from "@/components/MobileDrawer";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
   const [openMenuMobile, setOpenMenuMobile] = React.useState(false);
   const [lang, setLang] = React.useState<"en" | "ar">("en");
+  const pathname = usePathname();
 
   React.useEffect(() => {
     const saved =
@@ -42,25 +44,25 @@ export default function Navbar() {
     <>
       <header className="sticky top-0 z-40 bg-white backdrop-blur border-b border-gray-100">
         <div className="mx-auto h-[72px] md:h-[84px] px-3 sm:px-4 lg:px-6">
-          <DesktopNavbar navLinks={navLinks} />
+          <DesktopNavbar navLinks={navLinks} pathname={pathname} />
           <MobileNavbar
             lang={lang}
             setLang={setLang}
             openMenuMobile={openMenuMobile}
             setOpenMenuMobile={setOpenMenuMobile}
+            pathname={pathname}
           />
         </div>
       </header>
 
-      {/* Mobile drawer for nav links */}
       <MobileDrawer
         open={openMenuMobile}
         onClose={() => setOpenMenuMobile(false)}
         navLinks={navLinks}
+        pathname={pathname}
         id="mobile-drawer"
       />
 
-      {/* Bottom sticky actions (mobile) */}
       <MobileBottomBar wishlistCount={0} cartCount={0} />
     </>
   );
