@@ -28,7 +28,7 @@ export default function Footer() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.6 }}
           transition={{ duration: 0.8, ease: "easeOut", delay: 1 }}
-          className="pt-8 md:pt-12"
+          className="pt-8 md:pt-"
         >
           <AnimateOnViewOnce
             delay={1700}

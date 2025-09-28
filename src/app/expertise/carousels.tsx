@@ -1,15 +1,7 @@
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-} from "@/components/carousel";
-import { cn } from "@/lib/utils";
-import {
-  ChevronLeft,
-  ChevronRight,
-} from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useRef } from "react";
+import { cn } from "@/lib/utils";
 
 const sectionIds = ["Impact", "Collaboration", "Press"];
 
@@ -36,16 +28,33 @@ function SingleCarouselRow({
   className?: string;
 }) {
   const [current, setCurrent] = useState(0);
+  const touchStartX = useRef<number | null>(null);
 
   const nextSlide = () => {
-    if (current < images.length - 1) {
-      setCurrent((prev) => prev + 1);
-    }
+    if (current < images.length - 1) setCurrent((prev) => prev + 1);
   };
 
   const prevSlide = () => {
-    if (current > 0) {
-      setCurrent((prev) => prev - 1);
+    if (current > 0) setCurrent((prev) => prev - 1);
+  };
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!touchStartX.current) return;
+    const diff = touchStartX.current - e.touches[0].clientX;
+
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) {
+        // swipe left
+        nextSlide();
+      } else {
+        // swipe right
+        prevSlide();
+      }
+      touchStartX.current = null; // reset after swipe
     }
   };
 
@@ -56,14 +65,18 @@ function SingleCarouselRow({
         className
       )}
     >
-      <div className="relative flex items-center w-screen left-1/2 right-1/2 -translate-x-1/2 max-w-none px-0">
-        {/* Prev button */}
+      <div
+        className="relative flex items-center w-full md:w-screen md:left-1/2 md:right-1/2 md:-translate-x-1/2 max-w-none px-0 overflow-hidden"
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+      >
+        {/* Prev button — hidden on mobile */}
         <button
           onClick={prevSlide}
           className={cn(
-            "absolute left-36 z-10 transition-opacity",
-            current === 0 ? "opacity-0 pointer-events-none" : "opacity-100",
-            "group"
+            "absolute z-10 transition-opacity group hidden md:block",
+            "left-4 md:left-36",
+            current === 0 ? "opacity-0 pointer-events-none" : "opacity-100"
           )}
           aria-label="Previous"
           tabIndex={current === 0 ? -1 : 0}
@@ -75,46 +88,54 @@ function SingleCarouselRow({
           />
         </button>
 
-        {/* Carousel with sliding animation */}
+        {/* Track */}
         <div className="w-full overflow-hidden">
           <div
             className="flex transition-transform duration-500"
             style={{
-              width: `${images.length * 100}vw`,
-              transform: `translateX(-${current * 100}vw)`,
+              width: `${images.length * 100}%`,
+              transform: `translateX(-${(current * 100) / images.length}%)`,
             }}
           >
             {images.map((image, index) => (
               <div
                 key={index}
                 className="flex-shrink-0"
-                style={{ width: "100vw" }}
+                style={{ width: `${100 / images.length}%` }}
               >
-                <div className="relative w-[67%] mx-auto " style={{ aspectRatio: "800/340" }}>
+                <div
+                  className="relative w-[92%] sm:w-[85%] md:w-full max-w-5xl mx-auto"
+                  style={{ aspectRatio: "800/340" }}
+                >
                   <Image
                     src={image.src || "/placeholder.svg"}
                     alt={image.alt}
                     fill
                     className="object-cover"
-                    sizes="100vw"
+                    sizes="(max-width: 768px) 92vw, (max-width: 1024px) 85vw, 1024px"
                     priority={index === current}
                   />
                 </div>
-                <p className="text-left mt-4 text-lg text-[#999999] max-w-4xl mx-auto px-6">
-                  {image.description}
-                </p>
+
+                <div className="w-[92%] sm:w-[85%] md:w-full max-w-5xl mx-auto">
+                  <p className="text-left mt-4 text-base sm:text-lg text-[#999999] leading-relaxed">
+                    {image.description}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Next button */}
+        {/* Next button — hidden on mobile */}
         <button
           onClick={nextSlide}
           className={cn(
-            "absolute right-36 z-10 transition-opacity",
-            current === images.length - 1 ? "opacity-0 pointer-events-none" : "opacity-100",
-            "group"
+            "absolute z-10 transition-opacity group hidden md:block",
+            "right-4 md:right-40",
+            current === images.length - 1
+              ? "opacity-0 pointer-events-none"
+              : "opacity-100"
           )}
           aria-label="Next"
           tabIndex={current === images.length - 1 ? -1 : 0}
@@ -142,43 +163,41 @@ const carouselData: ImageData[][] = [
       src: "https://cdn.layerdesign.com/wp-content/uploads/2022/12/Industrial-Design-Hero-2-1536x643.jpg.webp",
       alt: "Random Image 1",
       description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore.",
+        "Our product and engineering teams collaborate to design, test, and develop clever, cost-effective components that combine functional excellence with aesthetic appeal. This technical robustness ensures aspirational concepts can be executed with ease.",
     },
     {
       src: "https://cdn.layerdesign.com/wp-content/uploads/2023/03/gesha-expertise-1920x806.jpg.webp",
       alt: "Random Image 2",
       description:
-        "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.",
+        "We are world-class storytellers dedicated to crafting compelling narratives. We create unrivalled launch strategies and produce captivating content that communicates your vision, inspires your consumers, and maximises your exposure.",
     },
-   
   ],
   [
-    { 
-      
+    {
       src: "https://cdn.layerdesign.com/wp-content/uploads/2022/12/Engineering-Hero-1920x803.jpg.webp",
       alt: "Random Image 1",
-      description: `We develop digital experiences that make sense of complex information. Our approach to UX is defined by clear usability, empowering a diverse audience. By employing a cross-platform approach across various devices, we capture larger markets for higher visibility.
-Our digital design work encompasses everything from UI, wearables and apps, to websites, animations, and e-commerce platforms. With in-house design, development, programming, artworking, and UX capabilities, we can deliver your entire project from concept to market.`,
+      description:
+        "Our product and engineering teams collaborate to design, test, and develop clever, cost-effective components that combine functional excellence with aesthetic appeal. This technical robustness ensures aspirational concepts can be executed with ease.",
     },
     {
       src: "https://cdn.layerdesign.com/wp-content/uploads/2022/12/viture_glasses_inside_3-1-1536x643.jpg.webp",
       alt: "Random Image 2",
       description:
-        "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.",
+        "We have a deep understanding of complex engineering systems, both mechanical and electrical. With this knowledge, we have the capability to manage the design for manufacture process and source production facilities for projects of all sizes.",
     },
   ],
   [
     {
       src: "https://cdn.layerdesign.com/wp-content/uploads/2023/02/ER-Branding-1536x643.jpg.webp",
       alt: "Random Image 1",
-      description: `We develop digital experiences that make sense of complex information. Our approach to UX is defined by clear usability, empowering a diverse audience. By employing a cross-platform approach across various devices, we capture larger markets for higher visibility.
-Our digital design work encompasses everything from UI, wearables and apps, to websites, animations, and e-commerce platforms. With in-house design, development, programming, artworking, and UX capabilities, we can deliver your entire project from concept to market.`,
+      description:
+        "Our strategic approach is inspired by the pursuit of the ‘why’ and uncovers the values that drive your brand. Based on these insights, we craft thoughtful new identities and reimagine well-loved brands. By developing the identity, product, and packaging simultaneously, we create consistency and differentiation in saturated markets.",
     },
     {
       src: "https://cdn.layerdesign.com/wp-content/uploads/2023/03/Earth-Rated-Expertise-1536x643.jpg.webp",
       alt: "Random Image 2",
       description:
-        "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.",
+        "At LAYER, we go beyond visual and physical brand articulation, giving you the tools you need to communicate effectively to your audience. Our branding team works with you to develop sophisticated tone-of-voice guides that equip you to write powerful copy.",
     },
   ],
 ];
