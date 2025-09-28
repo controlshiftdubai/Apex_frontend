@@ -197,7 +197,7 @@ const carouselData: ImageData[][] = [
       src: "https://cdn.layerdesign.com/wp-content/uploads/2023/03/Earth-Rated-Expertise-1536x643.jpg.webp",
       alt: "Random Image 2",
       description:
-        "At LAYER, we go beyond visual and physical brand articulation, giving you the tools you need to communicate effectively to your audience. Our branding team works with you to develop sophisticated tone-of-voice guides that equip you to write powerful copy.",
+        "At Apex, we go beyond visual and physical brand articulation, giving you the tools you need to communicate effectively to your audience. Our branding team works with you to develop sophisticated tone-of-voice guides that equip you to write powerful copy.",
     },
   ],
 ];
