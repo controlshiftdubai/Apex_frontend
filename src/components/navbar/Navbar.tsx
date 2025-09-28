@@ -30,10 +30,10 @@ export default function Navbar() {
   }, [lang]);
 
   const navLinks = [
+    { name: "Innovation", href: "/innovation" },
     { name: "Hub", href: "/hub" },
     { name: "Studio", href: "/studio" },
     { name: "Projects", href: "/projects" },
-    { name: "Innovation", href: "/innovation" },
     { name: "Shop", href: "/expertise" },
     { name: "Contact", href: "/contact" },
   ];

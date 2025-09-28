@@ -11,7 +11,7 @@ import ParallaxImage from "@/components/parallaxImageContainer";
 function useRafThrottle<T extends (...args: any[]) => void>(fn: T, fps = 60): T {
   const lastRef = useRef<number & { rafId?: number }>(0);
   return ((...args: any[]) => {
-    const now = performance.now();
+    const now = typeof performance !== "undefined" ? performance.now() : 0;
     const minInterval = 1000 / fps;
     if (now - lastRef.current > minInterval) {
       lastRef.current = now;
@@ -35,9 +35,10 @@ export default function Showcases() {
   const showcaseRef = useRef<HTMLElement | null>(null);
   const lineRef = useRef<HTMLDivElement | null>(null);
 
+  // Don't depend on showCases to avoid re-creating refs
   const itemRefs: RefObject<HTMLDivElement | null>[] = useMemo(
     () => showCases.map(() => React.createRef<HTMLDivElement>()),
-    [showCases]
+    []
   );
 
   const [lineHeight, setLineHeight] = useState(0);
@@ -145,10 +146,10 @@ export default function Showcases() {
   }, [updateProgress]);
 
   return (
-    <div ref={wrapperRef} className="relative bg-white text-neutral-900 py-24">
-      {/* Vertical progress line down the center */}
+    <div ref={wrapperRef} className="relative bg-white text-neutral-900 py-12 md:py-24">
+      {/* Vertical progress line down the center (desktop only) */}
       <div
-        className="pointer-events-none absolute left-1/2 -translate-x-1/2 top-0 w-[5px] max-md:hidden"
+        className="pointer-events-none absolute left-1/2 -translate-x-1/2 top-0 w-[5px] hidden md:block"
         style={{ top: lineTopOffset }}
       >
         <motion.div
@@ -161,7 +162,7 @@ export default function Showcases() {
         />
       </div>
 
-      {/* Horizontal ticks per row */}
+      {/* Horizontal ticks per row (desktop only) */}
       {showCases.map((_, idx) => (
         <HorizontalProgressLines
           key={idx}
@@ -176,9 +177,9 @@ export default function Showcases() {
       {/* The grid of rows */}
       <section
         ref={showcaseRef}
-        className="relative mx-auto max-w-6xl px-4 sm:px-6 pb-24 md:pb-32"
+        className="relative mx-auto max-w-6xl px-4 sm:px-6 pb-16 md:pb-32"
       >
-        <div className="space-y-20 md:space-y-34">
+        <div className="space-y-16 sm:space-y-20 md:space-y-28">
           {showCases.map((item, idx) => (
             <ShowCaseRow
               key={idx}
@@ -191,7 +192,7 @@ export default function Showcases() {
         </div>
       </section>
 
-      <div className="h-32" />
+      <div className="h-12 md:h-32" />
     </div>
   );
 }
@@ -241,6 +242,8 @@ function HorizontalProgressLines({
     };
   }, [itemRef, wrapperRef, lineTopOffset, progress]);
 
+  // Don’t render on mobile; prevents useless work + layout jumps
+  if (typeof window !== "undefined" && window.innerWidth < 768) return null;
   if (!linePosition.visible) return null;
 
   const isAlternate = idx % 2 === 1;
@@ -254,7 +257,7 @@ function HorizontalProgressLines({
 
   return (
     <div
-      className="pointer-events-none absolute left-1/2 -translate-x-1/2  max-md:hidden"
+      className="pointer-events-none absolute left-1/2 -translate-x-1/2 hidden md:block"
       style={{ top: lineTopOffset + linePosition.top }}
     >
       {/* to the number */}
@@ -284,7 +287,7 @@ function HorizontalProgressLines({
 }
 
 /* -----------------------------------------------------------
-   Image block: BIG on top + TWO small below (the new layout)
+   Image block: BIG on top + TWO small below (mobile-first sizes)
    images[0] -> big hero
    images[1], images[2] -> small tiles underneath
 ----------------------------------------------------------- */
@@ -298,8 +301,9 @@ type OverlapImagesProps = {
 export function OverlapImages({
   images,
   alternate = false,
-  heroHeight = "h-[360px] sm:h-[420px] md:h-[520px] lg:h-[260px]",
-  smallHeight = "h-[240px] sm:h-[260px] md:h-[180px]",
+  // Mobile smaller, scale up as viewport grows
+  heroHeight = "h-[220px] sm:h-[280px] md:h-[360px] lg:h-[420px]",
+  smallHeight = "h-[140px] sm:h-[180px] md:h-[220px]",
 }: OverlapImagesProps) {
   let [big, s1, s2] = [
     images?.[0] ?? "",
@@ -307,33 +311,32 @@ export function OverlapImages({
     images?.[2] ?? "",
   ];
 
-  // for alternating rows you can swap the small images
   if (alternate) [s1, s2] = [s2, s1];
 
   return (
     <div className="w-full">
       {/* Big hero image (full width) */}
       {big && (
-        <div className={`relative w-full overflow-hidden  shadow-lg ${heroHeight}`}>
+        <div className={`relative w-full overflow-hidden shadow-lg ${heroHeight}`}>
           <ParallaxImage
             src={big}
             alt="Showcase-hero"
             text=""
-            className="w-full h-full "
+            className="w-full h-full"
             imageClassName="object-cover"
           />
         </div>
       )}
 
       {/* Two small images below */}
-      <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-6">
+      <div className="mt-4 sm:mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
         {s1 && (
-          <div className={`relative w-full overflow-hidden  shadow-lg ${smallHeight}`}>
+          <div className={`relative w-full overflow-hidden shadow-lg ${smallHeight}`}>
             <ParallaxImage
               src={s1}
               alt="Showcase-small-1"
               text=""
-              className="w-full h-full "
+              className="w-full h-full"
               imageClassName="object-cover"
             />
           </div>
@@ -344,7 +347,7 @@ export function OverlapImages({
               src={s2}
               alt="Showcase-small-2"
               text=""
-              className="w-full h-full "
+              className="w-full h-full"
               imageClassName="object-cover"
             />
           </div>
@@ -361,7 +364,7 @@ function ShowCaseRow({
   item,
   idx,
   itemRef,
-  itemActive,
+  itemActive, // (kept if you later want to style “active” state)
 }: {
   item: ShowcaseItem;
   idx: number;
@@ -372,15 +375,15 @@ function ShowCaseRow({
     <div
       key={item.id}
       ref={itemRef}
-      className="grid md:grid-cols-2 items-start gap-32"
+      className="grid md:grid-cols-2 items-start gap-10 sm:gap-16 md:gap-20"
     >
       {/* Left: BIG + two small images */}
-      <div className="max-md:order-2">
+      <div className="md:order-1 order-2">
         <OverlapImages images={item.images} alternate={Boolean(idx % 2)} />
       </div>
 
       {/* Right: index, title, description */}
-      <div className="relative h-full flex flex-col justify-center">
+      <div className="relative h-full flex flex-col justify-center order-1 md:order-2">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -388,13 +391,13 @@ function ShowCaseRow({
           transition={{ duration: 0.4 }}
           className="pl-0 md:pl-8"
         >
-          <div className="text-3xl font-medium tracking-tighter">
+          <div className="text-xl sm:text-2xl md:text-3xl font-medium tracking-tight">
             {String(idx + 1).padStart(2, "0")}
           </div>
-          <h3 className="mt-2 text-2xl md:text-3xl lg:text-5xl font-medium">
+          <h3 className="mt-2 text-[22px] sm:text-3xl lg:text-5xl font-semibold leading-tight tracking-tight">
             {item.title}
           </h3>
-          <p className="mt-4 leading-tight text-[#999999]">
+          <p className="mt-3 sm:mt-4 text-sm sm:text-base leading-relaxed text-[#6B7280]">
             {item.description}
           </p>
         </motion.div>
