@@ -137,7 +137,7 @@ export default function MobileNavbar({
       {/* Left: logo */}
       <Link href="/" className="rounded-md block shrink-0 mr-2">
         <Image
-          src="/logo.png"
+          src="https://d33609liqwio9r.cloudfront.net/2025-09-30T10:28:54.401Z-Apex_logo.webp"
           alt="logo"
           width={128}
           height={30}
