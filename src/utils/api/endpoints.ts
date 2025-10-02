@@ -35,9 +35,19 @@ const AUTH_ENDPOINTS = () => {
   };
 };
 
+const BASKET_ENDPOINTS = () => {
+  const base = "/pi/baskets";
+  return {
+    base,
+    wishlist: `${base}/wishlists`,
+    cart: `${base}/carts`
+  };
+};
+
 export const API_ENDPOINTS = {
   products: PRODUCT_ENDPOINTS(),
   reviews: REVIEWS_ENDPOINTS(),
   auth: AUTH_ENDPOINTS(),
   banner: BANNER_ENDPOINTS(),
+  basket: BASKET_ENDPOINTS(),
 };
