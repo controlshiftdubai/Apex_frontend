@@ -82,7 +82,7 @@
         onSubmit={submit}
         role="search"
         aria-label="Site search"
-        className="min-w-[250px] w-full max-w-[300px] xl:max-w-sm 2xl:max-w-md relative"
+        className="w-[125px] focus-within:w-[250px] transition-all xl:max-w-sm 2xl:max-w-md relative"
       >
         <input
           value={q}
