@@ -4,6 +4,8 @@ import localFont from "next/font/local";
 import Navbar from "../components/navbar/Navbar";
 import Footer from "./footer";
 import HashScroll from "@/components/has-scroll";
+import QueryProvider from '@/components/QueryProvider';
+import { Toaster } from 'sonner';
 export const sofiaPro = localFont({
   src: [
     {
@@ -41,10 +43,13 @@ export default function RootLayout({
       <body
         className={`${sofiaPro.variable} antialiased font-sans font-normal`}
       >
-        <HashScroll />
-        <Navbar />
-        <main className="">{children}</main>
-        <Footer />
+        <QueryProvider>
+          <HashScroll />
+          <Navbar />
+          <main className="">{children}</main>
+          <Footer />
+          <Toaster richColors position='bottom-right' />
+        </QueryProvider>
       </body>
     </html>
   );

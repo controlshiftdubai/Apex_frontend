@@ -27,8 +27,7 @@ export const BasketHandler = {
     queryString,
     payload,
   }: BaseApiRequest<{
-    productId: string;
-    quantity: number;
+    items: { productId: string; quantity: number }[];
   }>) => {
     return await fetchController<Basket>({
       method: "POST",
@@ -43,8 +42,7 @@ export const BasketHandler = {
     queryString,
     payload,
   }: BaseApiRequest<{
-    productId: string;
-    quantity?: number;
+    items: { productId: string; quantity?: number }[];
   }>) => {
     return await fetchController<Basket>({
       method: "POST",
@@ -59,8 +57,7 @@ export const BasketHandler = {
     queryString,
     payload,
   }: BaseApiRequest<{
-    itemId: string;
-    quantity: number;
+    items: { productId: string; quantity: number }[];
   }>) => {
     return await fetchController<Basket>({
       method: "PUT",
@@ -70,27 +67,11 @@ export const BasketHandler = {
     });
   },
 
-  // PUT - Update wishlist item
-  updateWishlist: async ({
-    queryString,
-    payload,
-  }: BaseApiRequest<{
-    itemId: string;
-    quantity: number;
-  }>) => {
-    return await fetchController<Basket>({
-      method: "PUT",
-      endpoint: API_ENDPOINTS.basket.wishlist,
-      queryString,
-      body: payload,
-    });
-  },
-
   // DELETE - Remove item from cart
   removeFromCart: async ({
     queryString,
     payload,
-  }: BaseApiRequest<{ itemId: string }>) => {
+  }: BaseApiRequest<{ productId: string }>) => {
     return await fetchController<Basket>({
       method: "DELETE",
       endpoint: API_ENDPOINTS.basket.cart,
@@ -103,7 +84,7 @@ export const BasketHandler = {
   removeFromWishlist: async ({
     queryString,
     payload,
-  }: BaseApiRequest<{ itemId: string }>) => {
+  }: BaseApiRequest<{ productId: string }>) => {
     return await fetchController<Basket>({
       method: "DELETE",
       endpoint: API_ENDPOINTS.basket.wishlist,

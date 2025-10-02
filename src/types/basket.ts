@@ -14,6 +14,16 @@ export interface BasketItem {
   quantity: number;
   createdAt: Date;
   updatedAt: Date;
+  product: Product;
+}
+
+export interface Product {
+  id: string;
+  name: string;
+  price: number;
+  thumbnail: string;
+  currency: string;
+  slug: string;
 }
 
 export enum BasketType {

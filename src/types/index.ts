@@ -3,6 +3,13 @@ export interface SignInRequest {
   password: string;
 }
 
+export interface UserSignUpPayload {
+  name: string;
+  email: string;
+  phoneNumber: string;
+  password: string;
+}
+
 export type PaginatedResponse<T> = {
   total: number;
   totalPages: number;
