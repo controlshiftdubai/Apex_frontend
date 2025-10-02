@@ -9,3 +9,5 @@ export const scrollToSection = (href: string) => {
   const section = document.getElementById(href);
   if (section) section?.scrollIntoView({ behavior: "smooth" });
 };
+export const buildQueryString = (params?: Record<string, string>) =>
+  params ? `${new URLSearchParams(params).toString()}` : "";
