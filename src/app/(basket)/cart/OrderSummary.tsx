@@ -21,13 +21,24 @@ export default function OrderSummary({ cart, subtotal, shipping, discount, total
                 <div className="text-xs text-gray-500">{item.color}</div>
               </div>
             </div>
-            <div className="text-right font-bold text-sm">${item.price.toFixed(2)}</div>
+            <div className="text-right font-bold text-sm">
+              {item.currency === "USD" ? "$" : item.currency}{item.price.toFixed(2)}
+            </div>
           </div>
         ))}
         <div className="border-t border-gray-200 pt-3 space-y-1 text-sm">
-          <div className="flex justify-between"><span>Cart Subtotal</span><span>${subtotal.toFixed(2)}</span></div>
-          <div className="flex justify-between"><span>Shipping & Handling</span><span>${shipping.toFixed(2)}</span></div>
-          <div className="flex justify-between text-green-500"><span>Discount</span><span>-${discount.toFixed(2)}</span></div>
+          <div className="flex justify-between">
+            <span>Cart Subtotal</span>
+            <span>${subtotal.toFixed(2)}</span>
+          </div>
+          <div className="flex justify-between">
+            <span>Shipping & Handling</span>
+            <span>${shipping.toFixed(2)}</span>
+          </div>
+          <div className="flex justify-between text-green-500">
+            <span>Discount</span>
+            <span>-${discount.toFixed(2)}</span>
+          </div>
           <div className="border-t border-gray-300 pt-2 mt-2 flex justify-between font-bold text-base">
             <span>Cart Total</span>
             <span>${total.toFixed(2)}</span>
@@ -36,7 +47,10 @@ export default function OrderSummary({ cart, subtotal, shipping, discount, total
         {(step === "delivery" || step === "payment" || step === "thankyou") && address.addressInput && (
           <div className="border-t border-gray-200 pt-5 mt-5">
             <div className="font-semibold text-sm text-gray-600 mb-2">Shipment Address</div>
-            <div className="text-xs text-gray-700">{address.addressInput}, {address.cityState}, {address.country}{address.zipCode ? `, ${address.zipCode}` : ""}</div>
+            <div className="text-xs text-gray-700">
+              {address.addressInput}, {address.cityState}, {address.country}
+              {address.zipCode ? `, ${address.zipCode}` : ""}
+            </div>
           </div>
         )}
       </div>

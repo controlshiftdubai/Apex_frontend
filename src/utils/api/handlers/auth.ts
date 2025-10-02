@@ -1,6 +1,7 @@
-import { BaseApiRequest, SignInRequest } from "@/types";
+import { BaseApiRequest, SignInRequest, UserSignUpPayload } from "@/types";
 import { fetchController } from "../fetch-controller";
 import { API_ENDPOINTS } from "../endpoints";
+import { User } from '@/types/user';
 
 export const AuthAPI = {
   verify: async ({ queryString }: BaseApiRequest) => {
@@ -26,7 +27,7 @@ export const AuthAPI = {
       queryString,
     });
   },
-  userSignUp: async ({ queryString, payload }: BaseApiRequest<SignInRequest>) => {
+  userSignUp: async ({ queryString, payload }: BaseApiRequest<UserSignUpPayload>) => {
     return await fetchController({
       method: "POST",
       endpoint: API_ENDPOINTS.auth.userSignUp,
