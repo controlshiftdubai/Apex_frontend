@@ -173,7 +173,7 @@ const WishlistPage = () => {
                 />
                 <button
                   onClick={() => removeFromWishlist(item.id)}
-                  className="absolute top-3 right-3 p-2 bg-white shadow-lg hover:bg-red-50 transition-all duration-200 cursor-pointer group/remove"
+                  className="absolute top-3 right-3 p-2 bg-white shadow-lg hover:bg-red-50 transition-all duration-200 cursor-pointer group/remove rounded-full"
                   title="Remove from wishlist"
                 >
                   <Heart className="w-5 h-5 text-red-500 fill-current group-hover/remove:scale-110 transition-transform" />
