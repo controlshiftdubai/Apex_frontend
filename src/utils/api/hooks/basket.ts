@@ -160,3 +160,57 @@ export const useUpdateCartQuantity = () => {
     },
   });
 };
+
+export const useMoveToCart = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async () => {
+      const result = await BasketHandler.moveItems({
+        payload: {
+          from: "WISHLIST",
+          to: "CART"
+        },
+      });
+      if (result.data.error) {
+        throw new Error(result.data.message || "Failed to move items to cart");
+      }
+      return result.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["basket", "cart"] });
+      queryClient.invalidateQueries({ queryKey: ["basket", "wishlist"] });
+      toast.success("All items moved to cart");
+    },
+    onError: (error: Error) => {
+      toast.error(error.message || "Failed to move items to cart");
+    },
+  });
+};
+
+export const useMoveToWishlist = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async () => {
+      const result = await BasketHandler.moveItems({
+        payload: {
+          from: "CART",
+          to: "WISHLIST"
+        },
+      });
+      if (result.data.error) {
+        throw new Error(result.data.message || "Failed to move items to wishlist");
+      }
+      return result.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["basket", "cart"] });
+      queryClient.invalidateQueries({ queryKey: ["basket", "wishlist"] });
+      toast.success("All items moved to wishlist");
+    },
+    onError: (error: Error) => {
+      toast.error(error.message || "Failed to move items to wishlist");
+    },
+  });
+};

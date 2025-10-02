@@ -1,15 +1,16 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import { Heart, ShoppingCart, Trash2, ArrowRight, Loader2 } from "lucide-react";
-import { useWishlist, useAddToCart, useRemoveFromWishlist } from "@/utils/api/hooks/basket";
+import { useWishlist, useAddToCart, useRemoveFromWishlist, useMoveToCart } from "@/utils/api/hooks/basket";
 import Loading from '@/components/loading';
 
 const WishlistPage = () => {
   const { data, isLoading, error } = useWishlist({ params: {}, payload: {} });
   const addToCartMutation = useAddToCart();
   const removeFromWishlistMutation = useRemoveFromWishlist();
+  const moveToCartMutation = useMoveToCart();
 
   const [isAddingToCart, setIsAddingToCart] = useState<string | null>(null);
 
@@ -24,6 +25,9 @@ const WishlistPage = () => {
     addToCartMutation.mutate(
       { productId, quantity },
       {
+        onSuccess: () => {
+          removeFromWishlistMutation.mutate({ itemId: productId });
+        },
         onSettled: () => {
           setIsAddingToCart(null);
         },
@@ -31,10 +35,8 @@ const WishlistPage = () => {
     );
   };
 
-  const handleAddAllToCart = () => {
-    wishlistItems.forEach((item: any) => {
-      addToCartMutation.mutate({ productId: item.productId, quantity: item.quantity });
-    });
+  const handleMoveAllToCart = () => {
+    moveToCartMutation.mutate();
   };
 
   const calculateTotal = () => {
@@ -109,16 +111,16 @@ const WishlistPage = () => {
             </div>
             <div className="flex gap-3">
               <button
-                onClick={handleAddAllToCart}
-                disabled={addToCartMutation.isPending}
+                onClick={handleMoveAllToCart}
+                disabled={moveToCartMutation.isPending}
                 className="flex items-center gap-2 px-6 py-3 bg-black text-white font-semibold hover:bg-gray-800 transition-colors cursor-pointer disabled:opacity-50"
               >
-                {addToCartMutation.isPending ? (
+                {moveToCartMutation.isPending ? (
                   <Loader2 className="w-4 h-4 animate-spin" />
                 ) : (
                   <ShoppingCart className="w-4 h-4" />
                 )}
-                <span>Add All to Cart</span>
+                <span>Move All to Cart</span>
               </button>
             </div>
           </div>
@@ -187,7 +189,7 @@ const WishlistPage = () => {
                         ) : (
                           <ShoppingCart className="w-4 h-4" />
                         )}
-                        Add to Cart
+                        Move to Cart
                       </span>
                       <span className="absolute bottom-0 left-0 right-0 h-[8px] bg-[#A5C1FF]" aria-hidden="true" />
                     </span>
@@ -237,12 +239,18 @@ const WishlistPage = () => {
               </p>
             </div>
             <button
-              onClick={handleAddAllToCart}
-              disabled={addToCartMutation.isPending}
+              onClick={handleMoveAllToCart}
+              disabled={moveToCartMutation.isPending}
               className="flex items-center justify-center gap-2 px-8 py-3 bg-[#FDE68A] text-gray-900 font-semibold hover:bg-[#FDD835] transition-colors cursor-pointer disabled:opacity-50"
             >
-              <span>Move All to Cart</span>
-              <ArrowRight className="w-5 h-5" />
+              {moveToCartMutation.isPending ? (
+                <Loader2 className="w-5 h-5 animate-spin" />
+              ) : (
+                <>
+                  <span>Move All to Cart</span>
+                  <ArrowRight className="w-5 h-5" />
+                </>
+              )}
             </button>
           </div>
         </div>
