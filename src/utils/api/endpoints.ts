@@ -36,7 +36,7 @@ const AUTH_ENDPOINTS = () => {
 };
 
 const BASKET_ENDPOINTS = () => {
-  const base = "/pi/baskets";
+  const base = "/api/baskets";
   return {
     base,
     wishlist: `${base}/wishlists`,
