@@ -42,7 +42,8 @@ const BASKET_ENDPOINTS = () => {
   return {
     base,
     wishlist: `${base}/wishlists`,
-    cart: `${base}/carts`
+    cart: `${base}/carts`,
+    move: `${base}/move`
   };
 };
 

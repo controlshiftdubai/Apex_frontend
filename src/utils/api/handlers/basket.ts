@@ -92,4 +92,20 @@ export const BasketHandler = {
       body: payload,
     });
   },
+
+  // POST - Move items between baskets (wishlist <-> cart)
+  moveItems: async ({
+    queryString,
+    payload,
+  }: BaseApiRequest<{
+    from: "WISHLIST" | "CART";
+    to: "WISHLIST" | "CART";
+  }>) => {
+    return await fetchController<Basket>({
+      method: "POST",
+      endpoint: API_ENDPOINTS.basket.move,
+      queryString,
+      body: payload,
+    });
+  },
 };
