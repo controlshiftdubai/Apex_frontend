@@ -29,9 +29,11 @@ const AUTH_ENDPOINTS = () => {
   const base = "/auth/admin";
   return {
     base,
-    signIn: `${base}/sign-in`,
+    adminSignIn: `${base}/sign-in`,
+    userSignIn: `/auth/sign-in`,
     logout: `${base}/logout`,
     verify: `${base}/verify`,
+    userSignUp: `/auth/sign-up`
   };
 };
 

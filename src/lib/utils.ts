@@ -1,3 +1,4 @@
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -9,5 +10,10 @@ export const scrollToSection = (href: string) => {
   const section = document.getElementById(href);
   if (section) section?.scrollIntoView({ behavior: "smooth" });
 };
+
 export const buildQueryString = (params?: Record<string, string>) =>
   params ? `${new URLSearchParams(params).toString()}` : "";
+
+export function redirectToHome_Client(router: AppRouterInstance) {
+  return router.replace("/");
+}
