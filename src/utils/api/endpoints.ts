@@ -3,7 +3,7 @@ const PRODUCT_ENDPOINTS = () => {
   return {
     base,
     single: (id: string) => `${base}/${id}`,
-    getSlugs: `${base}/slugs`,
+    getSlugs: `${base}/site/slugs`,
   };
 };
 

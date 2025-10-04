@@ -36,7 +36,7 @@ export const ProductHandler = {
   },
 
   getSlugs: async ({ queryString }: BaseApiRequest) => {
-    return await fetchController<{ slug: string }[]>({
+    return await fetchController<{ id: string; slug: string }[]>({
       method: "GET",
       endpoint: API_ENDPOINTS.products.getSlugs,
       queryString,

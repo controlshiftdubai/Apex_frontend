@@ -12,8 +12,8 @@ export interface Product {
   stock: number;
 
   thumbnail: string;
-  colorHex: string | null;
-  colorName: string | null;
+  colorHex: string;
+  colorName: string;
   images: string[];
   video: string | null;
   reviews: Review[];
