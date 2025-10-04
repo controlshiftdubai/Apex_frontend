@@ -1,8 +1,8 @@
 "use client";
 
 import { Product } from "@/types/product";
-import { cn } from "@/lib/utils";
 import { memo, useState } from "react";
+import { cn } from "@/lib/utils";
 import Image from "next/image";
 
 export default function PostClient({ product }: { product: Product }) {
@@ -16,7 +16,7 @@ export default function PostClient({ product }: { product: Product }) {
   };
 
   return (
-    <section className="max-w-7xl mx-auto max-lg:px-4 py-12 space-y-12">
+    <section className="max-w-7xl mx-auto max-lg:px-4 py-12 space-y-12 md:space-y-16">
       <HeroSection
         baseProduct={baseProduct}
         product={selectedProduct}
@@ -26,8 +26,8 @@ export default function PostClient({ product }: { product: Product }) {
       <GeneralText product={selectedProduct} />
       <ProductGallerySection product={selectedProduct} />
       <SpecificationsSection product={selectedProduct} />
-      <RelatedProductsSection product={selectedProduct} />
-      <ReviewsSection product={selectedProduct} />
+      {/* <RelatedProductsSection product={selectedProduct} /> */}
+      {/* <ReviewsSection product={selectedProduct} /> */}
     </section>
   );
 }
@@ -177,8 +177,34 @@ function ProductGallerySection({ product }: { product: Product }) {
     </div>
   );
 }
+
 function SpecificationsSection({ product }: { product: Product }) {
-  return <div>Specifications - {JSON.stringify(product.specifications)}</div>;
+  // @ts-ignore
+  const specImage = product.specificationsImage || product.thumbnail;
+  return (
+    <div>
+      <h3 className="text-2xl md:text-4xl mb-10 text-center">Specifications</h3>
+      <div className="grid grid-cols-2 gap-5 w-full">
+        <div className="w-full relative">
+          <Image
+            fill
+            alt={product.name}
+            unoptimized
+            src={specImage}
+            className="object-contain"
+          />
+        </div>
+        <div className="flex flex-col gap-3 text-lg">
+          {Object.entries(product.specifications || {}).map(([key, value]) => (
+            <div key={key} className="border-b py-2 flex justify-between">
+              <span className="font-medium text-gray-600">{key}</span>
+              <span>{value}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
 }
 
 function RelatedProductsSection({ product }: { product: Product }) {
