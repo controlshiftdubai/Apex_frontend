@@ -4,6 +4,8 @@ import type { Product } from "@/types/product";
 import { memo, useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import { useAddToCart, useAddToWishlist } from "@/utils/api/hooks/basket";
+import { toast } from "sonner";
 
 export default function PostClient({ product }: { product: Product }) {
   const baseProduct = JSON.parse(JSON.stringify(product)) as Product;
@@ -152,6 +154,37 @@ function HeroSection({
     if (variant) changeProduct(variant);
   };
 
+  const addToCartMutation = useAddToCart();
+  const addToWishlistMutation = useAddToWishlist();
+
+  const handleAddToCart = () => {
+    addToCartMutation.mutate(
+      { productId: product.id, quantity: 1 },
+      {
+        onSuccess: () => {
+          toast.success("Product added to cart");
+        },
+        onError: (error) => {
+          toast.error("Error adding product to cart");
+          console.error(error);
+        },
+      }
+    );
+  };
+  const handleAddToWishlist = () => {
+    addToWishlistMutation.mutate(
+      { productId: product.id, quantity: 1 },
+      {
+        onSuccess: () => {
+          toast.success("Product added to wishlist");
+        },
+        onError: (error) => {
+          toast.error("Error adding product to wishlist");
+          console.error(error);
+        },
+      }
+    );
+  };
   return (
     <div className="relative">
       <div className="flex flex-col">
@@ -229,10 +262,16 @@ function HeroSection({
             </div>
           </div>
           <div className="flex flex-wrap gap-3 w-full md:w-auto">
-            <button className="flex-1 md:flex-none px-6 py-3 font-medium text-gray-700 hover:text-black hover:bg-gray-50 transition-all border border-gray-300 rounded-lg">
+            <button
+              onClick={handleAddToWishlist}
+              className="flex-1 md:flex-none px-6 py-3 font-medium text-gray-700 hover:text-black hover:bg-gray-50 transition-all border border-gray-300 rounded-lg"
+            >
               Wishlist
             </button>
-            <button className="flex-1 md:flex-none px-6 py-3 font-medium text-gray-700 hover:text-black hover:bg-gray-50 transition-all border border-gray-300 rounded-lg">
+            <button
+              onClick={handleAddToCart}
+              className="flex-1 md:flex-none px-6 py-3 font-medium text-gray-700 hover:text-black hover:bg-gray-50 transition-all border border-gray-300 rounded-lg"
+            >
               Add To Cart
             </button>
             <button className="flex-1 md:flex-none px-8 py-3 font-semibold bg-black text-white hover:bg-gray-800 transition-all rounded-lg shadow-lg hover:shadow-xl">
