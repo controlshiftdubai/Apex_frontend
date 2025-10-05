@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import MobileDrawer from "@/components/MobileDrawer";
 import { cn } from "@/lib/utils";
 import SearchBar from '../SearchBar';
+import BasketIcon from './BasketIcon';
 
 /* ---------- Icons (menu / close / search) ---------- */
 const MenuIcon = ({ className }: { className?: string }) => (
@@ -282,55 +283,23 @@ export default function Navbar({
 
                 {/* Actions */}
                 <div className="grid grid-cols-3 gap-3 shrink-0">
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="group relative h-9 w-9 cursor-pointer rounded-full hover:bg-white/0"
-                    style={{ ["--underline-color" as any]: actionColors[0] }}
+                  <BasketIcon
+                    type="wishlist"
                     onClick={() => router.push("/wishlist")}
-                    aria-label="Wishlist"
-                  >
-                    <Image
-                      src="/icons/wishlist.svg"
-                      alt=""
-                      width={22}
-                      height={22}
-                      sizes="22px"
-                      className="block h-[22px] w-[22px]"
-                      priority
-                    />
-                    <Badge count={0} />
-                    <span
-                      className="pointer-events-none absolute left-2 right-2 bottom-1 h-0.5 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-200"
-                      style={{ background: "var(--underline-color)" }}
-                      aria-hidden="true"
-                    />
-                  </Button>
+                    iconSrc="/icons/wishlist.svg"
+                    alt="Wishlist"
+                    ariaLabel="Wishlist"
+                    size="md"
+                  />
 
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="group relative h-9 w-9 cursor-pointer rounded-full hover:bg-white/0"
-                    style={{ ["--underline-color" as any]: actionColors[1] }}
+                  <BasketIcon
+                    type="cart"
                     onClick={() => router.push("/cart")}
-                    aria-label="Cart"
-                  >
-                    <Image
-                      src="/icons/cart.svg"
-                      alt=""
-                      width={22}
-                      height={22}
-                      sizes="22px"
-                      className="block h-[22px] w-[22px]"
-                      priority
-                    />
-                    <Badge count={0} />
-                    <span
-                      className="pointer-events-none absolute left-2 right-2 bottom-1 h-0.5 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-200"
-                      style={{ background: "var(--underline-color)" }}
-                      aria-hidden="true"
-                    />
-                  </Button>
+                    iconSrc="/icons/cart.svg"
+                    alt="Cart"
+                    ariaLabel="Cart"
+                    size="md"
+                  />
 
                   <Button
                     variant="ghost"

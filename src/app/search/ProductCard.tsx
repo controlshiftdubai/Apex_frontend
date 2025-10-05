@@ -1,64 +1,112 @@
 "use client"
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Image from 'next/image'
-import { HeartIcon, ShoppingCart, Loader2 } from 'lucide-react'
+import { Heart, ShoppingCart, Loader2 } from 'lucide-react'
 import Link from 'next/link'
 import { Product } from './SearchPageContent'
-import { useAddToCart, useAddToWishlist } from '@/utils/api/hooks/basket'
+import { useAddToCart, useRemoveFromCart, useAddToWishlist, useRemoveFromWishlist, useCart, useWishlist } from '@/utils/api/hooks/basket'
+import { cn } from '@/lib/utils'
 
 interface ProductCardProps {
   product: Product
 }
 
 const ProductCard = ({ product }: ProductCardProps) => {
+  const { data: cartData } = useCart({ params: {}, payload: {} })
+  const { data: wishlistData } = useWishlist({ params: {}, payload: {} })
+
   const [isWishlisted, setIsWishlisted] = useState(false)
   const [isInCart, setIsInCart] = useState(false)
 
   const addToCartMutation = useAddToCart()
+  const removeFromCartMutation = useRemoveFromCart()
   const addToWishlistMutation = useAddToWishlist()
+  const removeFromWishlistMutation = useRemoveFromWishlist()
+
+  useEffect(() => {
+    const cartItems = cartData?.payload?.items || []
+    const wishlistItems = wishlistData?.payload?.items || []
+
+    setIsInCart(cartItems.some((item: any) => item.productId === product.id))
+    setIsWishlisted(wishlistItems.some((item: any) => item.productId === product.id))
+  }, [cartData, wishlistData, product.id])
 
   const handleWishlistToggle = async (e: React.MouseEvent) => {
     e.preventDefault()
     e.stopPropagation()
 
-    if (isWishlisted) {
-      setIsWishlisted(false)
-      return
-    }
+    if (addToWishlistMutation.isPending || removeFromWishlistMutation.isPending) return
 
-    addToWishlistMutation.mutate(
-      { productId: product.id, quantity: 1 },
-      {
-        onSuccess: () => {
-          setIsWishlisted(true)
-        },
-      }
-    )
+    if (isWishlisted) {
+      // Remove from wishlist
+      removeFromWishlistMutation.mutate(
+        { itemId: product.id },
+        {
+          onSuccess: () => {
+            setIsWishlisted(false)
+          },
+          onError: (error) => {
+            console.error('Error removing from wishlist:', error)
+          }
+        }
+      )
+    } else {
+      // Add to wishlist
+      addToWishlistMutation.mutate(
+        { productId: product.id, quantity: 1 },
+        {
+          onSuccess: () => {
+            setIsWishlisted(true)
+          },
+          onError: (error) => {
+            console.error('Error adding to wishlist:', error)
+          }
+        }
+      )
+    }
   }
 
   const handleCartToggle = async (e: React.MouseEvent) => {
     e.preventDefault()
     e.stopPropagation()
 
-    if (isInCart) {
-      setIsInCart(false)
-      return
-    }
+    if (addToCartMutation.isPending || removeFromCartMutation.isPending) return
 
-    addToCartMutation.mutate(
-      { productId: product.id, quantity: 1 },
-      {
-        onSuccess: () => {
-          setIsInCart(true)
-        },
-      }
-    )
+    if (isInCart) {
+      // Remove from cart
+      removeFromCartMutation.mutate(
+        { itemId: product.id },
+        {
+          onSuccess: () => {
+            setIsInCart(false)
+          },
+          onError: (error) => {
+            console.error('Error removing from cart:', error)
+          }
+        }
+      )
+    } else {
+      // Add to cart
+      addToCartMutation.mutate(
+        { productId: product.id, quantity: 1 },
+        {
+          onSuccess: () => {
+            setIsInCart(true)
+          },
+          onError: (error) => {
+            console.error('Error adding to cart:', error)
+          }
+        }
+      )
+    }
   }
 
   const handleBuyNow = async (e: React.MouseEvent) => {
     e.preventDefault()
     e.stopPropagation()
+
+    if (addToCartMutation.isPending) return
 
     addToCartMutation.mutate(
       { productId: product.id, quantity: 1 },
@@ -66,6 +114,9 @@ const ProductCard = ({ product }: ProductCardProps) => {
         onSuccess: () => {
           window.location.href = '/cart'
         },
+        onError: (error) => {
+          console.error('Error adding to cart for buy now:', error)
+        }
       }
     )
   }
@@ -83,23 +134,25 @@ const ProductCard = ({ product }: ProductCardProps) => {
           />
           <button
             onClick={handleWishlistToggle}
-            disabled={addToWishlistMutation.isPending}
+            disabled={addToWishlistMutation.isPending || removeFromWishlistMutation.isPending}
             className="absolute top-3 right-14 p-2 bg-white rounded-full shadow-md hover:shadow-lg transition-all duration-200 z-10 cursor-pointer disabled:opacity-50"
+            aria-label={isWishlisted ? 'Remove from wishlist' : 'Add to wishlist'}
           >
-            {addToWishlistMutation.isPending ? (
+            {(addToWishlistMutation.isPending || removeFromWishlistMutation.isPending) ? (
               <Loader2 className="w-5 h-5 text-gray-600 animate-spin" />
             ) : isWishlisted ? (
-              <HeartIcon className="w-5 h-5 text-red-500 fill-current" />
+              <Heart className="w-5 h-5 text-red-500 fill-current" />
             ) : (
-              <HeartIcon className="w-5 h-5 text-gray-600 hover:text-red-500" />
+              <Heart className="w-5 h-5 text-gray-600 hover:text-red-500" />
             )}
           </button>
           <button
             onClick={handleCartToggle}
-            disabled={addToCartMutation.isPending}
+            disabled={addToCartMutation.isPending || removeFromCartMutation.isPending}
             className="absolute top-3 right-3 p-2 bg-white rounded-full shadow-md hover:shadow-lg transition-all duration-200 z-10 cursor-pointer disabled:opacity-50"
+            aria-label={isInCart ? 'Remove from cart' : 'Add to cart'}
           >
-            {addToCartMutation.isPending ? (
+            {(addToCartMutation.isPending || removeFromCartMutation.isPending) ? (
               <Loader2 className="w-5 h-5 text-gray-600 animate-spin" />
             ) : isInCart ? (
               <ShoppingCart className="w-5 h-5 text-green-500 fill-current" />
