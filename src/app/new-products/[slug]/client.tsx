@@ -261,21 +261,48 @@ function HeroSection({
               Free shipping on orders over $100
             </div>
           </div>
-          <div className="flex flex-wrap gap-3 w-full md:w-auto">
+          <div className="flex items-center mt-4 ml-auto">
             <button
               onClick={handleAddToWishlist}
-              className="flex-1 md:flex-none px-6 py-3 font-medium text-gray-700 hover:text-black hover:bg-gray-50 transition-all border border-gray-300 rounded-lg"
+              className="px-6 py-3 text-gray-700 font-medium text-lg uppercase tracking-wide text-[clamp(17px,0.95vw,15px)] w-40 cursor-pointer"
             >
-              Wishlist
+              <p
+                className="relative"
+                style={{ ["--underline-color" as any]: "#FFC89F" }}
+              >
+                <span className="relative z-10">WISH LIST</span>
+                <span
+                  className="absolute bottom-0 left-0 h-[14px] w-28 bg-[var(--underline-color)]"
+                  aria-hidden="true"
+                />
+              </p>
             </button>
             <button
               onClick={handleAddToCart}
-              className="flex-1 md:flex-none px-6 py-3 font-medium text-gray-700 hover:text-black hover:bg-gray-50 transition-all border border-gray-300 rounded-lg"
+              className="px-6 py-3 text-gray-700 font-medium text-lg uppercase tracking-wide text-[clamp(17px,0.95vw,15px)] w-52 cursor-pointer"
             >
-              Add To Cart
+              <p
+                className="relative"
+                style={{ ["--underline-color" as any]: "#D1FFD0" }}
+              >
+                <span className="relative z-10">Add to Cart</span>
+                <span
+                  className="absolute bottom-0 left-0 h-[14px] w-40 bg-[var(--underline-color)]"
+                  aria-hidden="true"
+                />
+              </p>
             </button>
-            <button className="flex-1 md:flex-none px-8 py-3 font-semibold bg-black text-white hover:bg-gray-800 transition-all rounded-lg shadow-lg hover:shadow-xl">
-              Buy Now
+            <button className="px-6 py-3 text-gray-700 font-medium text-lg uppercase tracking-wide text-[clamp(17px,0.95vw,15px)] w-40 cursor-pointer">
+              <p
+                className="relative"
+                style={{ ["--underline-color" as any]: "#F4FFCB" }}
+              >
+                <span className="relative z-10">BUY Now</span>
+                <span
+                  className="absolute bottom-0 left-0 h-[14px] w-28 bg-[var(--underline-color)]"
+                  aria-hidden="true"
+                />
+              </p>
             </button>
           </div>
         </div>
