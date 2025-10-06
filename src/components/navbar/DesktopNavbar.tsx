@@ -235,7 +235,7 @@ export default function Navbar({
               className="rounded-md block mr-10 shrink-0 cursor-pointer"
             >
               <Image
-                src="https://d33609liqwio9r.cloudfront.net/2025-09-30T10:28:54.401Z-Apex_logo.webp"
+                src="https://d33609liqwio9r.cloudfront.net/2025-10-06T17:10:12.177Z-Untitled%20design%20(16).png"
                 alt="logo"
                 width={156}
                 height={42}
@@ -335,7 +335,7 @@ export default function Navbar({
                 className="rounded-md block shrink-0 cursor-pointer"
               >
                 <Image
-                  src="/logo.png"
+                  src="https://d33609liqwio9r.cloudfront.net/2025-10-06T17:10:12.177Z-Untitled%20design%20(16).png"
                   alt="logo"
                   width={140}
                   height={34}
