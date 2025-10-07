@@ -1,29 +1,3 @@
-export interface Order {
-  id: string;
-  userId: string | null;
-  items: OrderItem[];
-  subTotal: number;
-  total: number;
-  discount: number | null;
-  shippingFee: number | null;
-  status: OrderStatus;
-  paymentMethod: PaymentMethod;
-  paymentStatus: PaymentStatus;
-  notes: string | null;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-export interface OrderItem {
-  id: string;
-  orderId: string;
-  productId: string;
-  quantity: number;
-  price: number;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
 export enum OrderStatus {
   PENDING = "PENDING",
   PROCESSING = "PROCESSING",
@@ -47,65 +21,80 @@ export enum PaymentStatus {
   REFUNDED = "REFUNDED"
 }
 
-// model Order {
-//   id     String  @id @default(auto()) @map("_id") @db.ObjectId
-//   User   User?   @relation(fields: [userId], references: [id])
-//   userId String? @db.ObjectId
+export interface Order {
+  id: string;
+  userId: string | null;
+  items: OrderItem[];
+  subTotal: number;
+  total: number;
+  discount: number | null;
+  shippingFee: number | null;
+  status: OrderStatus;
+  paymentMethod: PaymentMethod;
+  paymentStatus: PaymentStatus;
+  notes: string | null;
+  createdAt: Date;
+  updatedAt: Date;
+}
 
-//   items OrderItem[]
+export interface OrderItem {
+  id: string;
+  orderId: string;
+  productId: string;
+  quantity: number;
+  price: number;
+  product: {
+    id: string;
+    name: string;
+    slug: string;
+    thumbnail: string;
+    price: number;
+    currency: string;
+    images?: string[];
+  };
+  createdAt: Date;
+  updatedAt: Date;
+}
 
-//   subTotal    Float
-//   total       Float
-//   discount    Float? @default(0)
-//   shippingFee Float? @default(0)
+export interface CreateOrderPayload {
+  paymentMethod: PaymentMethod;
+  notes?: string;
+  shippingFee?: number;
+  discount?: number;
+}
 
-//   status        OrderStatus   @default(PENDING)
-//   paymentMethod PaymentMethod
-//   paymentStatus PaymentStatus @default(PENDING)
-//   notes         String?
+export interface VerifyPaymentPayload {
+  orderId: string;
+  transactionId: string;
+}
 
-//   createdAt DateTime @default(now())
-//   updatedAt DateTime @updatedAt
+export interface UpdateOrderStatusPayload {
+  status: OrderStatus;
+}
 
-//   @@map("order")
-// }
+export interface OrderResponse {
+  error: boolean;
+  message: string;
+  payload?: {
+    order: Order;
+    requiresPayment: boolean;
+    transactionId?: string;
+    paymentUrl?: string;
+  };
+}
 
-// model OrderItem {
-//   id      String @id @default(auto()) @map("_id") @db.ObjectId
-//   order   Order  @relation(fields: [orderId], references: [id])
-//   orderId String @db.ObjectId
-
-//   product   Product @relation(fields: [productId], references: [id])
-//   productId String  @db.ObjectId
-
-//   quantity Int   @default(1)
-//   price    Float
-
-//   createdAt DateTime @default(now())
-//   updatedAt DateTime @updatedAt
-
-//   @@map("order_item")
-// }
-
-// enum OrderStatus {
-//   PENDING
-//   PROCESSING
-//   SHIPPED
-//   DELIVERED
-//   CANCELLED
-//   FAILED
-// }
-
-// enum PaymentMethod {
-//   CASH_ON_DELIVERY
-//   CARD
-//   PAYPAL
-//   NET_BANKING
-// }
-
-// enum PaymentStatus {
-//   PENDING
-//   COMPLETED
-//   FAILED
-//   REFUNDED
-// }
+export interface OrderListResponse {
+  error: boolean;
+  message: string;
+  payload: {
+    orders: Order[];
+    pagination: {
+      currentPage: number;
+      totalPages: number;
+      totalOrders: number;
+      limit: number;
+      hasNext: boolean;
+      hasPrevious: boolean;
+    };
+  };
+}

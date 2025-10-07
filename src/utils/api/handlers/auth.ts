@@ -1,9 +1,9 @@
 import { BaseApiRequest, SignInRequest, UserSignUpPayload } from "@/types";
 import { fetchController } from "../fetch-controller";
 import { API_ENDPOINTS } from "../endpoints";
-import { User } from '@/types/user';
+import { ResendVerificationPayload, VerifyEmailPayload } from '@/types/auth';
 
-export const AuthAPI = {
+export const AuthHandler = {
   verify: async ({ queryString }: BaseApiRequest) => {
     return await fetchController({
       method: "GET",
@@ -11,6 +11,7 @@ export const AuthAPI = {
       queryString,
     });
   },
+
   adminSignIn: async ({ queryString, payload }: BaseApiRequest<SignInRequest>) => {
     return await fetchController({
       method: "POST",
@@ -19,6 +20,23 @@ export const AuthAPI = {
       queryString,
     });
   },
+
+  adminVerify: async ({ queryString }: BaseApiRequest) => {
+    return await fetchController({
+      method: "GET",
+      endpoint: API_ENDPOINTS.auth.adminVerify,
+      queryString,
+    });
+  },
+
+  adminLogout: async ({ queryString }: BaseApiRequest) => {
+    return await fetchController({
+      method: "POST",
+      endpoint: API_ENDPOINTS.auth.adminLogout,
+      queryString,
+    });
+  },
+
   userSignIn: async ({ queryString, payload }: BaseApiRequest<SignInRequest>) => {
     return await fetchController({
       method: "POST",
@@ -27,6 +45,7 @@ export const AuthAPI = {
       queryString,
     });
   },
+
   userSignUp: async ({ queryString, payload }: BaseApiRequest<UserSignUpPayload>) => {
     return await fetchController({
       method: "POST",
@@ -35,6 +54,25 @@ export const AuthAPI = {
       queryString,
     });
   },
+
+  resendVerification: async ({ queryString, payload }: BaseApiRequest<ResendVerificationPayload>) => {
+    return await fetchController({
+      method: "POST",
+      endpoint: API_ENDPOINTS.auth.resendVerification,
+      body: payload,
+      queryString,
+    });
+  },
+
+  verifyEmail: async ({ queryString, payload }: BaseApiRequest<VerifyEmailPayload>) => {
+    return await fetchController({
+      method: "POST",
+      endpoint: API_ENDPOINTS.auth.verifyEmail,
+      body: payload,
+      queryString,
+    });
+  },
+
   logout: async ({ queryString }: BaseApiRequest) => {
     return await fetchController({
       method: "POST",

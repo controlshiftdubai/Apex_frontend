@@ -1,11 +1,15 @@
 "use client";
 
-import { AuthAPI } from "@/utils/api/handlers/auth";
+import { useUserSignUp } from "@/utils/api/hooks/auth";
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export default function SignUpPage() {
+  const router = useRouter();
+  const signUp = useUserSignUp();
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -15,7 +19,6 @@ export default function SignUpPage() {
   });
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -47,9 +50,9 @@ export default function SignUpPage() {
       return false;
     }
 
-    const phoneRegex = /^[0-9]{10,15}$/;
+    const phoneRegex = /^\+?[0-9]{10,15}$/;
     if (!phoneRegex.test(formData.phoneNumber.replace(/[\s\-\(\)]/g, ''))) {
-      toast.error("Please enter a valid phone number");
+      toast.error("Please enter a valid phone number (10-15 digits)");
       return false;
     }
 
@@ -63,31 +66,23 @@ export default function SignUpPage() {
       return;
     }
 
-    setIsLoading(true);
-
     try {
-      const payload = {
+      const result = await signUp.mutateAsync({
         name: formData.name,
         email: formData.email,
         phoneNumber: formData.phoneNumber,
         password: formData.password,
-      };
+      });
 
-      const result = await AuthAPI.userSignUp({ payload });
-
-      if (!result.data.error) {
-        toast.success(result.data.message || "Account created successfully! Please verify your email.");
-        setTimeout(() => {
-          window.location.href = "/sign-in";
-        }, 2000);
+      if (!result.error) {
+        toast.success(result.message || "Account created! Please verify your email.");
+        router.push(`/verify-email?email=${encodeURIComponent(formData.email)}`);
       } else {
-        toast.error(result.data.message || "Sign up failed");
+        toast.error(result.message || "Sign up failed");
       }
-    } catch (error) {
-      toast.error("An error occurred during sign up");
+    } catch (error: any) {
+      toast.error(error?.message || "An error occurred during sign up");
       console.error("Sign up error:", error);
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -164,9 +159,10 @@ export default function SignUpPage() {
                   required
                   value={formData.phoneNumber}
                   onChange={handleInputChange}
-                  placeholder="Enter your phone number"
+                  placeholder="+911234567890"
                   className="w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#FDB3CA] focus:border-[#FDB3CA] transition-colors"
                 />
+                <p className="text-xs text-gray-500 mt-1">Include country code (e.g., +91)</p>
               </div>
 
               <div>
@@ -193,11 +189,7 @@ export default function SignUpPage() {
                     onClick={() => setShowPassword((prev) => !prev)}
                     className="absolute top-1/2 right-3 -translate-y-1/2 transform cursor-pointer text-gray-600 hover:text-gray-900 transition-colors"
                   >
-                    {showPassword ? (
-                      <EyeOff size={18} />
-                    ) : (
-                      <Eye size={18} />
-                    )}
+                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                   </button>
                 </div>
               </div>
@@ -226,11 +218,7 @@ export default function SignUpPage() {
                     onClick={() => setShowConfirmPassword((prev) => !prev)}
                     className="absolute top-1/2 right-3 -translate-y-1/2 transform cursor-pointer text-gray-600 hover:text-gray-900 transition-colors"
                   >
-                    {showConfirmPassword ? (
-                      <EyeOff size={18} />
-                    ) : (
-                      <Eye size={18} />
-                    )}
+                    {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                   </button>
                 </div>
               </div>
@@ -257,10 +245,10 @@ export default function SignUpPage() {
 
             <button
               type="submit"
-              disabled={isLoading}
+              disabled={signUp.isPending}
               className="w-full px-4 py-3 bg-black text-white font-semibold hover:bg-gray-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
             >
-              {isLoading ? "Creating account..." : "Sign Up"}
+              {signUp.isPending ? "Creating account..." : "Sign Up"}
             </button>
           </form>
 

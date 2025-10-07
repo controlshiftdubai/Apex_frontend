@@ -1,17 +1,20 @@
 "use client";
 
-import { AuthAPI } from "@/utils/api/handlers/auth";
+import { useUserSignIn } from "@/utils/api/hooks/auth";
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export default function SignInPage() {
+  const router = useRouter();
+  const signIn = useUserSignIn();
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
   const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -42,22 +45,29 @@ export default function SignInPage() {
       return;
     }
 
-    setIsLoading(true);
-
     try {
-      const result = await AuthAPI.userSignIn({ payload: formData });
+      const result = await signIn.mutateAsync(formData);
 
-      if (!result.data.error) {
-        toast.success(result.data.message || "Login successful!");
-        window.location.href = "/";
+      if (!result.error) {
+        toast.success(result.message || "Login successful!");
+        router.push("/");
       } else {
-        toast.error(result.data.message || "Login failed");
+        toast.error(result.message || "Login failed");
       }
-    } catch (error) {
-      toast.error("An error occurred during login");
+    } catch (error: any) {
+      const errorMessage = error?.message || "An error occurred during login";
+
+      // Handle specific error cases
+      if (errorMessage.includes("not verified")) {
+        toast.error("Please verify your email first");
+        setTimeout(() => {
+          router.push(`/resend-verification`);
+        }, 2000);
+      } else {
+        toast.error(errorMessage);
+      }
+
       console.error("Sign in error:", error);
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -123,17 +133,13 @@ export default function SignInPage() {
                     onClick={() => setShowPassword((prev) => !prev)}
                     className="absolute top-1/2 right-3 -translate-y-1/2 transform cursor-pointer text-gray-600 hover:text-gray-900 transition-colors"
                   >
-                    {showPassword ? (
-                      <EyeOff size={18} />
-                    ) : (
-                      <Eye size={18} />
-                    )}
+                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                   </button>
                 </div>
               </div>
             </div>
 
-            {/* <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between">
               <div className="flex items-center">
                 <input
                   id="remember-me"
@@ -151,20 +157,20 @@ export default function SignInPage() {
 
               <div className="text-sm">
                 <a
-                  href="/forgot-password"
+                  href="/resend-verification"
                   className="font-medium text-gray-700 hover:text-black transition-colors"
                 >
-                  Forgot password?
+                  Resend verification
                 </a>
               </div>
-            </div> */}
+            </div>
 
             <button
               type="submit"
-              disabled={isLoading}
+              disabled={signIn.isPending}
               className="w-full px-4 py-3 bg-black text-white font-semibold hover:bg-gray-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
             >
-              {isLoading ? "Signing in..." : "Sign In"}
+              {signIn.isPending ? "Signing in..." : "Sign In"}
             </button>
           </form>
 
