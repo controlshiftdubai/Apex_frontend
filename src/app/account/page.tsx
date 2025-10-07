@@ -8,20 +8,44 @@ import AccountDetails from './AccountDetails'
 import AddressSection from './AddressSection'
 import ToReviewSection from './ToReviewSection'
 import { Package, Heart, ShoppingCart, Star, TrendingUp, Clock } from 'lucide-react'
+import { useProfile, useProfileOrders } from '@/utils/api/hooks/profile'
+import { useCart, useWishlist } from '@/utils/api/hooks/basket'
+import Loading from '@/components/loading'
 
 export default function AccountPage() {
   const [activeTab, setActiveTab] = useState<'dashboard' | 'orders' | 'account' | 'address' | 'reviews'>('dashboard')
 
+  const { data: profileData, isLoading: profileLoading } = useProfile();
+  const { data: ordersData } = useProfileOrders({ params: { limit: "3" }, payload: {} });
+  const { data: wishlistData } = useWishlist({ params: {}, payload: {} });
+  const { data: cartData } = useCart({ params: {}, payload: {} });
+
+  if (profileLoading) {
+    return <Loading />;
+  }
+
+  const profile = profileData?.payload;
+
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <ProfileHeader />
+        <ProfileHeader profile={profile} />
 
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 mt-8">
-          <ProfileSidebar activeTab={activeTab} setActiveTab={setActiveTab} />
+          <ProfileSidebar
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
+            profile={profile}
+          />
 
           <div className="lg:col-span-3">
-            {activeTab === 'dashboard' && <DashboardOverview />}
+            {activeTab === 'dashboard' && (
+              <DashboardOverview
+                orders={ordersData?.payload?.orders || []}
+                wishlistCount={wishlistData?.payload?.items?.length || 0}
+                cartCount={cartData?.payload?.items?.length || 0}
+              />
+            )}
             {activeTab === 'orders' && <OrderHistory />}
             {activeTab === 'account' && <AccountDetails />}
             {activeTab === 'address' && <AddressSection />}
@@ -33,11 +57,12 @@ export default function AccountPage() {
   )
 }
 
-const DashboardOverview = () => {
+const DashboardOverview = ({ orders, wishlistCount, cartCount }: any) => {
+
   const stats = [
     {
       label: 'Total Orders',
-      value: '24',
+      value: orders.length.toString(),
       icon: Package,
       color: '#a7f3d0',
       bgColor: 'bg-green-50',
@@ -45,7 +70,7 @@ const DashboardOverview = () => {
     },
     {
       label: 'Wishlist Items',
-      value: '12',
+      value: wishlistCount.toString(),
       icon: Heart,
       color: '#fca5a5',
       bgColor: 'bg-red-50',
@@ -53,7 +78,7 @@ const DashboardOverview = () => {
     },
     {
       label: 'Cart Items',
-      value: '3',
+      value: cartCount.toString(),
       icon: ShoppingCart,
       color: '#bfdbfe',
       bgColor: 'bg-blue-50',
@@ -61,7 +86,7 @@ const DashboardOverview = () => {
     },
     {
       label: 'Reviews Given',
-      value: '18',
+      value: '0', // You can add review count from API
       icon: Star,
       color: '#fde68a',
       bgColor: 'bg-yellow-50',
@@ -69,17 +94,17 @@ const DashboardOverview = () => {
     },
   ]
 
-  const recentOrders = [
-    { id: 'ORD-2024-001', product: 'Apple Watch Series 8', status: 'Delivered', date: '12 Jul 2023', amount: 399.00 },
-    { id: 'ORD-2024-002', product: 'Mechanical Keyboard RGB', status: 'Shipped', date: '15 Jul 2023', amount: 129.99 },
-    { id: 'ORD-2024-003', product: 'Wireless Mouse Pro', status: 'Processing', date: '18 Jul 2023', amount: 79.50 },
-  ]
-
-  const recentActivity = [
-    { action: 'Added to Wishlist', item: 'Sony WH-1000XM5 Headphones', time: '2 hours ago' },
-    { action: 'Left a Review', item: 'Apple Watch Series 8', time: '5 hours ago' },
-    { action: 'Order Delivered', item: 'Mechanical Keyboard RGB', time: '1 day ago' },
-  ]
+  const recentOrders = orders.slice(0, 3).map((order: any) => ({
+    id: order.id,
+    product: order.items[0]?.product?.name || 'Unknown Product',
+    status: order.status,
+    date: new Date(order.createdAt).toLocaleDateString('en-US', {
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric'
+    }),
+    amount: order.total
+  }))
 
   return (
     <div className="space-y-6">
@@ -136,74 +161,54 @@ const DashboardOverview = () => {
               aria-hidden="true"
             />
           </h3>
-          <button className="text-blue-600 hover:text-blue-700 font-medium text-sm cursor-pointer">
+          <button className="text-blue-600 hover:text-blue-700 font-medium text-sm cursor-pointer" onClick={() => window.location.href = '/account'}>
             View All →
           </button>
         </div>
 
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead>
-              <tr className="border-b border-gray-200 text-left text-sm text-gray-600">
-                <th className="pb-3 font-semibold">Order ID</th>
-                <th className="pb-3 font-semibold">Product</th>
-                <th className="pb-3 font-semibold">Status</th>
-                <th className="pb-3 font-semibold">Date</th>
-                <th className="pb-3 font-semibold text-right">Amount</th>
-              </tr>
-            </thead>
-            <tbody>
-              {recentOrders.map((order, idx) => (
-                <tr key={idx} className="border-b border-gray-100 hover:bg-gray-50 transition-colors">
-                  <td className="py-4 text-sm font-medium text-gray-900">{order.id}</td>
-                  <td className="py-4 text-sm text-gray-700">{order.product}</td>
-                  <td className="py-4">
-                    <span className={`inline-flex px-3 py-1 text-xs font-medium border ${order.status === 'Delivered' ? 'bg-green-50 text-green-700 border-green-200' :
-                      order.status === 'Shipped' ? 'bg-blue-50 text-blue-700 border-blue-200' :
-                        'bg-yellow-50 text-yellow-700 border-yellow-200'
-                      }`}>
-                      {order.status}
-                    </span>
-                  </td>
-                  <td className="py-4 text-sm text-gray-600">{order.date}</td>
-                  <td className="py-4 text-sm font-semibold text-gray-900 text-right">${order.amount.toFixed(2)}</td>
+        {recentOrders.length === 0 ? (
+          <p className="text-center text-gray-500 py-8">No orders yet</p>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead>
+                <tr className="border-b border-gray-200 text-left text-sm text-gray-600">
+                  <th className="pb-3 font-semibold">Order ID</th>
+                  <th className="pb-3 font-semibold">Product</th>
+                  <th className="pb-3 font-semibold">Status</th>
+                  <th className="pb-3 font-semibold">Date</th>
+                  <th className="pb-3 font-semibold text-right">Amount</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      {/* Recent Activity */}
-      <div className="bg-white border border-gray-200 p-6">
-        <h3 className="relative inline-block mb-6" style={{ ["--underline-color" as any]: "#fca5a5" }}>
-          <span className="relative z-10 text-xl font-semibold">Recent Activity</span>
-          <span
-            className="absolute bottom-0 h-[8px] bg-[var(--underline-color)]"
-            style={{ left: "-8px", right: "-8px" }}
-            aria-hidden="true"
-          />
-        </h3>
-
-        <div className="space-y-4">
-          {recentActivity.map((activity, idx) => (
-            <div key={idx} className="flex items-start gap-4 pb-4 border-b border-gray-100 last:border-0">
-              <div className="p-2 bg-gray-100 border border-gray-200 mt-1">
-                <Clock className="w-4 h-4 text-gray-600" />
-              </div>
-              <div className="flex-1">
-                <p className="text-sm font-medium text-gray-900">{activity.action}</p>
-                <p className="text-sm text-gray-600">{activity.item}</p>
-                <p className="text-xs text-gray-500 mt-1">{activity.time}</p>
-              </div>
-            </div>
-          ))}
-        </div>
+              </thead>
+              <tbody>
+                {recentOrders.map((order: any, idx: number) => (
+                  <tr key={idx} className="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+                    <td className="py-4 text-sm font-medium text-gray-900">{order.id.slice(0, 12)}...</td>
+                    <td className="py-4 text-sm text-gray-700">{order.product}</td>
+                    <td className="py-4">
+                      <span className={`inline-flex px-3 py-1 text-xs font-medium border ${order.status === 'DELIVERED' ? 'bg-green-50 text-green-700 border-green-200' :
+                        order.status === 'SHIPPED' ? 'bg-blue-50 text-blue-700 border-blue-200' :
+                          'bg-yellow-50 text-yellow-700 border-yellow-200'
+                        }`}>
+                        {order.status}
+                      </span>
+                    </td>
+                    <td className="py-4 text-sm text-gray-600">{order.date}</td>
+                    <td className="py-4 text-sm font-semibold text-gray-900 text-right">${order.amount.toFixed(2)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
 
       {/* Quick Actions */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <button className="bg-white border border-gray-200 p-6 text-left hover:shadow-lg transition-all cursor-pointer group">
+        <button
+          onClick={() => window.location.href = '/account'}
+          className="bg-white border border-gray-200 p-6 text-left hover:shadow-lg transition-all cursor-pointer group"
+        >
           <div className="flex items-center gap-3 mb-2">
             <Package className="w-5 h-5 text-blue-600" />
             <h4 className="font-semibold text-gray-900">Track Orders</h4>
@@ -214,7 +219,10 @@ const DashboardOverview = () => {
           </span>
         </button>
 
-        <button className="bg-white border border-gray-200 p-6 text-left hover:shadow-lg transition-all cursor-pointer group">
+        <button
+          onClick={() => window.location.href = '/wishlist'}
+          className="bg-white border border-gray-200 p-6 text-left hover:shadow-lg transition-all cursor-pointer group"
+        >
           <div className="flex items-center gap-3 mb-2">
             <Heart className="w-5 h-5 text-red-600" />
             <h4 className="font-semibold text-gray-900">View Wishlist</h4>
@@ -225,7 +233,10 @@ const DashboardOverview = () => {
           </span>
         </button>
 
-        <button className="bg-white border border-gray-200 p-6 text-left hover:shadow-lg transition-all cursor-pointer group">
+        <button
+          onClick={() => window.location.href = '/account?tab=reviews'}
+          className="bg-white border border-gray-200 p-6 text-left hover:shadow-lg transition-all cursor-pointer group"
+        >
           <div className="flex items-center gap-3 mb-2">
             <Star className="w-5 h-5 text-yellow-600" />
             <h4 className="font-semibold text-gray-900">Leave Reviews</h4>

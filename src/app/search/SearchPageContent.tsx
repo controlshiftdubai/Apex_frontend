@@ -1,11 +1,12 @@
 "use client"
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useCallback } from 'react'
 import { useRouter, useSearchParams, usePathname } from 'next/navigation'
 import { Filter } from 'lucide-react'
 import FilterSidebar from './FilterSidebar'
 import ProductGrid from './ProductGrid'
 import Pagination from './Pagination'
+import { useProducts } from '@/utils/api/hooks/product'
 
 export interface Product {
   id: string
@@ -16,20 +17,6 @@ export interface Product {
   currency: string
   createdAt: string
   updatedAt: string
-}
-
-interface ApiResponse {
-  error: boolean
-  message: string
-  payload: {
-    total: number
-    totalPages: number
-    pageSize: number
-    page: number
-    next: string | null
-    previous: string | null
-    results: Product[]
-  }
 }
 
 export interface FilterState {
@@ -67,12 +54,32 @@ const SearchPageContent = () => {
     page: filters.page
   })
 
-  const [products, setProducts] = useState<Product[]>([])
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
-  const [totalPages, setTotalPages] = useState(1)
-  const [total, setTotal] = useState(0)
   const [showMobileFilters, setShowMobileFilters] = useState(false)
+
+  const apiParams: Record<string, any> = {
+    page: filters.page,
+  }
+  if (filters.search) apiParams.search = filters.search
+  if (filters.minPrice) apiParams.price__gte = filters.minPrice
+  if (filters.maxPrice) apiParams.price__lte = filters.maxPrice
+  if (filters.colors.length > 0) apiParams.color = filters.colors.join(',')
+  if (filters.brands.length > 0) apiParams.brand = filters.brands.join(',')
+  if (filters.rating > 0) apiParams.rating = filters.rating
+
+  const { data, isLoading, error } = useProducts({ params: apiParams, payload: {} })
+
+  const products: Product[] = (data?.payload?.results || []).map((product: any) => ({
+    ...product,
+    createdAt: typeof product.createdAt === 'string'
+      ? product.createdAt
+      : new Date(product.createdAt).toISOString(),
+    updatedAt: typeof product.updatedAt === 'string'
+      ? product.updatedAt
+      : new Date(product.updatedAt).toISOString(),
+  }))
+
+  const totalPages = data?.payload?.totalPages || 1
+  const total = data?.payload?.total || 0
 
   const createQueryString = useCallback((params: Record<string, string>) => {
     const urlParams = new URLSearchParams()
@@ -97,38 +104,6 @@ const SearchPageContent = () => {
     const newUrl = queryString ? `${pathname}?${queryString}` : pathname
     router.push(newUrl, { scroll: false })
   }, [pathname, router, createQueryString])
-
-  const fetchProducts = useCallback(async () => {
-    setLoading(true)
-    setError(null)
-    try {
-      const params: Record<string, string> = {
-        page: filters.page.toString()
-      }
-      if (filters.search) params.search = filters.search
-      if (filters.minPrice) params.price__gte = filters.minPrice
-      if (filters.maxPrice) params.price__lte = filters.maxPrice
-      if (filters.colors.length > 0) params.color = filters.colors.join(',')
-      if (filters.brands.length > 0) params.brand = filters.brands.join(',')
-      if (filters.rating > 0) params.rating = filters.rating.toString()
-
-      const queryString = createQueryString(params)
-      const url = `https://apex-backend-five.vercel.app/api/products${queryString ? `?${queryString}` : ''}`
-      const response = await fetch(url)
-      const data: ApiResponse = await response.json()
-      if (data.error) {
-        throw new Error(data.message)
-      }
-      setProducts(data.payload.results)
-      setTotalPages(data.payload.totalPages)
-      setTotal(data.payload.total)
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred')
-      setProducts([])
-    } finally {
-      setLoading(false)
-    }
-  }, [filters, createQueryString])
 
   const updatePage = (page: number) => {
     const newFilters = { ...filters, page }
@@ -171,10 +146,6 @@ const SearchPageContent = () => {
     updateURL(clearedFilters)
   }
 
-  useEffect(() => {
-    fetchProducts()
-  }, [fetchProducts])
-
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
@@ -184,7 +155,7 @@ const SearchPageContent = () => {
             <div>
               <h1 className="text-2xl font-bold text-gray-900">Search Products</h1>
               <p className="text-sm text-gray-600 mt-1">
-                {loading ? 'Loading...' : `${total} results found`}
+                {isLoading ? 'Loading...' : `${total} results found`}
               </p>
             </div>
             <button
@@ -215,7 +186,12 @@ const SearchPageContent = () => {
 
           {/* Main Content */}
           <div className="lg:col-span-9">
-            <ProductGrid products={products} loading={loading} error={error} clearFilters={clearFilters} />
+            <ProductGrid
+              products={products}
+              loading={isLoading}
+              error={error?.message || null}
+              clearFilters={clearFilters}
+            />
             {totalPages > 1 && (
               <Pagination currentPage={filters.page} totalPages={totalPages} onPageChange={updatePage} />
             )}

@@ -9,24 +9,29 @@ import OrderSummary from "./OrderSummary"
 import ProgressStepper from "./ProgressStepper"
 import { useRouter } from 'next/navigation'
 import { useCart, useRemoveFromCart, useUpdateCartQuantity } from '@/utils/api/hooks/basket'
+import { useCreateOrder } from '@/utils/api/hooks/order'
 import Loading from '@/components/loading'
+import { toast } from 'sonner'
+import { PaymentMethod } from '@/types/order'
 
 const stepList = ["cart", "delivery", "payment", "thankyou"] as const;
 type StepKey = typeof stepList[number];
 
 export default function CartPage() {
   const [step, setStep] = useState<StepKey>("cart");
+  const [orderId, setOrderId] = useState<string | null>(null);
   const router = useRouter();
 
   const { data, isLoading, error } = useCart({ params: {}, payload: {} });
   const removeFromCartMutation = useRemoveFromCart();
   const updateCartMutation = useUpdateCartQuantity();
+  const createOrderMutation = useCreateOrder();
 
   const [addressInput, setAddressInput] = useState("");
   const [country, setCountry] = useState("");
   const [cityState, setCityState] = useState("");
   const [zipCode, setZipCode] = useState("");
-  const [selectedPayment, setSelectedPayment] = useState<"cod" | "credit" | "debit" | null>(null);
+  const [selectedPayment, setSelectedPayment] = useState<PaymentMethod>(PaymentMethod.CASH_ON_DELIVERY);
 
   const cartItems = data?.payload?.items || [];
   const cart = cartItems.map((item: any) => ({
@@ -37,33 +42,100 @@ export default function CartPage() {
     quantity: item.quantity,
     currency: item.product.currency,
     image: item.product.thumbnail,
+    stock: item.product.stock,
     color: "Default",
     size: "",
-    inStock: true
+    inStock: item.product.stock > 0
   }));
 
-  const appliedDiscount = 4.5;
+  const appliedDiscount = 0;
   const subtotal = cart.reduce((t: number, i: any) => t + i.price * i.quantity, 0);
-  const shipping = 4;
+  const shipping = 50;
   const total = Math.max(subtotal + shipping - appliedDiscount, 0);
   const stepIndex = stepList.indexOf(step);
 
-  // Update quantity handler
+  const validateStock = () => {
+    const outOfStockItems = cart.filter((item: any) => item.stock === 0);
+    if (outOfStockItems.length > 0) {
+      const itemNames = outOfStockItems.map((item: any) => item.name).join(", ");
+      toast.error(`Out of stock: ${itemNames}. Please remove or wait for restock.`);
+      return false;
+    }
+
+    const insufficientStockItems = cart.filter((item: any) => item.quantity > item.stock);
+    if (insufficientStockItems.length > 0) {
+      const itemNames = insufficientStockItems.map((item: any) =>
+        `${item.name} (Available: ${item.stock})`
+      ).join(", ");
+      toast.error(`Insufficient stock: ${itemNames}`);
+      return false;
+    }
+
+    return true;
+  };
+
   const updateQuantity = (id: string, productId: string, newQty: number) => {
     if (newQty < 1) return;
+
+    const item = cart.find((i: any) => i.productId === productId);
+    if (item && newQty > item.stock) {
+      toast.error(`Only ${item.stock} items available in stock`);
+      return;
+    }
+
     updateCartMutation.mutate({ itemId: productId, quantity: newQty });
   };
 
-  // Remove item handler
   const removeItem = (productId: string) => {
     removeFromCartMutation.mutate({ itemId: productId });
   };
 
-  // Clear cart handler
   const clearCart = () => {
     cart.forEach((item: any) => {
       removeFromCartMutation.mutate({ itemId: item.productId });
     });
+  };
+
+  const handleCartNext = () => {
+    if (!validateStock()) return;
+    setStep("delivery");
+  };
+
+  const handlePayment = async () => {
+    if (!validateStock()) return;
+
+    const deliveryNotes = `
+      Address: ${addressInput}
+      City/State: ${cityState}
+      Country: ${country}
+      ${zipCode ? `ZIP: ${zipCode}` : ''}
+    `.trim();
+
+    try {
+      const result = await createOrderMutation.mutateAsync({
+        paymentMethod: selectedPayment,
+        notes: deliveryNotes,
+        shippingFee: shipping,
+        discount: appliedDiscount,
+      });
+
+      if (!result.error) {
+        setOrderId(result.payload?.order?.id || null);
+
+        if (result.payload?.requiresPayment) {
+          // For online payments, you might redirect to payment gateway
+          toast.info("Redirecting to payment gateway...");
+          // Handle online payment here
+        }
+
+        toast.success("Order placed successfully!");
+        setStep("thankyou");
+      } else {
+        toast.error(result.message || "Failed to create order");
+      }
+    } catch (error: any) {
+      toast.error(error?.message || "Failed to create order");
+    }
   };
 
   if (isLoading) {
@@ -98,7 +170,8 @@ export default function CartPage() {
               updateQuantity={updateQuantity}
               removeItem={removeItem}
               clearCart={clearCart}
-              onNext={() => setStep("delivery")}
+              onNext={handleCartNext}
+              validateStock={validateStock}
             />
           )}
           {step === "delivery" && (
@@ -121,11 +194,15 @@ export default function CartPage() {
               selectedPayment={selectedPayment}
               setSelectedPayment={setSelectedPayment}
               onBack={() => setStep("delivery")}
-              onNext={() => setStep("thankyou")}
+              onNext={handlePayment}
+              isProcessing={createOrderMutation.isPending}
             />
           )}
           {step === "thankyou" && (
-            <ThankYouStep onBackHome={() => router.push('/')} />
+            <ThankYouStep
+              onBackHome={() => router.push('/')}
+              orderId={orderId}
+            />
           )}
         </div>
         <OrderSummary

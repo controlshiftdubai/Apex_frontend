@@ -1,6 +1,6 @@
 "use client"
 
-export default function ProfileHeader() {
+export default function ProfileHeader({ profile }: { profile: any }) {
   return (
     <div className="bg-white border border-gray-200 p-6">
       <h1 className="relative inline-block" style={{ ["--underline-color" as any]: "#FDB3CA" }}>

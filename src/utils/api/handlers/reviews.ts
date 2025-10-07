@@ -34,6 +34,23 @@ export const ReviewHandler = {
     });
   },
 
+  createReview: async ({
+    payload,
+    queryString,
+  }: BaseApiRequest<{
+    productId: string;
+    orderId: string;
+    rating: number;
+    comment: string;
+  }>) => {
+    return await fetchController<Review>({
+      method: "POST",
+      endpoint: API_ENDPOINTS.reviews.base,
+      body: payload,
+      queryString,
+    });
+  },
+
   // updateSingle: async ({
   //   payload,
   // }: BaseApiRequest<{ id: string; data: Partial<Review> }>) => {

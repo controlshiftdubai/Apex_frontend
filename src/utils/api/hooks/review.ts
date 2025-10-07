@@ -1,6 +1,6 @@
 "use client";
 import { ReviewHandler } from "../handlers/reviews";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { buildQueryString } from "@/lib/utils";
 import { BaseApiHookRequest } from "@/types";
 
@@ -56,4 +56,26 @@ export const useReviewById = ({
   });
 
   return query;
+};
+
+export const useCreateReview = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (payload: {
+      productId: string;
+      orderId: string;
+      rating: number;
+      comment: string;
+    }) => {
+      const response = await ReviewHandler.createReview({
+        payload,
+        queryString: "",
+      });
+      return response.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["Profile", "reviews"] });
+    },
+  });
 };
