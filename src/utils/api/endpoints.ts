@@ -26,14 +26,18 @@ const BANNER_ENDPOINTS = () => {
 };
 
 const AUTH_ENDPOINTS = () => {
-  const base = "/auth/admin";
+  const base = "/auth";
   return {
     base,
-    adminSignIn: `${base}/sign-in`,
-    userSignIn: `/auth/sign-in`,
+    adminSignIn: `${base}/admin/sign-in`,
+    adminLogout: `${base}/admin/logout`,
+    adminVerify: `${base}/admin/verify`,
+    userSignIn: `${base}/sign-in`,
+    userSignUp: `${base}/sign-up`,
     logout: `${base}/logout`,
     verify: `${base}/verify`,
-    userSignUp: `/auth/sign-up`
+    resendVerification: `${base}/resend-verification`,
+    verifyEmail: `${base}/verify-email`,
   };
 };
 
@@ -47,10 +51,33 @@ const BASKET_ENDPOINTS = () => {
   };
 };
 
+const PROFILE_ENDPOINTS = () => {
+  const base = "/profile";
+  return {
+    base,
+    orders: `${base}/orders`,
+    reviews: `${base}/reviews`,
+    password: `${base}/password`,
+  };
+};
+
+const ORDER_ENDPOINTS = () => {
+  const base = "/orders";
+  return {
+    base,
+    single: (orderId: string) => `${base}/${orderId}`,
+    cancel: (orderId: string) => `${base}/${orderId}/cancel`,
+    updateStatus: (orderId: string) => `${base}/${orderId}/status`,
+    verifyPayment: `${base}/verify-payment`,
+  };
+};
+
 export const API_ENDPOINTS = {
   products: PRODUCT_ENDPOINTS(),
   reviews: REVIEWS_ENDPOINTS(),
   auth: AUTH_ENDPOINTS(),
   banner: BANNER_ENDPOINTS(),
   basket: BASKET_ENDPOINTS(),
+  profile: PROFILE_ENDPOINTS(),
+  orders: ORDER_ENDPOINTS(),
 };
