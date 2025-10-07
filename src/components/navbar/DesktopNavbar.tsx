@@ -235,7 +235,7 @@ export default function Navbar({
               className="rounded-md block mr-10 shrink-0 cursor-pointer"
             >
               <Image
-                src="https://d33609liqwio9r.cloudfront.net/2025-10-06T17:10:12.177Z-Untitled%20design%20(16).png"
+                src="https://d33609liqwio9r.cloudfront.net/2025-10-07T00:06:41.784Z-Untitled%20(1080%20x%20400%20px).png"
                 alt="logo"
                 width={156}
                 height={42}
@@ -335,7 +335,7 @@ export default function Navbar({
                 className="rounded-md block shrink-0 cursor-pointer"
               >
                 <Image
-                  src="https://d33609liqwio9r.cloudfront.net/2025-10-06T17:10:12.177Z-Untitled%20design%20(16).png"
+                  src="https://d33609liqwio9r.cloudfront.net/2025-10-07T00:06:41.784Z-Untitled%20(1080%20x%20400%20px).png"
                   alt="logo"
                   width={140}
                   height={34}
