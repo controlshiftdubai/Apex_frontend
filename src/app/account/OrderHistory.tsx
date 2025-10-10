@@ -18,8 +18,8 @@ export default function OrderHistory() {
     <div className="space-y-6">
       <div className="bg-white border border-gray-200 p-6">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="relative inline-block" style={{ ["--underline-color" as any]: "#fbbf24" }}>
-            <span className="relative z-10 text-2xl font-semibold">Order History</span>
+          <h2 className="relative inline-block" >
+            <span className="relative z-10 text-2xl ">Order History</span>
             <span
               className="absolute bottom-0 h-[10px] bg-[var(--underline-color)]"
               style={{ left: "-8px", right: "-8px" }}

@@ -110,13 +110,11 @@ const DashboardOverview = ({ orders, wishlistCount, cartCount }: any) => {
     <div className="space-y-6">
       {/* Welcome Section */}
       <div className="bg-white border border-gray-200 p-6">
-        <h2 className="relative inline-block mb-4" style={{ ["--underline-color" as any]: "#A5C1FF" }}>
-          <span className="relative z-10 text-2xl font-semibold">Dashboard Overview</span>
-          <span
-            className="absolute bottom-0 h-[10px] bg-[var(--underline-color)]"
-            style={{ left: "-8px", right: "-8px" }}
-            aria-hidden="true"
-          />
+        <h2
+          className="relative inline-block mb-4 "
+        
+        >
+          <span className="relative z-10 text-2xl">Dashboard Overview</span>
         </h2>
         <p className="text-gray-600">Welcome back! Here's a quick overview of your account activity.</p>
       </div>
@@ -153,15 +151,17 @@ const DashboardOverview = ({ orders, wishlistCount, cartCount }: any) => {
       {/* Recent Orders */}
       <div className="bg-white border border-gray-200 p-6">
         <div className="flex items-center justify-between mb-6">
-          <h3 className="relative inline-block" style={{ ["--underline-color" as any]: "#fbbf24" }}>
-            <span className="relative z-10 text-xl font-semibold">Recent Orders</span>
-            <span
-              className="absolute bottom-0 h-[8px] bg-[var(--underline-color)]"
-              style={{ left: "-8px", right: "-8px" }}
-              aria-hidden="true"
-            />
+          <h3
+            className="relative inline-block link-highlight link-highlight-brown"
+            style={{ ["--underline-color" as any]: "#fbbf24" }}
+          >
+            <span className="relative z-10 text-xl ">Recent Orders</span>
           </h3>
-          <button className="text-blue-600 hover:text-blue-700 font-medium text-sm cursor-pointer" onClick={() => window.location.href = '/account'}>
+          <button
+            className="text-blue-600 hover:text-blue-700 text-sm cursor-pointer link-highlight link-highlight-yellow"
+            style={{ ["--underline-color" as any]: "#A5C1FF" }}
+            onClick={() => window.location.href = '/account'}
+          >
             View All →
           </button>
         </div>
@@ -214,7 +214,10 @@ const DashboardOverview = ({ orders, wishlistCount, cartCount }: any) => {
             <h4 className="font-semibold text-gray-900">Track Orders</h4>
           </div>
           <p className="text-sm text-gray-600">View and track your current orders</p>
-          <span className="inline-block mt-4 text-blue-600 text-sm group-hover:translate-x-1 transition-transform">
+          <span
+            className="inline-block mt-4 text-black text-sm group-hover:translate-x-1 transition-transform relative link-highlight link-highlight-mint"
+            style={{ ["--underline-color" as any]: "#A5C1FF" }}
+          >
             Go to Orders →
           </span>
         </button>
@@ -228,7 +231,10 @@ const DashboardOverview = ({ orders, wishlistCount, cartCount }: any) => {
             <h4 className="font-semibold text-gray-900">View Wishlist</h4>
           </div>
           <p className="text-sm text-gray-600">Browse items you've saved for later</p>
-          <span className="inline-block mt-4 text-red-600 text-sm group-hover:translate-x-1 transition-transform">
+          <span
+            className="inline-block mt-4 text-black text-sm group-hover:translate-x-1 transition-transform relative link-highlight link-highlight-brown"
+            style={{ ["--underline-color" as any]: "#FFC89F" }}
+          >
             View Wishlist →
           </span>
         </button>
@@ -242,7 +248,10 @@ const DashboardOverview = ({ orders, wishlistCount, cartCount }: any) => {
             <h4 className="font-semibold text-gray-900">Leave Reviews</h4>
           </div>
           <p className="text-sm text-gray-600">Share your experience with products</p>
-          <span className="inline-block mt-4 text-yellow-600 text-sm group-hover:translate-x-1 transition-transform">
+          <span
+            className="inline-block mt-4 text-black text-sm group-hover:translate-x-1 transition-transform relative link-highlight link-highlight-yellow"
+            style={{ ["--underline-color" as any]: "#F4FFCB" }}
+          >
             Write Review →
           </span>
         </button>

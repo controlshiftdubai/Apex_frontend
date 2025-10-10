@@ -84,7 +84,7 @@ export default function Tabs() {
             key={tab}
             onClick={() => handleTabClick(tab)}
             className={cn(
-              "relative px-4 py-2 rounded-md md:text-lg font-medium cursor-pointer",
+              "relative px-4 py-2 md:text-lg font-medium cursor-pointer",
               "transition-colors",
               isActive ? "text-black" : "text-gray-500 hover:text-black"
             )}
@@ -95,7 +95,7 @@ export default function Tabs() {
               {isActive && (
                 <motion.span
                   layoutId="tabHighlight"
-                  className="absolute inset-0 rounded-md"
+                  className="absolute inset-0 "
                   style={{ backgroundColor: bgColor }}
                   transition={{ type: "spring", stiffness: 420, damping: 40, mass: 0.5 }}
                   initial={{ opacity: 0.6 }}

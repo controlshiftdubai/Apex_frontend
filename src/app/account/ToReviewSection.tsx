@@ -78,8 +78,8 @@ export default function ToReviewSection() {
 
   return (
     <div className="bg-white border border-gray-200 p-6">
-      <h2 className="relative inline-block mb-6" style={{ ["--underline-color" as any]: "#fde68a" }}>
-        <span className="relative z-10 text-2xl font-semibold">Products to Review</span>
+      <h2 className="relative inline-block mb-6">
+        <span className="relative z-10 text-2xl ">Products to Review</span>
         <span
           className="absolute bottom-0 h-[10px] bg-[var(--underline-color)]"
           style={{ left: "-8px", right: "-8px" }}

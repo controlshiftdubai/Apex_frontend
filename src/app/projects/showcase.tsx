@@ -54,7 +54,7 @@ export default function ProjectsShowcase() {
                 key={tab.key}
                 onClick={() => setActiveTab(tab.key)}
                 className={cn(
-                  "px-4 py-2 rounded-md md:text-lg font-medium transition-colors cursor-pointer",
+                  "px-4 py-2  md:text-lg font-medium transition-colors cursor-pointer",
                   isActive ? "text-black" : "text-gray-500 hover:text-black"
                 )}
                 style={

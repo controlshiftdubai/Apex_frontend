@@ -7,6 +7,7 @@ import Link from 'next/link'
 import { Product } from './SearchPageContent'
 import { useAddToCart, useRemoveFromCart, useAddToWishlist, useRemoveFromWishlist, useCart, useWishlist } from '@/utils/api/hooks/basket'
 import { cn } from '@/lib/utils'
+import AnimateOnViewOnce from "@/components/AnimateOnViewOnce";
 
 interface ProductCardProps {
   product: Product
@@ -176,21 +177,14 @@ const ProductCard = ({ product }: ProductCardProps) => {
           <button
             onClick={handleBuyNow}
             disabled={addToCartMutation.isPending}
-            className="px-6 py-3 text-gray-700 font-medium text-base uppercase tracking-wide cursor-pointer hover:bg-gray-50 transition-colors disabled:opacity-50"
+            className="px-6 py-3 text-gray-900  text-base uppercase tracking-wide cursor-pointer  transition-colors "
           >
-            <span
-              className="relative inline-block"
-              style={{ ["--underline-color" as any]: "#F4FFCB" }}
-            >
+            <AnimateOnViewOnce delay={200} className="link-highlight link-highlight-yellow">
               <span className="relative z-10 flex items-center gap-2">
                 {addToCartMutation.isPending && <Loader2 className="w-4 h-4 animate-spin" />}
                 Buy Now
               </span>
-              <span
-                className="absolute bottom-0 left-0 right-0 h-[10px] bg-[var(--underline-color)]"
-                aria-hidden="true"
-              />
-            </span>
+            </AnimateOnViewOnce>
           </button>
         </div>
       </div>

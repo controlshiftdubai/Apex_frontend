@@ -52,7 +52,7 @@ export default function DeliveryStep({
   return (
     <div className="bg-white border border-gray-300 p-6">
       <h1 className="relative inline-block mb-6" style={{ ["--underline-color" as any]: "#FDE68A" }}>
-        <span className="relative z-10 text-2xl font-semibold">Delivery Address</span>
+        <span className="relative z-10 text-2xl ">Delivery Address</span>
         <span className="absolute bottom-0 left-0 right-0 h-[10px] bg-[var(--underline-color)]" aria-hidden="true" />
       </h1>
       <form

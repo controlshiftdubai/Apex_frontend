@@ -63,18 +63,19 @@ const FilterSidebar = ({
       {/* Apply Filter Button */}
       <button
         onClick={applyFilters}
-        className="px-6 py-3 text-gray-700 font-medium text-2xl uppercase tracking-wide w-70 cursor-pointer"
+        className="w-full flex justify-center items-center py-3 text-gray-700 font-medium text-2xl uppercase tracking-wide cursor-pointer"
       >
-        <p
-          className="relative"
+        <span
+          className="relative flex flex-col items-center w-fit"
           style={{ ["--underline-color" as any]: "#FDE68A" }}
         >
           <span className="relative z-10 text-center">Apply Filter</span>
           <span
-            className="absolute bottom-0 left-0 h-[14px] w-60 bg-[var(--underline-color)]"
+            className="absolute left-0 right-0 h-[14px] w-full bg-[var(--underline-color)]"
+            style={{ bottom: "-4px" }}
             aria-hidden="true"
           />
-        </p>
+        </span>
       </button>
 
       <div className="flex items-center justify-between mb-6">
@@ -138,7 +139,7 @@ const FilterSidebar = ({
                   type="checkbox"
                   checked={tempFilters.brands.includes(brand)}
                   onChange={() => toggleBrand(brand)}
-                  className="w-4 h-4 text-[#FDE68A] border-gray-300 rounded focus:ring-[#FDE68A] cursor-pointer"
+                  className="w-4 h-4 text-[#FDE68A] border-gray-300  focus:ring-[#FDE68A] cursor-pointer"
                 />
                 {tempFilters.brands.includes(brand) && (
                   <Check className="w-3 h-3 text-[#FDE68A] absolute top-0.5 left-0.5 pointer-events-none" strokeWidth={3} />

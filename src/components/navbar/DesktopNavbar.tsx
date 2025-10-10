@@ -141,7 +141,7 @@ function LangToggle({
       </button>
 
       {isOpen && (
-        <div className="absolute top-full left-0 -mt-1 bg-white border border-gray-200 rounded-md overflow-hidden shadow-lg z-50">
+        <div className="absolute top-full left-0 -mt-1 bg-white border border-gray-200 overflow-hidden shadow-lg z-50">
           <button
             type="button"
             onClick={() => onChange("en")}
@@ -232,7 +232,7 @@ export default function Navbar({
           <div className="hidden md:flex justify-between items-center h-full">
             <Link
               href="/"
-              className="rounded-md block mr-10 shrink-0 cursor-pointer"
+              className=" block mr-10 shrink-0 cursor-pointer"
             >
               <Image
                 src="https://d33609liqwio9r.cloudfront.net/2025-10-07T00:06:41.784Z-Untitled%20(1080%20x%20400%20px).png"
@@ -332,7 +332,7 @@ export default function Navbar({
             <div className="md:hidden flex items-center h-full">
               <Link
                 href="/"
-                className="rounded-md block shrink-0 cursor-pointer"
+                className=" block shrink-0 cursor-pointer"
               >
                 <Image
                   src="https://d33609liqwio9r.cloudfront.net/2025-10-07T00:06:41.784Z-Untitled%20(1080%20x%20400%20px).png"

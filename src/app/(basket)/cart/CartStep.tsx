@@ -117,7 +117,7 @@ export default function CartStep({
   return (
     <div className="bg-white border border-gray-300 p-6">
       <h1 className="relative inline-block mb-6" style={{ ["--underline-color" as any]: "#A5C1FF" }}>
-        <span className="relative z-10 text-2xl font-semibold">Shopping Bag</span>
+        <span className="relative z-10 text-2xl ">Shopping Bag</span>
         <span className="absolute bottom-0 left-0 right-0 h-[10px] bg-[var(--underline-color)]" aria-hidden="true" />
       </h1>
 
@@ -194,7 +194,7 @@ export default function CartStep({
                         )}
                       </div>
                       <div>
-                        <div className="font-semibold">{item.name}</div>
+                        <div className="">{item.name}</div>
                         <div className="text-xs text-gray-500">Color: {item.color}</div>
                         {item.stock > 0 && item.stock < 10 && (
                           <div className="text-xs text-orange-600 font-medium mt-1">

@@ -84,7 +84,7 @@ function SectionItem({
             {/* stripe behind text */}
             <span
               aria-hidden
-              className="absolute inset-x-0 bottom-1 h-3 rounded-md"
+              className="absolute inset-x-0 bottom-1 h-3 "
               style={{ backgroundColor: stripeColor }}
             />
           </span>
@@ -168,7 +168,7 @@ export default function ProjectsShowcase() {
               key={tab.key}
               onClick={() => scrollTo(tab.key)}
               className={cn(
-                "px-4 py-2 rounded-md md:text-lg font-medium transition-colors cursor-pointer",
+                "px-4 py-2  md:text-lg font-medium transition-colors cursor-pointer",
                 activeSlug === tab.key ? "text-black" : "text-gray-500 hover:text-black"
               )}
               style={

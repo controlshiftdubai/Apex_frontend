@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Heart, ShoppingCart, Trash2, ArrowRight, Loader2 } from "lucide-react";
 import { useWishlist, useAddToCart, useRemoveFromWishlist, useMoveToCart } from "@/utils/api/hooks/basket";
 import Loading from '@/components/loading';
+import AnimateOnViewOnce from "@/components/AnimateOnViewOnce";
 
 const WishlistPage = () => {
   const { data, isLoading, error } = useWishlist({ params: {}, payload: {} });
@@ -109,20 +110,7 @@ const WishlistPage = () => {
                 {wishlistItems.length} {wishlistItems.length === 1 ? "item" : "items"} saved
               </p>
             </div>
-            <div className="flex gap-3">
-              <button
-                onClick={handleMoveAllToCart}
-                disabled={moveToCartMutation.isPending}
-                className="flex items-center gap-2 px-6 py-3 bg-black text-white font-semibold hover:bg-gray-800 transition-colors cursor-pointer disabled:opacity-50"
-              >
-                {moveToCartMutation.isPending ? (
-                  <Loader2 className="w-4 h-4 animate-spin" />
-                ) : (
-                  <ShoppingCart className="w-4 h-4" />
-                )}
-                <span>Move All to Cart</span>
-              </button>
-            </div>
+           
           </div>
         </div>
 
@@ -180,9 +168,9 @@ const WishlistPage = () => {
                   <button
                     onClick={() => handleAddToCart(item.productId, item.quantity, item.productId)}
                     disabled={isAddingToCart === item.productId}
-                    className="w-full py-3 font-semibold uppercase tracking-wide transition-all duration-200 relative text-gray-900 cursor-pointer hover:bg-gray-50 disabled:opacity-50"
+                    className="w-full py-3  uppercase tracking-wide transition-all duration-200 relative text-gray-900 cursor-pointer "
                   >
-                    <span className="relative inline-block">
+                    <AnimateOnViewOnce delay={300} className="link-highlight link-highlight-mint">
                       <span className="relative z-10 flex items-center justify-center gap-2">
                         {isAddingToCart === item.productId ? (
                           <Loader2 className="w-4 h-4 animate-spin" />
@@ -191,17 +179,16 @@ const WishlistPage = () => {
                         )}
                         Move to Cart
                       </span>
-                      <span className="absolute bottom-0 left-0 right-0 h-[8px] bg-[#A5C1FF]" aria-hidden="true" />
-                    </span>
+                    </AnimateOnViewOnce>
                   </button>
 
                   <button
                     onClick={() => handleRemove(item.productId)}
                     disabled={removeFromWishlistMutation.isPending}
-                    className="w-full py-3 text-gray-600 font-semibold uppercase tracking-wide cursor-pointer transition-all duration-200 hover:bg-gray-50 relative disabled:opacity-50"
+                    className="w-full py-3 text-gray-700  uppercase tracking-wide cursor-pointer transition-all duration-200 relative"
                     title="Remove"
                   >
-                    <span className="relative inline-block">
+                    <AnimateOnViewOnce delay={400} className="link-highlight link-highlight-brown">
                       <span className="relative z-10 flex items-center justify-center gap-2">
                         {removeFromWishlistMutation.isPending ? (
                           <Loader2 className="w-4 h-4 animate-spin" />
@@ -210,8 +197,7 @@ const WishlistPage = () => {
                         )}
                         Remove
                       </span>
-                      <span className="absolute bottom-0 left-0 right-0 h-[8px] bg-[#FCA5A5]" aria-hidden="true" />
-                    </span>
+                    </AnimateOnViewOnce>
                   </button>
                 </div>
               </div>
@@ -241,15 +227,17 @@ const WishlistPage = () => {
             <button
               onClick={handleMoveAllToCart}
               disabled={moveToCartMutation.isPending}
-              className="flex items-center justify-center gap-2 px-8 py-3 bg-[#FDE68A] text-gray-900 font-semibold hover:bg-[#FDD835] transition-colors cursor-pointer disabled:opacity-50"
+              className="flex items-center justify-center gap-2 px-8 py-3  text-gray-black transition-colors cursor-pointer "
             >
               {moveToCartMutation.isPending ? (
                 <Loader2 className="w-5 h-5 animate-spin" />
               ) : (
-                <>
-                  <span>Move All to Cart</span>
-                  <ArrowRight className="w-5 h-5" />
-                </>
+                <AnimateOnViewOnce delay={300} className="link-highlight link-highlight-yellow">
+                  <span className="relative z-10 flex items-center gap-2">
+                    <span>Move All to Cart</span>
+                    <ArrowRight className="w-5 h-5" />
+                  </span>
+                </AnimateOnViewOnce>
               )}
             </button>
           </div>
@@ -258,10 +246,14 @@ const WishlistPage = () => {
         <div className="mt-8 text-center">
           <button
             onClick={() => (window.location.href = "/")}
-            className="text-gray-600 hover:text-gray-900 font-medium transition-colors cursor-pointer inline-flex items-center gap-2 group"
+            className="text-gray-600 hover:text-gray-900 font-medium transition-colors cursor-pointer inline-flex items-center gap-2 group bg-transparent border-none"
+            style={{ background: "none" }}
           >
-            <span className="group-hover:-translate-x-1 transition-transform">←</span>
-            <span>Continue Shopping</span>
+          
+            <AnimateOnViewOnce delay={300} className="link-highlight link-highlight-mint">
+                <span className="group-hover:-translate-x-1 transition-transform">←</span>
+              <span className="relative z-10">Continue Shopping</span>
+            </AnimateOnViewOnce>
           </button>
         </div>
       </div>

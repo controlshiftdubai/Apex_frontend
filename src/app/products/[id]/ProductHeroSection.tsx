@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
+import AnimateOnViewOnce from '@/components/AnimateOnViewOnce';
 
 interface ProductImage {
   id: string;
@@ -120,7 +121,7 @@ const ProductHeroSection: React.FC = () => {
                   />
                 </div>
                 <div className="">
-                  <span className={`text-gray-500 bg-white px-2 py-1 rounded ${selectedImageIndex === index
+                  <span className={`text-gray-500 bg-white px-2 py-1  ${selectedImageIndex === index
                     ? 'text-xl text-gray-900'
                     : 'text-xs'
                     }`}>
@@ -143,51 +144,45 @@ const ProductHeroSection: React.FC = () => {
             <div className="flex items-center justify-between gap-4 mt-4 ml-auto">
               <button
                 onClick={handleAddToWishlist}
-                className="px-6 py-3 text-gray-700 font-medium text-lg uppercase tracking-wide text-[clamp(17px,0.95vw,15px)] w-40 cursor-pointer"
+
               >
-                <p
-                  className="relative"
-                  style={{ ["--underline-color" as any]: "#FFC89F" }}
-                >
-                  <span className="relative z-10">WISH LIST</span>
-                  <span
-                    className="absolute bottom-0 left-0 h-[14px] w-28 bg-[var(--underline-color)]"
-                    aria-hidden="true"
-                  />
-                </p>
+               <AnimateOnViewOnce
+                             delay={300}
+                             className="link-highlight link-highlight-brown"
+                           >
+                             <p className="relative cursor-pointer inline-block sm:text-xl  text-black ">
+                               Wishlist
+                             </p>
+                           </AnimateOnViewOnce>
               </button>
               <button
                 onClick={handleAddToCart}
-                className="px-6 py-3 text-gray-700 font-medium text-lg uppercase tracking-wide text-[clamp(17px,0.95vw,15px)] w-52 cursor-pointer"
+
               >
-                <p
-                  className="relative"
-                  style={{ ["--underline-color" as any]: "#D1FFD0" }}
-                >
-                  <span className="relative z-10">Add to Cart</span>
-                  <span
-                    className="absolute bottom-0 left-0 h-[14px] w-40 bg-[var(--underline-color)]"
-                    aria-hidden="true"
-                  />
-                </p>
+                <AnimateOnViewOnce
+                             delay={300}
+                             className="link-highlight link-highlight-mint"
+                           >
+                             <p className="relative cursor-pointer inline-block text-lg sm:text-xl  text-black ">
+                               Add to Cart
+                             </p>
+                           </AnimateOnViewOnce>
               </button>
               <button
                 onClick={handleBuyNow}
-                className="px-6 py-3 text-gray-700 font-medium text-lg uppercase tracking-wide text-[clamp(17px,0.95vw,15px)] w-40 cursor-pointer"
+               
               >
-                <p
-                  className="relative"
-                  style={{ ["--underline-color" as any]: "#F4FFCB" }}
-                >
-                  <span className="relative z-10">BUY Now</span>
-                  <span
-                    className="absolute bottom-0 left-0 h-[14px] w-28 bg-[var(--underline-color)]"
-                    aria-hidden="true"
-                  />
-                </p>
+                <AnimateOnViewOnce
+                             delay={300}
+                             className="link-highlight link-highlight-yellow"
+                           >
+                             <p className="relative cursor-pointer inline-block text-lg sm:text-xl text-black ">
+                               Buy Now
+                             </p>
+                           </AnimateOnViewOnce>
               </button>
             </div>
-            <div className="text-md text-gray-500 leading-5 text-right">
+            <div className="text-md text-gray-500 mt-2 leading-5 text-right">
               We ensure every cup is rich and consistent by choosing materials with advanced
               technology. Our heat steam controls unit fighting your favorite grounds.
             </div>
@@ -237,7 +232,7 @@ const ProductHeroSection: React.FC = () => {
             {productImages.map((image, index) => (
               <div key={image.id} className="flex-shrink-0 text-center space-y-2">
                 <div
-                  className={`relative cursor-pointer overflow-hidden rounded-lg transition-all duration-200 ${selectedImageIndex === index
+                  className={`relative cursor-pointer overflow-hidden transition-all duration-200 ${selectedImageIndex === index
                     ? 'w-20 h-20 md:w-24 md:h-24 border-2 border-gray-900'
                     : 'w-16 h-16 md:w-20 md:h-20 border border-gray-300 hover:border-gray-400'
                     }`}
@@ -273,47 +268,35 @@ const ProductHeroSection: React.FC = () => {
                 onClick={handleAddToWishlist}
                 className="px-6 py-3 text-gray-700 font-medium text-base uppercase tracking-wide cursor-pointer text-center"
               >
-                <p
-                  className="relative inline-block"
-                  style={{ ["--underline-color" as any]: "#FFC89F" }}
+                <AnimateOnViewOnce
+                  delay={300}
+                  className="link-highlight link-highlight-brown"
                 >
                   <span className="relative z-10">WISH LIST</span>
-                  <span
-                    className="absolute bottom-0 left-0 right-0 h-[10px] bg-[var(--underline-color)]"
-                    aria-hidden="true"
-                  />
-                </p>
+                </AnimateOnViewOnce>
               </button>
               <button
                 onClick={handleAddToCart}
                 className="px-6 py-3 text-gray-700 font-medium text-base uppercase tracking-wide cursor-pointer text-center"
               >
-                <p
-                  className="relative inline-block"
-                  style={{ ["--underline-color" as any]: "#D1FFD0" }}
+                <AnimateOnViewOnce
+                  delay={300}
+                  className="link-highlight link-highlight-mint"
                 >
                   <span className="relative z-10">Add to Cart</span>
-                  <span
-                    className="absolute bottom-0 left-0 right-0 h-[10px] bg-[var(--underline-color)]"
-                    aria-hidden="true"
-                  />
-                </p>
+                </AnimateOnViewOnce>
               </button>
             </div>
             <button
               onClick={handleBuyNow}
               className="w-full px-6 py-3 text-gray-700 font-medium text-base uppercase tracking-wide cursor-pointer text-center"
             >
-              <p
-                className="relative inline-block"
-                style={{ ["--underline-color" as any]: "#F4FFCB" }}
+              <AnimateOnViewOnce
+                delay={300}
+                className="link-highlight link-highlight-yellow"
               >
                 <span className="relative z-10">BUY Now</span>
-                <span
-                  className="absolute bottom-0 left-0 right-0 h-[10px] bg-[var(--underline-color)]"
-                  aria-hidden="true"
-                />
-              </p>
+              </AnimateOnViewOnce>
             </button>
           </div>
 

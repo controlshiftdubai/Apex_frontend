@@ -135,7 +135,7 @@ export default function MobileNavbar({
       }}
     >
       {/* Left: logo */}
-      <Link href="/" className="rounded-md block shrink-0 mr-2">
+      <Link href="/" className=" block shrink-0 mr-2">
         <Image
           src="https://d33609liqwio9r.cloudfront.net/2025-10-07T00:06:41.784Z-Untitled%20(1080%20x%20400%20px).png"
           alt="logo"

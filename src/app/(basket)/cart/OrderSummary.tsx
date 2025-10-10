@@ -5,7 +5,7 @@ export default function OrderSummary({ cart, subtotal, shipping, discount, total
   return (
     <div className="lg:w-[340px] w-full">
       <div className="bg-white border border-gray-300 w-full p-6 mb-6">
-        <h2 className="relative inline-block uppercase font-semibold text-lg mb-5" style={{ ["--underline-color" as any]: "#FDB3CA" }}>
+        <h2 className="relative inline-block uppercase  text-lg mb-5" style={{ ["--underline-color" as any]: "#FDB3CA" }}>
           <span className="relative z-10">Summary</span>
           <span className="absolute bottom-0 left-0 right-0 h-[10px] bg-[var(--underline-color)]" aria-hidden="true" />
         </h2>

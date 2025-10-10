@@ -92,13 +92,9 @@ export default function AccountDetails() {
 
   return (
     <div className="bg-white border border-gray-200 p-6">
-      <h2 className="relative inline-block mb-6" style={{ ["--underline-color" as any]: "#bfdbfe" }}>
-        <span className="relative z-10 text-2xl font-semibold">Account Details</span>
-        <span
-          className="absolute bottom-0 h-[10px] bg-[var(--underline-color)]"
-          style={{ left: "-8px", right: "-8px" }}
-          aria-hidden="true"
-        />
+      <h2 className="relative inline-block mb-6" >
+        <span className="relative z-10 text-2xl ">Account Details</span>
+        
       </h2>
 
       {/* Profile Form */}
@@ -164,7 +160,7 @@ export default function AccountDetails() {
 
       {/* Password Change Form */}
       <div className="border-t border-gray-200 pt-6">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">Change Password</h3>
+        <h3 className="text-lg  text-gray-900 mb-4">Change Password</h3>
         <form onSubmit={handlePasswordSubmit} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>

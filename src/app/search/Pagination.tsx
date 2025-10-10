@@ -16,7 +16,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }: PaginationProps) 
       <button
         onClick={() => onPageChange(Math.max(1, currentPage - 1))}
         disabled={currentPage === 1}
-        className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-[#FDE68A] disabled:opacity-50 disabled:cursor-not-allowed transition-all cursor-pointer"
+        className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300  hover:bg-[#FDE68A] disabled:opacity-50 disabled:cursor-not-allowed transition-all cursor-pointer"
       >
         Previous
       </button>
@@ -24,7 +24,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }: PaginationProps) 
         <button
           key={page}
           onClick={() => onPageChange(page)}
-          className={`px-4 py-2 text-sm font-medium rounded-lg transition-all cursor-pointer ${currentPage === page
+          className={`px-4 py-2 text-sm font-medium  transition-all cursor-pointer ${currentPage === page
               ? 'text-gray-900 bg-[#FDE68A] border border-[#FDE68A] shadow-md'
               : 'text-gray-700 bg-white border border-gray-300 hover:bg-[#FDE68A]'
             }`}

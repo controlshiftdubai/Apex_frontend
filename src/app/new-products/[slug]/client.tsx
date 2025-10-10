@@ -118,7 +118,7 @@ function VariantWheel({
               }}
             >
               <div
-                className={`w-full h-full rounded-lg overflow-hidden transition-all duration-300`}
+                className={`w-full h-full  overflow-hidden transition-all duration-300`}
               >
                 <img
                   src={product.thumbnail || "/placeholder.svg"}
@@ -230,7 +230,7 @@ function HeroSection({
           {/* Center - main image with enhanced presentation */}
           <div className="flex justify-center items-center lg:order-2 order-1">
             <div className="relative w-full max-w-xs lg:max-w-sm aspect-square">
-              <div className="absolute inset-0 bg-gradient-to-br from-gray-100/50 to-transparent rounded-3xl" />
+              <div className="absolute inset-0 bg-gradient-to-br from-gray-100/50 to-transparent " />
               <img
                 src={product.thumbnail || "/placeholder.svg"}
                 alt={product.name}

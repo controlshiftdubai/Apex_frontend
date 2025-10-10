@@ -91,7 +91,7 @@ export default function ScrambleSection() {
                 key={tab.key}
                 onClick={() => scrollToIndex(tab.targetIndex)}
                 className={cn(
-                  "px-4 py-2 rounded-md md:text-lg font-medium transition-colors cursor-pointer",
+                  "px-4 py-2  md:text-lg font-medium transition-colors cursor-pointer",
                   isActive ? "text-black" : "text-gray-500 hover:text-black"
                 )}
                 style={
@@ -175,7 +175,7 @@ function Scramble({
               <span className="relative z-10 px-0.5">{data.heading}</span>
               <span
                 aria-hidden
-                className="absolute inset-x-0 bottom-2 h-4 rounded-md"
+                className="absolute inset-x-0 bottom-2 h-4 "
                 style={{ backgroundColor: stripeColor }}
               />
             </span>

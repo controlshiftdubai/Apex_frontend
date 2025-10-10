@@ -51,13 +51,13 @@ function Collaboration() {
           height={821}
           sizes="100vw"
           className={cn(
-            "w-full h-auto aspect-[63/37] object-cover rounded-lg transition-opacity duration-500",
+            "w-full h-auto aspect-[63/37] object-cover transition-opacity duration-500",
             transitioning ? "opacity-50" : "opacity-100"
           )}
         />
       </div>
 
-      <div className="flex-1 flex flex-col justify-center px-6 bg-blue-500 rounded-lg">
+      <div className="flex-1 flex flex-col justify-center px-6 bg-blue-500 ">
         <h3 className="text-2xl font-semibold mb-4">Collaboration</h3>
         <p className="text-gray-100 leading-relaxed">
           We collaborate with the world's leading visionaries, from rapidly

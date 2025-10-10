@@ -34,7 +34,7 @@ function HeadingStripe({
         {/* stripe behind text (same vibe as previous pages) */}
         <span
           aria-hidden
-          className="absolute inset-x-0 bottom-1 h-3 rounded-md"
+          className="absolute inset-x-0 bottom-1 h-3 "
           style={{ backgroundColor: color }}
         />
       </span>
