@@ -39,9 +39,9 @@ export interface BaseApiRequest<T = {}> {
 export interface S3UploadResponse {
   error: boolean;
   message: string;
-  payload: {
-    url: string;
-    key: string;
+  payload?: {
     full_url: string;
+    key: string;
+    url: string;
   };
 }

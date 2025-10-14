@@ -9,6 +9,7 @@ import MobileDrawer from "@/components/MobileDrawer";
 import { cn } from "@/lib/utils";
 import SearchBar from '../SearchBar';
 import BasketIcon from './BasketIcon';
+import { useProfile } from '@/utils/api/hooks/profile';
 
 /* ---------- Icons (menu / close / search) ---------- */
 const MenuIcon = ({ className }: { className?: string }) => (
@@ -196,6 +197,10 @@ export default function Navbar({
   const [lang, setLang] = useState<"en" | "ar">("en");
   const router = useRouter();
 
+  const { data: profileData } = useProfile();
+  const profile = profileData?.payload;
+
+
   useEffect(() => {
     const saved =
       typeof window !== "undefined"
@@ -309,7 +314,7 @@ export default function Navbar({
                     onClick={() => router.push("/account")}
                     aria-label="Profile"
                   >
-                    <Image
+                    {/* <Image
                       src="/icons/profile.svg"
                       alt=""
                       width={22}
@@ -317,7 +322,28 @@ export default function Navbar({
                       sizes="22px"
                       className="block h-[22px] w-[22px]"
                       priority
-                    />
+                    /> */}
+                    {profile?.avatar ? (
+                      <Image
+                        src={profile.avatar}
+                        alt="Profile"
+                        width={32}
+                        height={32}
+                        sizes="32px"
+                        className="h-[32px] w-[32px] rounded-full"
+                        priority
+                      />
+                    ) : (
+                      <Image
+                        src="/icons/profile.svg"
+                        alt=""
+                        width={22}
+                        height={22}
+                        sizes="22px"
+                        className="block h-[22px] w-[22px]"
+                        priority
+                      />
+                    )}
                     <span
                       className="pointer-events-none absolute left-2 right-2 bottom-1 h-0.5 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-200"
                       style={{ background: "var(--underline-color)" }}

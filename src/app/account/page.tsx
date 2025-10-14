@@ -11,14 +11,17 @@ import { Package, Heart, ShoppingCart, Star, TrendingUp, Clock } from 'lucide-re
 import { useProfile, useProfileOrders } from '@/utils/api/hooks/profile'
 import { useCart, useWishlist } from '@/utils/api/hooks/basket'
 import Loading from '@/components/loading'
+import WishlistSection from './WishlistSection'
+import CartSection from './CartSection'
 
 export default function AccountPage() {
-  const [activeTab, setActiveTab] = useState<'dashboard' | 'orders' | 'account' | 'address' | 'reviews'>('dashboard')
+  const [activeTab, setActiveTab] = useState<'dashboard' | 'orders' | 'account' | 'address' | 'wishlist' | 'cart' | 'reviews'>('dashboard')
 
   const { data: profileData, isLoading: profileLoading } = useProfile();
   const { data: ordersData } = useProfileOrders({ params: { limit: "3" }, payload: {} });
   const { data: wishlistData } = useWishlist({ params: {}, payload: {} });
   const { data: cartData } = useCart({ params: {}, payload: {} });
+
 
   if (profileLoading) {
     return <Loading />;
@@ -49,6 +52,8 @@ export default function AccountPage() {
             {activeTab === 'orders' && <OrderHistory />}
             {activeTab === 'account' && <AccountDetails />}
             {activeTab === 'address' && <AddressSection />}
+            {activeTab === 'wishlist' && <WishlistSection />}
+            {activeTab === 'cart' && <CartSection />}
             {activeTab === 'reviews' && <ToReviewSection />}
           </div>
         </div>
@@ -112,7 +117,7 @@ const DashboardOverview = ({ orders, wishlistCount, cartCount }: any) => {
       <div className="bg-white border border-gray-200 p-6">
         <h2
           className="relative inline-block mb-4 "
-        
+
         >
           <span className="relative z-10 text-2xl">Dashboard Overview</span>
         </h2>

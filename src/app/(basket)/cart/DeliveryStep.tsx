@@ -1,4 +1,8 @@
+"use client"
+
 import { useState, useEffect } from "react"
+import { useProfile } from "@/utils/api/hooks/profile"
+import { toast } from "sonner"
 
 const countriesWithZipCode = [
   'United States', 'United Kingdom', 'Canada', 'India', 'Australia', 'Germany',
@@ -15,10 +19,45 @@ export default function DeliveryStep({
   addressInput, setAddressInput, country, setCountry, cityState, setCityState,
   zipCode, setZipCode, onBack, onNext
 }: any) {
+  const { data: profileData, isLoading } = useProfile();
   const [countryInput, setCountryInput] = useState("");
   const [showCountrySuggestions, setShowCountrySuggestions] = useState(false);
   const [filteredCountries, setFilteredCountries] = useState<string[]>([]);
   const [showZipCode, setShowZipCode] = useState(false);
+  const [addressLoaded, setAddressLoaded] = useState(false);
+
+  useEffect(() => {
+    if (profileData?.payload?.address && !addressLoaded) {
+      const savedAddress = profileData.payload.address as any;
+
+      if (savedAddress.street) {
+        setAddressInput(savedAddress.street);
+      }
+
+      if (savedAddress.city && savedAddress.state) {
+        setCityState(`${savedAddress.city}, ${savedAddress.state}`);
+      } else if (savedAddress.city) {
+        setCityState(savedAddress.city);
+      } else if (savedAddress.state) {
+        setCityState(savedAddress.state);
+      }
+
+      if (savedAddress.country) {
+        setCountry(savedAddress.country);
+        setCountryInput(savedAddress.country);
+
+        const requiresZip = countriesWithZipCode.includes(savedAddress.country);
+        setShowZipCode(requiresZip);
+
+        if (requiresZip && savedAddress.postalCode) {
+          setZipCode(savedAddress.postalCode);
+        }
+      }
+
+      setAddressLoaded(true);
+      toast.success('Your saved address has been loaded');
+    }
+  }, [profileData, addressLoaded, setAddressInput, setCityState, setCountry, setZipCode]);
 
   const handleCountryInputChange = (value: string) => {
     setCountryInput(value);
@@ -43,23 +82,39 @@ export default function DeliveryStep({
   };
 
   useEffect(() => {
-    if (country) {
+    if (country && !addressLoaded) {
       setCountryInput(country);
       setShowZipCode(countriesWithZipCode.includes(country));
     }
-  }, [country]);
+  }, [country, addressLoaded]);
+
+  if (isLoading) {
+    return (
+      <div className="bg-white border border-gray-300 p-6">
+        <div className="flex items-center justify-center py-12">
+          <div className="w-8 h-8 border-4 border-gray-300 border-t-gray-900 rounded-full animate-spin" />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-white border border-gray-300 p-6">
-      <h1 className="relative inline-block mb-6" style={{ ["--underline-color" as any]: "#FDE68A" }}>
-        <span className="relative z-10 text-2xl ">Delivery Address</span>
-        <span className="absolute bottom-0 left-0 right-0 h-[10px] bg-[var(--underline-color)]" aria-hidden="true" />
-      </h1>
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="relative inline-block" style={{ ["--underline-color" as any]: "#FDE68A" }}>
+          <span className="relative z-10 text-2xl font-semibold">Delivery Address</span>
+          <span className="absolute bottom-0 left-0 right-0 h-[10px] bg-[var(--underline-color)]" aria-hidden="true" />
+        </h1>
+      </div>
+
       <form
         className="space-y-6"
         onSubmit={e => {
           e.preventDefault();
-          if (!addressInput.trim() || !country || !cityState.trim() || (showZipCode && !zipCode.trim())) return;
+          if (!addressInput.trim() || !country || !cityState.trim() || (showZipCode && !zipCode.trim())) {
+            toast.error('Please fill in all required fields');
+            return;
+          }
           onNext();
         }}
       >
@@ -74,6 +129,7 @@ export default function DeliveryStep({
             placeholder="Flat/House/Building, Area, Street, etc."
           />
         </div>
+
         <div className="relative">
           <label className="block text-sm font-semibold mb-2">Country</label>
           <input
@@ -94,6 +150,9 @@ export default function DeliveryStep({
                   className="px-3 py-2 hover:bg-gray-100 cursor-pointer text-sm"
                 >
                   {c}
+                  {countriesWithoutZipCode.includes(c) && (
+                    <span className="ml-2 text-xs text-gray-500">(No postal code)</span>
+                  )}
                 </div>
               ))}
             </div>
@@ -102,6 +161,7 @@ export default function DeliveryStep({
             <p className="text-xs text-red-500 mt-1">Please select a valid country</p>
           )}
         </div>
+
         <div>
           <label className="block text-sm font-semibold mb-2">City / State</label>
           <input
@@ -113,6 +173,7 @@ export default function DeliveryStep({
             placeholder="City and/or State"
           />
         </div>
+
         {showZipCode && (
           <div>
             <label className="block text-sm font-semibold mb-2">ZIP Code</label>
@@ -126,9 +187,21 @@ export default function DeliveryStep({
             />
           </div>
         )}
+
         <div className="flex gap-4 mt-8">
-          <button type="button" className="border border-gray-400 px-6 py-2 font-semibold cursor-pointer" onClick={onBack}>Back to Cart</button>
-          <button type="submit" className="bg-black text-white px-7 py-2 font-semibold hover:bg-gray-800 cursor-pointer">Next: Payment</button>
+          <button
+            type="button"
+            className="border border-gray-400 px-6 py-2 font-semibold cursor-pointer hover:bg-gray-50 transition-colors"
+            onClick={onBack}
+          >
+            Back to Cart
+          </button>
+          <button
+            type="submit"
+            className="bg-black text-white px-7 py-2 font-semibold hover:bg-gray-800 cursor-pointer transition-colors"
+          >
+            Next: Payment
+          </button>
         </div>
       </form>
     </div>
