@@ -58,6 +58,7 @@ const PROFILE_ENDPOINTS = () => {
     orders: `${base}/orders`,
     reviews: `${base}/reviews`,
     password: `${base}/password`,
+    address: `${base}/address`
   };
 };
 

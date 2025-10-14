@@ -34,6 +34,30 @@ export const useUpdateProfile = () => {
   });
 };
 
+export const useUpdateAddress = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (payload: {
+      street: string;
+      city: string;
+      state: string;
+      country: string;
+      postalCode: string;
+    }) => {
+      const response = await ProfileHandler.updateAddress({
+        payload,
+        queryString: "",
+      });
+      return response.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["Profile"] });
+    },
+  });
+};
+
+
 export const useUpdatePassword = () => {
   return useMutation({
     mutationFn: async (payload: UpdatePasswordPayload) => {

@@ -21,6 +21,15 @@ export const ProfileHandler = {
     });
   },
 
+  updateAddress: async ({ payload, queryString }: BaseApiRequest) => {
+    return await fetchController({
+      method: "PUT",
+      endpoint: API_ENDPOINTS.profile.address,
+      body: payload,
+      queryString,
+    });
+  },
+
   getOrders: async ({ queryString }: BaseApiRequest) => {
     return await fetchController({
       method: "GET",

@@ -1,6 +1,6 @@
 "use client"
 
-import { LayoutDashboard, Package, User, Star, LogOut } from 'lucide-react'
+import { LayoutDashboard, Package, User, Star, LogOut, MapPinnedIcon } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
@@ -17,6 +17,7 @@ const menuItems = [
   { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard, color: '#fbbf24' },
   { id: 'orders', label: 'Order History', icon: Package, color: '#a7f3d0' },
   { id: 'account', label: 'Account Details', icon: User, color: '#bfdbfe' },
+  { id: 'address', label: 'Address Details', icon: MapPinnedIcon, color: '#FCA5A5' },
   { id: 'reviews', label: 'To Review', icon: Star, color: '#fde68a' },
 ]
 

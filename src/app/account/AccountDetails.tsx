@@ -10,6 +10,11 @@ export default function AccountDetails() {
   const updateProfileMutation = useUpdateProfile();
   const updatePasswordMutation = useUpdatePassword();
 
+  const [originalProfile, setOriginalProfile] = useState({
+    name: '',
+    phoneNumber: '',
+  });
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -17,14 +22,18 @@ export default function AccountDetails() {
     currentPassword: '',
     newPassword: '',
     confirmPassword: '',
-  })
+  });
 
   useEffect(() => {
     if (profileData?.payload) {
-      setFormData({
+      const profile = {
         name: profileData.payload.name || '',
-        email: profileData.payload.email || '',
         phoneNumber: profileData.payload.phoneNumber || '',
+      };
+      setOriginalProfile(profile);
+      setFormData({
+        ...profile,
+        email: profileData.payload.email || '',
         currentPassword: '',
         newPassword: '',
         confirmPassword: '',
@@ -32,8 +41,23 @@ export default function AccountDetails() {
     }
   }, [profileData]);
 
+  const hasProfileChanges = () => {
+    return (
+      formData.name !== originalProfile.name ||
+      formData.phoneNumber !== originalProfile.phoneNumber
+    );
+  };
+
+  const hasPasswordData = () => {
+    return (
+      formData.currentPassword.length > 0 ||
+      formData.newPassword.length > 0 ||
+      formData.confirmPassword.length > 0
+    );
+  };
+
   const handleProfileSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
 
     try {
       const result = await updateProfileMutation.mutateAsync({
@@ -43,16 +67,20 @@ export default function AccountDetails() {
 
       if (!result.error) {
         toast.success('Profile updated successfully');
+        setOriginalProfile({
+          name: formData.name,
+          phoneNumber: formData.phoneNumber,
+        });
       } else {
         toast.error(result.message || 'Failed to update profile');
       }
     } catch (error: any) {
       toast.error(error?.message || 'Failed to update profile');
     }
-  }
+  };
 
   const handlePasswordSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
 
     if (formData.newPassword !== formData.confirmPassword) {
       toast.error('Passwords do not match');
@@ -84,20 +112,21 @@ export default function AccountDetails() {
     } catch (error: any) {
       toast.error(error?.message || 'Failed to update password');
     }
-  }
+  };
 
   if (isLoading) {
     return <Loading />;
   }
 
+  const profileChanged = hasProfileChanges();
+  const passwordDataEntered = hasPasswordData();
+
   return (
     <div className="bg-white border border-gray-200 p-6">
-      <h2 className="relative inline-block mb-6" >
-        <span className="relative z-10 text-2xl ">Account Details</span>
-        
+      <h2 className="relative inline-block mb-6">
+        <span className="relative z-10 text-2xl font-semibold">Account Details</span>
       </h2>
 
-      {/* Profile Form */}
       <form onSubmit={handleProfileSubmit} className="space-y-6 mb-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
@@ -136,31 +165,35 @@ export default function AccountDetails() {
           <button
             type="button"
             onClick={() => {
-              if (profileData?.payload) {
-                setFormData({
-                  ...formData,
-                  name: profileData.payload.name || '',
-                  phoneNumber: profileData.payload.phoneNumber || '',
-                });
-              }
+              setFormData({
+                ...formData,
+                name: originalProfile.name,
+                phoneNumber: originalProfile.phoneNumber,
+              });
             }}
-            className="px-6 py-2 border border-gray-300 text-gray-700 font-medium hover:bg-gray-50 transition-colors cursor-pointer"
+            disabled={!profileChanged}
+            className={`px-6 py-2 border border-gray-300 text-gray-700 font-medium transition-colors ${profileChanged
+              ? 'hover:bg-gray-50 cursor-pointer'
+              : 'opacity-50 cursor-not-allowed'
+              }`}
           >
             Cancel
           </button>
           <button
             type="submit"
-            disabled={updateProfileMutation.isPending}
-            className="px-6 py-2 bg-black text-white font-medium hover:bg-gray-800 transition-colors cursor-pointer disabled:opacity-50"
+            disabled={updateProfileMutation.isPending || !profileChanged}
+            className={`px-6 py-2 bg-black text-white font-medium transition-colors ${profileChanged && !updateProfileMutation.isPending
+              ? 'hover:bg-gray-800 cursor-pointer'
+              : 'opacity-50 cursor-not-allowed'
+              }`}
           >
             {updateProfileMutation.isPending ? 'Saving...' : 'Save Changes'}
           </button>
         </div>
       </form>
 
-      {/* Password Change Form */}
       <div className="border-t border-gray-200 pt-6">
-        <h3 className="text-lg  text-gray-900 mb-4">Change Password</h3>
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">Change Password</h3>
         <form onSubmit={handlePasswordSubmit} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
@@ -203,14 +236,21 @@ export default function AccountDetails() {
                 newPassword: '',
                 confirmPassword: '',
               })}
-              className="px-6 py-2 border border-gray-300 text-gray-700 font-medium hover:bg-gray-50 transition-colors cursor-pointer"
+              disabled={!passwordDataEntered}
+              className={`px-6 py-2 border border-gray-300 text-gray-700 font-medium transition-colors ${passwordDataEntered
+                ? 'hover:bg-gray-50 cursor-pointer'
+                : 'opacity-50 cursor-not-allowed'
+                }`}
             >
               Cancel
             </button>
             <button
               type="submit"
-              disabled={updatePasswordMutation.isPending}
-              className="px-6 py-2 bg-black text-white font-medium hover:bg-gray-800 transition-colors cursor-pointer disabled:opacity-50"
+              disabled={updatePasswordMutation.isPending || !passwordDataEntered}
+              className={`px-6 py-2 bg-black text-white font-medium transition-colors ${passwordDataEntered && !updatePasswordMutation.isPending
+                ? 'hover:bg-gray-800 cursor-pointer'
+                : 'opacity-50 cursor-not-allowed'
+                }`}
             >
               {updatePasswordMutation.isPending ? 'Updating...' : 'Update Password'}
             </button>
