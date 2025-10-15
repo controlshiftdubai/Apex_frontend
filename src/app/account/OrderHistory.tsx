@@ -6,6 +6,7 @@ import { useProfileOrders } from '@/utils/api/hooks/profile'
 import Loading from '@/components/loading'
 import Link from 'next/link'
 import Pagination from '../search/Pagination'
+import AnimateOnViewOnce from '@/components/AnimateOnViewOnce'
 
 export default function OrderHistory() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -109,12 +110,19 @@ export default function OrderHistory() {
                       <p className="text-sm text-gray-600">Total Amount</p>
                       <p className="text-lg font-bold text-gray-900">${order.total.toFixed(2)}</p>
                     </div>
-                    <Link
+                    {/* <Link
                       href={`/orders/${order.id}`}
                       className="px-6 py-2 bg-blue-600 text-white font-medium hover:bg-blue-700 transition-colors cursor-pointer"
                     >
                       View Details
-                    </Link>
+                    </Link> */}
+                    <div>
+                      {/* <p className="text-sm text-gray-600"></p> */}
+                      <AnimateOnViewOnce delay={300} className='link-highlight link-highlight-yellow'>
+                        <p className="text-md font-bold text-gray-900 link-highlight link-highlight-yellow"
+                        > <span className='text-sm text-gray-600'>Payment Status:{' '}</span> {' '} {order.paymentStatus}</p>
+                      </AnimateOnViewOnce>
+                    </div>
                   </div>
                 </div>
               ))}
