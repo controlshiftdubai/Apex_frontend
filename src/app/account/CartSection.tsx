@@ -76,7 +76,7 @@ export default function CartSection() {
             {displayItems.map((item: any) => (
               <div key={item.id} className="flex gap-4 border border-gray-200 p-4 relative group">
                 <div className="w-24 h-24 bg-gray-100 flex-shrink-0">
-                  <Link href={`/products/${item.product.slug}`}>
+                  <Link href={`/new-products/${item.product.slug}`}>
                     <Image
                       src={item.product.thumbnail}
                       alt={item.product.name}
@@ -89,7 +89,7 @@ export default function CartSection() {
 
                 <div className="flex-1">
                   <Link
-                    href={`/products/${item.product.slug}`}
+                    href={`/new-products/${item.product.slug}`}
                     className="font-semibold text-gray-900 hover:text-blue-600 cursor-pointer"
                   >
                     {item.product.name}

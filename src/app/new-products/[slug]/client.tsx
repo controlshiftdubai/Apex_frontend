@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { useAddToCart, useAddToWishlist } from "@/utils/api/hooks/basket";
 import { toast } from "sonner";
+import AnimateOnViewOnce from '@/components/AnimateOnViewOnce';
 
 export default function PostClient({ product }: { product: Product }) {
   const baseProduct = JSON.parse(JSON.stringify(product)) as Product;
@@ -161,9 +162,9 @@ function HeroSection({
     addToCartMutation.mutate(
       { productId: product.id, quantity: 1 },
       {
-        onSuccess: () => {
-          toast.success("Product added to cart");
-        },
+        // onSuccess: () => {
+        //   toast.success("Product added to cart");
+        // },
         onError: (error) => {
           toast.error("Error adding product to cart");
           console.error(error);
@@ -175,9 +176,9 @@ function HeroSection({
     addToWishlistMutation.mutate(
       { productId: product.id, quantity: 1 },
       {
-        onSuccess: () => {
-          toast.success("Product added to wishlist");
-        },
+        // onSuccess: () => {
+        //   toast.success("Product added to wishlist");
+        // },
         onError: (error) => {
           toast.error("Error adding product to wishlist");
           console.error(error);
@@ -266,46 +267,57 @@ function HeroSection({
               onClick={handleAddToWishlist}
               className="px-6 py-3 text-gray-700 font-medium text-lg uppercase tracking-wide text-[clamp(17px,0.95vw,15px)] w-40 cursor-pointer"
             >
-              <p
-                className="relative"
-                style={{ ["--underline-color" as any]: "#FFC89F" }}
-              >
-                <span className="relative z-10">WISH LIST</span>
-                <span
-                  className="absolute bottom-0 left-0 h-[14px] w-28 bg-[var(--underline-color)]"
-                  aria-hidden="true"
-                />
-              </p>
+              <AnimateOnViewOnce delay={400} className="link-highlight link-highlight-brown">
+                <p
+                  className="relative"
+                // style={{ ["--underline-color" as any]: "#FFC89F" }}
+                >
+                  <span className="relative z-10">WISH LIST</span>
+                  {/* <span
+                    className="absolute bottom-0 left-0 h-[14px] w-28 bg-[var(--underline-color)]"
+                    aria-hidden="true"
+                  /> */}
+                </p>
+              </AnimateOnViewOnce>
             </button>
             <button
               onClick={handleAddToCart}
               className="px-6 py-3 text-gray-700 font-medium text-lg uppercase tracking-wide text-[clamp(17px,0.95vw,15px)] w-52 cursor-pointer"
             >
-              <p
-                className="relative"
-                style={{ ["--underline-color" as any]: "#D1FFD0" }}
-              >
-                <span className="relative z-10">Add to Cart</span>
-                <span
-                  className="absolute bottom-0 left-0 h-[14px] w-40 bg-[var(--underline-color)]"
-                  aria-hidden="true"
-                />
-              </p>
+              <AnimateOnViewOnce delay={400} className="link-highlight link-highlight-mint">
+                <p
+                  className="relative"
+                // style={{ ["--underline-color" as any]: "#D1FFD0" }}
+                >
+                  <span className="relative z-10">Add to Cart</span>
+                  {/* <span
+                    className="absolute bottom-0 left-0 h-[14px] w-40 bg-[var(--underline-color)]"
+                    aria-hidden="true"
+                  /> */}
+                </p>
+              </AnimateOnViewOnce>
             </button>
-            <button className="px-6 py-3 text-gray-700 font-medium text-lg uppercase tracking-wide text-[clamp(17px,0.95vw,15px)] w-40 cursor-pointer">
-              <p
-                className="relative"
-                style={{ ["--underline-color" as any]: "#F4FFCB" }}
-              >
-                <span className="relative z-10">BUY Now</span>
-                <span
-                  className="absolute bottom-0 left-0 h-[14px] w-28 bg-[var(--underline-color)]"
-                  aria-hidden="true"
-                />
-              </p>
+            <button onClick={handleAddToCart} className="px-6 py-3 text-gray-700 font-medium text-lg uppercase tracking-wide text-[clamp(17px,0.95vw,15px)] w-40 cursor-pointer">
+              <AnimateOnViewOnce delay={400} className="link-highlight link-highlight-yellow">
+                <p
+                  className="relative"
+                // style={{ ["--underline-color" as any]: "#F4FFCB" }}
+                >
+                  <span className="relative z-10">BUY Now</span>
+                  {/* <span
+                    className="absolute bottom-0 left-0 h-[14px] w-28 bg-[var(--underline-color)]"
+                    aria-hidden="true"
+                  /> */}
+                </p>
+              </AnimateOnViewOnce>
             </button>
           </div>
         </div>
+        {product.description &&
+          <div className="text-md text-gray-500 mt-2 leading-5 text-right w-[50%] ml-auto">
+            {product.description}
+          </div>
+        }
       </div>
     </div>
   );

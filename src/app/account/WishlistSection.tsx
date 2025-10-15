@@ -60,7 +60,7 @@ export default function WishlistSection() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
             {displayItems.map((item: any) => (
               <div key={item.id} className="border border-gray-200 p-4 group relative">
-                <Link href={`/products/${item.product.slug}`}>
+                <Link href={`/new-products/${item.product.slug}`}>
                   <div className="w-full h-48 bg-gray-100 mb-4">
                     <Image
                       src={item.product.thumbnail}
@@ -73,7 +73,7 @@ export default function WishlistSection() {
                 </Link>
 
                 <Link
-                  href={`/products/${item.product.slug}`}
+                  href={`/new-products/${item.product.slug}`}
                   className="font-semibold text-gray-900 hover:text-blue-600 line-clamp-2 cursor-pointer"
                 >
                   {item.product.name}

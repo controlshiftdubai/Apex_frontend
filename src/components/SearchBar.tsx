@@ -109,7 +109,7 @@ export default function SearchBar() {
                 {products.map((product, idx) => (
                   <Link
                     key={product.id}
-                    href={`/products/${product.id}`}
+                    href={`/new-products/${product.id}`}
                     onClick={() => handleProductClick(product.id)}
                     className="group flex items-center gap-3 p-2 hover:bg-gray-50 transition-colors cursor-pointer border-b border-gray-100 last:border-0"
                   >
