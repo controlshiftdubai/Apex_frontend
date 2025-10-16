@@ -34,7 +34,7 @@ export default function SearchSection() {
               <Link href="/search" className="group ">
                 <div className=" text-black px-8 py-4 flex items-center gap-3 transition-all ">
                 
-                  <AnimateOnViewOnce
+                  {/* <AnimateOnViewOnce
                     delay={300}
                     className="link-highlight link-highlight-yellow"
                   
@@ -44,21 +44,11 @@ export default function SearchSection() {
                           <Search className="w-5 h-5" />
                       Explore Products
                     </span>
-                  </AnimateOnViewOnce>
+                  </AnimateOnViewOnce> */}
                 </div>
               </Link>
               
-              <Link href="/expertise" className="text-gray-800  transition-colors">
-                <AnimateOnViewOnce
-                  delay={400}
-                  className="link-highlight link-highlight-mint"
-                 
-                >
-                  <span className="relative z-10 text-lg font-medium">
-                    Learn More About Our Expertise
-                  </span>
-                </AnimateOnViewOnce>
-              </Link>
+          
             </div>
           </motion.div>
           
