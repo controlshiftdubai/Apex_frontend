@@ -95,7 +95,7 @@ const FilterSidebar = ({
       />
 
       {/* Star Rating Filter */}
-      <div className="border-b border-gray-200 pb-6">
+      {/* <div className="border-b border-gray-200 pb-6">
         <h4 className="text-sm font-semibold text-gray-900 mb-4">Star Rating</h4>
         <div className="space-y-2">
           {[5, 4, 3, 2, 1].map((rating) => (
@@ -126,10 +126,10 @@ const FilterSidebar = ({
             </label>
           ))}
         </div>
-      </div>
+      </div> */}
 
       {/* Brand Filter */}
-      <div className="border-b border-gray-200 pb-6">
+      {/* <div className="border-b border-gray-200 pb-6">
         <h4 className="text-sm font-semibold text-gray-900 mb-4">Brand</h4>
         <div className="space-y-2 max-h-48 overflow-y-auto scroll-hidden">
           {brandOptions.map((brand) => (
@@ -149,10 +149,10 @@ const FilterSidebar = ({
             </label>
           ))}
         </div>
-      </div>
+      </div> */}
 
       {/* Color Filter */}
-      <div className="border-b border-gray-200 pb-6">
+      {/* <div className="border-b border-gray-200 pb-6">
         <h4 className="text-sm font-semibold text-gray-900 mb-4">Color</h4>
         <div className="grid grid-cols-5 gap-3">
           {colorOptions.map((color) => (
@@ -176,7 +176,7 @@ const FilterSidebar = ({
             </div>
           ))}
         </div>
-      </div>
+      </div> */}
 
       {/* Reset Filters */}
       <button

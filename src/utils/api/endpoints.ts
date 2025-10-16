@@ -52,7 +52,7 @@ const BASKET_ENDPOINTS = () => {
 };
 
 const PROFILE_ENDPOINTS = () => {
-  const base = "/profile";
+  const base = "/api/profile";
   return {
     base,
     orders: `${base}/orders`,
@@ -63,7 +63,7 @@ const PROFILE_ENDPOINTS = () => {
 };
 
 const ORDER_ENDPOINTS = () => {
-  const base = "/orders";
+  const base = "/api/orders";
   return {
     base,
     single: (orderId: string) => `${base}/${orderId}`,
