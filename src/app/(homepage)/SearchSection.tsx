@@ -34,7 +34,7 @@ export default function SearchSection() {
               <Link href="/search" className="group ">
                 <div className=" text-black px-8 py-4 flex items-center gap-3 transition-all ">
                 
-                  {/* <AnimateOnViewOnce
+                  <AnimateOnViewOnce
                     delay={300}
                     className="link-highlight link-highlight-yellow"
                   
@@ -44,7 +44,7 @@ export default function SearchSection() {
                           <Search className="w-5 h-5" />
                       Explore Products
                     </span>
-                  </AnimateOnViewOnce> */}
+                  </AnimateOnViewOnce>
                 </div>
               </Link>
               
@@ -53,7 +53,7 @@ export default function SearchSection() {
           </motion.div>
           
           {/* Right side image */}
-          <motion.div 
+          {/* <motion.div 
             className="flex-1 order-1 lg:order-2"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -70,7 +70,7 @@ export default function SearchSection() {
               />
               <div className="absolute inset-0 bg-black/10"></div>
             </div>
-          </motion.div>
+          </motion.div> */}
         </div>
       </div>
     </section>
